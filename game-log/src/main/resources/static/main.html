@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>GeGama</title>
-    <link href="https://unpkg.com/ionicons@4.1.2/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/css/main.css" />
 </head>
 
-<body>
+<body style="margin: 0;">
     <div id="banner">
         <p>
             <span style="font-weight: bolder; font-size: larger">
-                <span style="color: red">Ge</span>
-                <span style="color: royalblue">Ga</span>ma</span>
-            <span style="color: red">Gear</span> -
-            <span style="color: royalblue">Game</span> - match
+                <span style="color: var(--main-game-color);">Ge</span>
+                <span style="color: var(--main-gear-color)">Ga</span>ma</span>
+            <span style="color: var(--main-game-color);">Gear</span> -
+            <span style="color: var(--main-gear-color)">Game</span> - match
         </p>
     </div>
     <div id="toolbar">
@@ -49,9 +48,15 @@
                         <input type="text" name="" id="">
                     </div>
                     <div class="itemListHolder">
-                        <div class="itemList">
-                            <div class="item">
-                                <button class="btnCompare">+</button>
+                        <div class="itemList gameList">
+                            <div class="item" id="1">
+                                <div class="btnCompare">
+                                    <div class="tri">
+                                    </div>
+                                    <div class="icon">
+                                        So sánh
+                                    </div>
+                                </div>
                                 <div class="itemImg">
                                     <span class="imgHelper"></span>
                                     <img src="D:\Memes\Capture.PNG" />
@@ -60,8 +65,14 @@
                                 <div class="itemType">Turn-based</div>
                                 <div class="itemPrice">20.00 $</div>
                             </div>
-                            <div class="item">
-                                <button class="btnCompare">+</button>
+                            <div class="item" id="2">
+                                <div class="btnCompare">
+                                    <div class="tri">
+                                    </div>
+                                    <div class="icon">
+                                        So sánh
+                                    </div>
+                                </div>
                                 <div class="itemImg">
                                     <span class="imgHelper"></span>
                                     <img src="D:\Memes\aEkwPBk9_700w_0.jpg" />
@@ -70,8 +81,14 @@
                                 <div class="itemType">Turn-based</div>
                                 <div class="itemPrice">20.00 $</div>
                             </div>
-                            <div class="item">
-                                <button class="btnCompare">+</button>
+                            <div class="item" id="3">
+                                <div class="btnCompare">
+                                    <div class="tri">
+                                    </div>
+                                    <div class="icon">
+                                        So sánh
+                                    </div>
+                                </div>
                                 <div class="itemImg">
                                     <span class="imgHelper"></span>
                                     <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
@@ -98,9 +115,12 @@
                         <input type="text" name="" id="">
                     </div>
                     <div class="itemListHolder">
-                        <div class="itemList">
-                            <div class="item">
-                                <button class="btnCompare">+</button>
+                        <div class="itemList gearList">
+                            <div class="item" id="1">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
                                 <div class="itemImg">
                                     <span class="imgHelper"></span>
                                     <img src="D:\Memes\Capture.PNG" />
@@ -109,8 +129,11 @@
                                 <div class="itemType">Turn-based</div>
                                 <div class="itemPrice">20.00 $</div>
                             </div>
-                            <div class="item">
-                                <button class="btnCompare">+</button>
+                            <div class="item" id="2">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
                                 <div class="itemImg">
                                     <span class="imgHelper"></span>
                                     <img src="D:\Memes\32293716_1946956925317416_5090491695594733568_n.jpg" />
@@ -119,8 +142,11 @@
                                 <div class="itemType">Turn-based</div>
                                 <div class="itemPrice">20.00 $</div>
                             </div>
-                            <div class="item">
-                                <button class="btnCompare">+</button>
+                            <div class="item" id="3">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
                                 <div class="itemImg">
                                     <span class="imgHelper"></span>
                                     <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
@@ -129,9 +155,98 @@
                                 <div class="itemType">Turn-based</div>
                                 <div class="itemPrice">20.00 $</div>
                             </div>
-                            <div class="item"></div>
-                            <div class="item"></div>
-                            <div class="item"></div>
+                            <div class="item" id="4">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
+                                <div class="itemImg">
+                                    <span class="imgHelper"></span>
+                                    <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
+                                </div>
+                                <div class="itemName">Gunbound</div>
+                                <div class="itemType">Turn-based</div>
+                                <div class="itemPrice">20.00 $</div>
+                            </div>
+                            <div class="item" id="5">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
+                                <div class="itemImg">
+                                    <span class="imgHelper"></span>
+                                    <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
+                                </div>
+                                <div class="itemName">Gunbound</div>
+                                <div class="itemType">Turn-based</div>
+                                <div class="itemPrice">20.00 $</div>
+                            </div>
+                            <div class="item" id="6">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
+                                <div class="itemImg">
+                                    <span class="imgHelper"></span>
+                                    <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
+                                </div>
+                                <div class="itemName">Gunbound</div>
+                                <div class="itemType">Turn-based</div>
+                                <div class="itemPrice">20.00 $</div>
+                            </div>
+                            <div class="item" id="7">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
+                                <div class="itemImg">
+                                    <span class="imgHelper"></span>
+                                    <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
+                                </div>
+                                <div class="itemName">Gunbound</div>
+                                <div class="itemType">Turn-based</div>
+                                <div class="itemPrice">20.00 $</div>
+                            </div>
+                            <div class="item" id="8">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
+                                <div class="itemImg">
+                                    <span class="imgHelper"></span>
+                                    <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
+                                </div>
+                                <div class="itemName">Gunbound</div>
+                                <div class="itemType">Turn-based</div>
+                                <div class="itemPrice">20.00 $</div>
+                            </div>
+                            <div class="item" id="9">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
+                                <div class="itemImg">
+                                    <span class="imgHelper"></span>
+                                    <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
+                                </div>
+                                <div class="itemName">Gunbound</div>
+                                <div class="itemType">Turn-based</div>
+                                <div class="itemPrice">20.00 $</div>
+                            </div>
+                            <div class="item" id="10">
+                                <div class="btnCompare">
+                                    <div class="tri"> </div>
+                                    <div class="icon"> So sánh </div>
+                                </div>
+                                <div class="itemImg">
+                                    <span class="imgHelper"></span>
+                                    <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
+                                </div>
+                                <div class="itemName">Gunbound</div>
+                                <div class="itemType">Turn-based</div>
+                                <div class="itemPrice">20.00 $</div>
+                            </div>
+
                         </div>
                         <button class="btnLoadMore">Load more</button>
                     </div>
@@ -143,21 +258,28 @@
         </script>
     </div>
     <div id="compareTab">
-        <button id="btnHideCompareTab">Hide</button>
-        <div id="games"></div>
-        <div id="gears"></div>
-        <button>Compare</button>
+        <div id="btnHideCompareTab">
+            <span>Hide</span>
+        </div>
+        <div id="cmpTypeHolder">
+            <div id="cmpLeft">
+                <button onclick="moveIt('gears',true)" class="left mover">move left</button>
+                <div id="games" class="typeHolder">
+                </div>
+                <button onclick="moveIt('games',false)" class="right mover">move right</button>
+            </div>
+            <button id="btnCompare">Compare</button>
+            <div id="cmpRight">
+                <button onclick="moveIt('gears',true)" class="left mover">move left</button>
+                <div id="gears" class="typeHolder">
+                </div>
+                <button onclick="moveIt('gears',false)" class="right mover">move right</button>
+            </div>
+        </div>
     </div>
     <script>
-        setUpCompareTabEvent();
-        function setUpCompareTabEvent() {
-            var btnHide = document.getElementById("btnHideCompareTab");
-            btnHide.onclick = function () {
-                var compareTab = document.getElementById("compareTab");
-                compareTab.style.bottom = "-110px";
-                compareTab.style.transitionDuration = "0.5s";
-            }
-        }
+
     </script>
 </body>
 <script src="style/js/main.js"></script>
+<script src="https://unpkg.com/ionicons@4.1.2/dist/ionicons.js"></script>

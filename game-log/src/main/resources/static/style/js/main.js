@@ -46,6 +46,7 @@ function addTabHolder() {
     mainContend.appendChild(fragment);
 }
 
+var lastTab = null;
 var tabCount = 1;
 addTab(0, "fragment1tabIndicatorHolder");
 addTab(1, "fragment1tabIndicatorHolder");
@@ -56,9 +57,8 @@ function addTab(type, tabIndicatorHolder) {
     tabIndicator.className = (type == 0) ? "gameTabIndicator tabIndicator" : "gearTabIndicator tabIndicator";
     tabIndicator.textContent = (type == 0) ? "Game" : "Gear";
     var a = document.createElement("a");
-    var i = document.createElement("i");
-    i.className = "icon ion-md-close";
-
+    var i = document.createElement("ion-icon");
+    i.name = "close";
     a.appendChild(i);
     a.id = "tab" + tabCount;
     a.onclick = function (ev) {
@@ -73,11 +73,15 @@ function addTab(type, tabIndicatorHolder) {
     }
 
     tabIndicatorHolder.appendChild(tabIndicator);
-
+    if (lastTab == null) {
+        changeTab(tabIndicator.id.substring(0, tabIndicator.id.length - 9));
+    }
     tabCount++;
 }
 
 setUpItemEvent();
+var cmpUp = false;
+
 var gamesInCompareTab = false;
 function setUpItemEvent() {
     var items = document.getElementsByClassName("item");
@@ -85,34 +89,55 @@ function setUpItemEvent() {
         var button = items[i].childNodes[1];
         if (button != null) {
             button.onclick = function () {
-                var games = document.getElementById("games");
-                var game = document.createElement("div");
-                game.textContent = this.parentElement.nodeName;
-                games.appendChild(game);
+                var item = this.parentElement;
+                var isGame = this.parentElement.parentElement.className.includes("gameList");
+
+                var list = (isGame) ? document.getElementById("games") : document.getElementById("gears");
+                var itemInCmpList = list.childNodes;
+
+                for (var i = 0; i < itemInCmpList.length; i++) {
+                    if (item.id == itemInCmpList[i].id) {
+                        return;
+                    }
+                }
+
+
+                var cmpItem = document.createElement("div");
+                cmpItem.className = "cmpItem";
+                cmpItem.id = item.id;
+                cmpItem.className = (isGame) ? "cmpGame cmpItem" : "cmpGear cmpItem";
+
+                var cmpListType = (isGame) ? document.getElementById("games") : document.getElementById("gears");
+
+                var image = document.createElement("div");
+                image.innerHTML = item.childNodes[3].innerHTML;
+                image.className = "cmpItemImg";
+
+                var removeButton = document.createElement("button");
+                removeButton.id = "removeCmpItemButton";
+                removeButton.textContent = "x";
+                removeButton.onclick = function () {
+                    this.parentElement.remove();
+                }
+
+                cmpItem.appendChild(removeButton);
+                cmpItem.appendChild(image);
+
+                cmpListType.appendChild(cmpItem);
                 gamesInCompareTab = true;
                 if (gamesInCompareTab) {
                     var compareTab = document.getElementById("compareTab");
                     compareTab.style.bottom = "0px";
                     compareTab.style.transitionDuration = "0.5s";
+                    cmpUp = true;
                 }
+                cmpListType.scrollLeft = cmpListType.scrollLeft + 150;
+                checkScrollBtn(cmpListType);
             }
         }
-        items[i].onmouseenter = function () {
-            var btn = this.childNodes[1];
-            if (btn != null) {
-                btn.style.visibility = "visible";
-            }
-        };
-        items[i].onmouseleave = function () {
-            var btn = this.childNodes[1];
-            if (btn != null) {
-                btn.style.visibility = "hidden";
-            }
-        };
     }
 }
-var lastTab = null;
-changeTab("tab1");
+
 function changeTab(tabId) {
     if (lastTab == tabId) {
         return;
@@ -167,8 +192,48 @@ function closeTab(ev, tabId) {
                 tabContent.style.visibility = "visible";
                 tabContent.style.display = "block";
             }
+        } else {
+            lastTab = null;
         }
     }
 
     ev.stopPropagation();
+}
+
+setUpCompareTabEvent();
+function setUpCompareTabEvent() {
+    var btnHide = document.getElementById("btnHideCompareTab");
+    btnHide.onclick = function () {
+        var compareTab = document.getElementById("compareTab");
+        compareTab.style.bottom = (cmpUp) ? "-100px" : "0px";
+        compareTab.style.transitionDuration = "0.5s";
+        cmpUp = !cmpUp;
+    }
+}
+
+function moveIt(id, moveLeft) {
+    var holder = document.getElementById(id);
+    var moveTo = (moveLeft) ? -110 : 110;
+    holder.scrollLeft = holder.scrollLeft + moveTo;
+
+    checkScrollBtn(holder);
+}
+
+function checkScrollBtn(holder) {
+    var maxLeft = 0;
+    var maxRight = holder.scrollWidth - holder.clientWidth;
+
+    var cmpDirection = holder.parentElement;
+    var btnMovLeft = cmpDirection.getElementsByClassName("left")[0];
+    var btnMovRight = cmpDirection.getElementsByClassName("right")[0];
+    btnMovLeft.style.visibility = "visible";
+    btnMovRight.style.visibility = "visible";
+
+    if (holder.scrollLeft == maxLeft) {
+        btnMovLeft.style.visibility = "hidden";
+    }
+    if ((holder.scrollLeft > maxRight - 1 && holder.scrollLeft < maxRight)
+        || holder.scrollLeft == maxRight) {
+        btnMovRight.style.visibility = "hidden";
+    }
 }

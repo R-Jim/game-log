@@ -1,3 +1,12 @@
+:root {
+    --main-game-color: rgb(233, 34, 34);
+    --main-gear-color: #1565C0;
+  }
+
+body{
+    font-family: roboto;
+}
+
 #banner{
     width: 100%;
     float: left;
@@ -27,6 +36,10 @@
     padding:0 5px 0 5px;
     display: flex;
     align-items: center;
+    border: 2px solid rgb(54, 54, 54);
+    border-bottom: none;
+    border-left: none;
+    box-sizing: border-box;
 }
 
 .tabIndicatorHolder > div:hover{
@@ -56,7 +69,7 @@
 }
 
 .gameTabIndicator-active{
-    background-color: red;
+    background-color: var(--main-game-color);
 }
 
 .gearTabIndicator{
@@ -64,7 +77,7 @@
 }
 
 .gearTabIndicator-active{
-    background-color: royalblue;
+    background-color: var(--main-gear-color);
 }
 
 #mainContent{
@@ -73,7 +86,7 @@
     height: 630px;
     float: left;
     display: flex;
-    /* border: 2px dashed red; */
+    /* border: 2px dashed var(--main-game-color); */
 }
 
 .tabContentHolder{
@@ -112,12 +125,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* border: 2px dashed yellowgreen;        */
 }
 
-/* .btnLoadMore{
-    align-self: center;
-} */
 
 
 .item{
@@ -128,10 +137,18 @@
     border: 2px solid lightgray;
     padding: 5px;
     position: relative;
+    box-shadow: 2px 2px gray;
+    transition: 0.5s;
+    border-radius: 2px;
+    overflow: hidden;
 }
 
-.item:hover{
-    border: 2px solid red;
+.gameList  .item:hover{
+    border: 2px solid var(--main-game-color);
+}
+
+.gearList  .item:hover{
+    border: 2px solid var(--main-gear-color);
 }
 
 .item > .itemImg{
@@ -155,14 +172,169 @@
 }
 .item > .btnCompare{
     position: absolute;
-    visibility: hidden;
-    right: 1px;
+    visibility: visible;
+    right: -21px;
+    transition: 0.5s;
+    cursor: pointer;
+    color: white;
+    display: inline;
+}
+
+.btnCompare > .icon{
+    position: absolute;
+    font-weight: bold;
+    width: 80px;
+    height: 24px;
+    top: -15px;
+    padding-top: 15px;
+    box-sizing: content-box;
+    border-bottom: 2px solid lightgray;
+}
+
+.btnCompare > .tri{
+    position: absolute;
+    font-weight: bold;
+    border: solid 28px;
+    outline: 2px solid lightgray;
+    transform: rotate(-30deg);
+    top: -43px;
+    right: -38px;
+}
+
+.item:hover > .btnCompare{
+    right:80px;
+  }
+
+.gameList .btnCompare > .icon{
+    background-color: var(--main-game-color);
+}
+
+.gearList .btnCompare > .icon{
+    background-color: var(--main-gear-color);
+}
+
+.gameList .btnCompare > .tri{
+    border-color: transparent transparent var(--main-game-color) var(--main-game-color);   
+}
+
+.gearList .btnCompare > .tri{
+    border-color: transparent transparent var(--main-gear-color) var(--main-gear-color);
 }
 
 #compareTab{
     width: 100%;
     height: 100px;
     position: fixed;
-    border: 2px dashed orangered;
-    bottom: -110px;
+    border: 2px solid lightgray;
+    bottom: -100px;
+}
+
+#cmpTypeHolder{
+    display: flex;
+}
+
+#cmpTypeHolder #btnCompare{
+    width: 10%;
+}
+
+.cmpItemImg{
+    width: 100px;
+    height: 50px;
+    white-space: nowrap;
+    text-align: center;
+    display: inline-table;
+}
+
+.cmpItemImg>img{
+    max-width:100%;
+    max-height:100%;
+    vertical-align: middle;
+}
+
+.cmpItemImg>.imgHelper{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.typeHolder{
+    margin :10px;
+    width: 97%;
+    height: 100%;
+    display: flex;
+    grid-gap: 10px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+
+#cmpLeft{
+    width: 45%;
+    height: 100%;
+    position: relative;
+}
+
+#cmpRight{
+    width: 45%;
+    height: 100%;
+    position: relative;
+}
+.cmpGame{
+    border: 2px solid var(--main-game-color);
+    text-align: center;
+}
+.cmpGear{
+    border: 2px solid var(--main-gear-color);
+    text-align: center;
+}
+
+#btnHideCompareTab{
+    width: 100px;
+    height: 20px;
+    position: absolute;
+    top: -30px;
+    cursor: pointer;
+    background-color: rgb(54, 54, 54);
+    color: white;
+    padding: 5px;
+}
+
+.cmpItem{
+    position: relative;
+    margin-left: 10px;
+}
+
+.cmpItem:first-child {
+    margin-left: auto;
+}
+.cmpItem:last-child {
+    margin-right:auto;
+}
+
+#removeCmpItemButton{
+    position: absolute;
+    right: 1px;
+}
+
+#cmpTypeHolder{
+    height: 80px;
+    width: 100%;
+}
+
+.mover{
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+    top: 20px;
+    visibility: hidden;
+}
+
+.left{
+    position: absolute;
+    left: 0;
+}
+
+.right{
+    position: absolute;
+    right: 0;
 }
