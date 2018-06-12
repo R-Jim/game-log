@@ -1,50 +1,50 @@
-function addTabHolder() {
-    var mainContend = document.getElementById("mainContent");
-    var fragment = document.createElement("div");
+// function addTabHolder() {
+//     var mainContend = document.getElementById("mainContent");
+//     var fragment = document.createElement("div");
 
-    fragment.className = "tabHolder";
+//     fragment.className = "tabHolder";
 
-    var tabIndicatorHolder = document.createElement("div");
-    tabIndicatorHolder.className = "tabIndicatorHolder";
+//     var tabIndicatorHolder = document.createElement("div");
+//     tabIndicatorHolder.className = "tabIndicatorHolder";
 
-    var gameTabIndi = document.createElement("div");
-    gameTabIndi.className = "game";
-    gameTabIndi.innerText = "Game";
+//     var gameTabIndi = document.createElement("div");
+//     gameTabIndi.className = "game";
+//     gameTabIndi.innerText = "Game";
 
-    tabIndicatorHolder.appendChild(gameTabIndi);
+//     tabIndicatorHolder.appendChild(gameTabIndi);
 
-    var tabToolbar = document.createElement("div");
-    tabToolbar.className = "tabToolbar";
-    var btnAddGame = document.createElement("button");
-    btnAddGame.textContent = "+ Game";
-    var btnAddGear = document.createElement("button");
-    btnAddGear.textContent = "+ Gear";
-    tabToolbar.appendChild(btnAddGame);
-    tabToolbar.appendChild(btnAddGear);
+//     var tabToolbar = document.createElement("div");
+//     tabToolbar.className = "tabToolbar";
+//     var btnAddGame = document.createElement("button");
+//     btnAddGame.textContent = "+ Game";
+//     var btnAddGear = document.createElement("button");
+//     btnAddGear.textContent = "+ Gear";
+//     tabToolbar.appendChild(btnAddGame);
+//     tabToolbar.appendChild(btnAddGear);
 
-    var tabContentHolder = document.createElement("tabContentHolder");
-    tabContentHolder.className = "tabContentHolder";
+//     var tabContentHolder = document.createElement("tabContentHolder");
+//     tabContentHolder.className = "tabContentHolder";
 
-    var tab = document.createElement("div");
-    tab.className = "tab";
+//     var tab = document.createElement("div");
+//     tab.className = "tab";
 
-    var itemHolder = document.createElement("div");
-    itemHolder.className = "itemHolder";
-    for (var i = 0; i < 8; i++) {
-        var item = document.createElement("div");
-        item.className = "item";
-        itemHolder.appendChild(item);
-    }
+//     var itemHolder = document.createElement("div");
+//     itemHolder.className = "itemHolder";
+//     for (var i = 0; i < 8; i++) {
+//         var item = document.createElement("div");
+//         item.className = "item";
+//         itemHolder.appendChild(item);
+//     }
 
-    tab.appendChild(itemHolder);
-    tabContentHolder.appendChild(tab);
+//     tab.appendChild(itemHolder);
+//     tabContentHolder.appendChild(tab);
 
-    fragment.appendChild(tabIndicatorHolder);
-    fragment.appendChild(tabToolbar);
-    fragment.appendChild(tabContentHolder);
+//     fragment.appendChild(tabIndicatorHolder);
+//     fragment.appendChild(tabToolbar);
+//     fragment.appendChild(tabContentHolder);
 
-    mainContend.appendChild(fragment);
-}
+//     mainContend.appendChild(fragment);
+// }
 
 var lastTab = null;
 var tabCount = 1;
@@ -90,7 +90,7 @@ function setUpItemEvent() {
         if (button != null) {
             button.onclick = function () {
                 var item = this.parentElement;
-                var isGame = this.parentElement.parentElement.className.includes("gameList");
+                var isGame = this.parentElement.parentElement.parentElement.className.includes("gameList");
 
                 var list = (isGame) ? document.getElementById("games") : document.getElementById("gears");
                 var itemInCmpList = list.childNodes;
@@ -113,15 +113,27 @@ function setUpItemEvent() {
                 image.innerHTML = item.childNodes[3].innerHTML;
                 image.className = "cmpItemImg";
 
+                var cmpItemName = document.createElement("div");
+                cmpItemName.textContent = item.childNodes[5].textContent;
+
                 var removeButton = document.createElement("button");
                 removeButton.id = "removeCmpItemButton";
                 removeButton.textContent = "x";
                 removeButton.onclick = function () {
-                    this.parentElement.remove();
+                    this.parentElement.removeEventListener('animationend', null);
+                    this.parentElement.style.minWidth = "0";
+                    var node = this.parentElement.parentElement.children[0];
+                    this.parentElement.classList.add((this.parentElement.id == node.id) ? "cmpItem-remove-first" : "cmpItem-remove");
+                    this.parentElement.addEventListener('animationend', function (evt) { this.remove(); });
                 }
-
+                cmpItem.addEventListener('animationend', function (evt) {
+                    this.style.minWidth = "100px";
+                    this.parentElement.scrollLeft = this.parentElement.scrollWidth - this.parentElement.clientWidth;
+                    checkScrollBtn(this.parentElement);
+                });
                 cmpItem.appendChild(removeButton);
                 cmpItem.appendChild(image);
+                cmpItem.appendChild(cmpItemName);
 
                 cmpListType.appendChild(cmpItem);
                 gamesInCompareTab = true;
@@ -131,8 +143,6 @@ function setUpItemEvent() {
                     compareTab.style.transitionDuration = "0.5s";
                     cmpUp = true;
                 }
-                cmpListType.scrollLeft = cmpListType.scrollLeft + 150;
-                checkScrollBtn(cmpListType);
             }
         }
     }
@@ -215,25 +225,38 @@ function moveIt(id, moveLeft) {
     var holder = document.getElementById(id);
     var moveTo = (moveLeft) ? -110 : 110;
     holder.scrollLeft = holder.scrollLeft + moveTo;
-
     checkScrollBtn(holder);
 }
 
 function checkScrollBtn(holder) {
-    var maxLeft = 0;
-    var maxRight = holder.scrollWidth - holder.clientWidth;
+    setTimeout(function () {
+        var maxLeft = 0;
+        var maxRight = holder.scrollWidth - holder.clientWidth;
 
-    var cmpDirection = holder.parentElement;
-    var btnMovLeft = cmpDirection.getElementsByClassName("left")[0];
-    var btnMovRight = cmpDirection.getElementsByClassName("right")[0];
-    btnMovLeft.style.visibility = "visible";
-    btnMovRight.style.visibility = "visible";
+        var cmpDirection = holder.parentElement;
+        var btnMovLeft = cmpDirection.getElementsByClassName("left")[0];
+        var btnMovRight = cmpDirection.getElementsByClassName("right")[0];
+        btnMovLeft.style.visibility = "visible";
+        btnMovRight.style.visibility = "visible";
 
-    if (holder.scrollLeft == maxLeft) {
-        btnMovLeft.style.visibility = "hidden";
-    }
-    if ((holder.scrollLeft > maxRight - 1 && holder.scrollLeft < maxRight)
-        || holder.scrollLeft == maxRight) {
-        btnMovRight.style.visibility = "hidden";
+        if (holder.scrollLeft == maxLeft) {
+            btnMovLeft.style.visibility = "hidden";
+        }
+        if ((holder.scrollLeft > maxRight - 1 && holder.scrollLeft < maxRight)
+            || holder.scrollLeft == maxRight) {
+            btnMovRight.style.visibility = "hidden";
+        }
+    }, 100);
+}
+
+function compareScreenPopUp() {
+    var cmpScreen = document.getElementById("compareScreen");
+    var visible = cmpScreen.style.visibility;
+    if(visible == "hidden" || visible=="") {
+        cmpScreen.style.visibility =  "visible";
+        cmpScreen.style.opacity = 1;
+    }else{
+        cmpScreen.style.visibility =  "hidden";
+        cmpScreen.style.opacity = 0;
     }
 }

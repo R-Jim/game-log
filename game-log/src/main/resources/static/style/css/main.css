@@ -1,6 +1,8 @@
 :root {
     --main-game-color: rgb(233, 34, 34);
+    --main-game-deactive-color:rgb(134, 0, 0);
     --main-gear-color: #1565C0;
+    --main-gear-deactive-color: rgb(35, 54, 112);;
   }
 
 body{
@@ -24,7 +26,7 @@ body{
 
 
 .tabIndicatorHolder{
-    width: 60%;
+    width: 70%;
     float: left;
 }
 
@@ -46,14 +48,33 @@ body{
  cursor: pointer;
 }
 
+.tabUtilities{
+    padding: 10px;
+    text-align: right;
+}
+
 .tabToolbar{
     width: 30%;
     float: left;
+    box-sizing: border-box;
 }
 
 .tabToolbar button{
     float: right;
+    outline: none;
+    border: 2px solid rgb(54, 54, 54);
+    border-bottom: none;
+    width: fit-content;
+    height: 30px;
+    box-sizing: border-box;
+    color: white;
+    font-family: roboto;
+    font-size: 16px;
 }
+.tabToolbar button:first-child{
+    border-left: none;
+}
+
 .tabIndicator > a{
     float: right;
     color: inherit;
@@ -65,7 +86,7 @@ body{
 }
 
 .gameTabIndicator{
-    background-color: rgb(134, 0, 0);
+    background-color: var(--main-game-deactive-color);
 }
 
 .gameTabIndicator-active{
@@ -73,7 +94,7 @@ body{
 }
 
 .gearTabIndicator{
-    background-color: rgb(35, 54, 112);
+    background-color: var(--main-gear-deactive-color);
 }
 
 .gearTabIndicator-active{
@@ -85,8 +106,6 @@ body{
     margin-bottom: 20px;
     height: 630px;
     float: left;
-    display: flex;
-    /* border: 2px dashed var(--main-game-color); */
 }
 
 .tabContentHolder{
@@ -103,10 +122,6 @@ body{
     display: none;
 }
 
-.tabHolder{
-    width: 100%;
-    height: 100%;
-}
 
 .itemListHolder{
     height: 95%;
@@ -132,7 +147,7 @@ body{
 .item{
     margin: 10px;
     width: 160px;
-    height: 250px;
+    height: 240px;
     box-sizing: border-box;
     border: 2px solid lightgray;
     padding: 5px;
@@ -153,7 +168,7 @@ body{
 
 .item > .itemImg{
     width: 100%;
-    height: 170px;
+    height: 160px;
     white-space: nowrap;
     text-align: center;
     display: inline-table;
@@ -205,11 +220,11 @@ body{
     right:80px;
   }
 
-.gameList .btnCompare > .icon{
+.gameList .btnCompare > .icon, .game{
     background-color: var(--main-game-color);
 }
 
-.gearList .btnCompare > .icon{
+.gearList .btnCompare > .icon, .gear{
     background-color: var(--main-gear-color);
 }
 
@@ -225,7 +240,8 @@ body{
     width: 100%;
     height: 100px;
     position: fixed;
-    border: 2px solid lightgray;
+    border: 2px solid rgb(54, 54, 54);
+    background-color: white;
     bottom: -100px;
 }
 
@@ -266,6 +282,8 @@ body{
     flex-wrap: nowrap;
     overflow: hidden;
     position: relative;
+    transition: 1s ease;
+    scroll-behavior: smooth;
 }
 
 #cmpLeft{
@@ -292,6 +310,7 @@ body{
     width: 100px;
     height: 20px;
     position: absolute;
+    left: -2px;
     top: -30px;
     cursor: pointer;
     background-color: rgb(54, 54, 54);
@@ -302,12 +321,67 @@ body{
 .cmpItem{
     position: relative;
     margin-left: 10px;
+    transition: 1s;
+    text-align: center;
+    overflow: hidden;
+    animation:fadeIn 0.3s ease forwards;
 }
 
-.cmpItem:first-child {
+.cmpItem-remove{
+    position: relative;
+    transition: 1s;
+    text-align: center;
+    overflow: hidden;
+    animation:fadeOut 0.3s ease-out forwards;
+}
+.cmpItem-remove-first{
+    position: relative;
+    transition: 1s;
+    text-align: center;
+    overflow: hidden;
+    animation:fadeOutFist 0.3s ease-out forwards;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity:0.3;
+        width: 5px;
+    }
+	to {
+        opacity:1.0;
+        width: 100px;
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity:1;
+        width: 100px;
+        margin-left: 10px;
+    }
+	to {
+        opacity:0.3;
+        width: 0;
+        margin-left: 0;
+    }
+}
+
+@keyframes fadeOutFist {
+    from {
+        opacity:1;
+        width: 100px;
+    }
+	to {
+        opacity:0.3;
+        width: 0;
+    }
+}
+
+
+.cmpItem:first-child{
     margin-left: auto;
 }
-.cmpItem:last-child {
+.cmpItem:last-child{
     margin-right:auto;
 }
 
@@ -322,11 +396,30 @@ body{
 }
 
 .mover{
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     z-index: 100;
-    top: 20px;
     visibility: hidden;
+    border-radius: 20px;
+    color: white;
+    border: none;
+    margin: 30px 10px 0 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+#cmpLeft .mover{
+    background-color: var(--main-game-deactive-color);
+}
+#cmpLeft .mover:hover{
+    background-color: var(--main-game-color);
+}
+
+#cmpRight .mover{
+    background-color: var(--main-gear-deactive-color);
+}
+#cmpRight .mover:hover{
+    background-color: var(--main-gear-color);
 }
 
 .left{
@@ -336,5 +429,57 @@ body{
 
 .right{
     position: absolute;
-    right: 0;
+    right: 10px;
+    top: 0;
+}
+.btnLoadMore{
+    width: 200px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-size: large;
+}
+
+.gameList .btnLoadMore{
+    background-color: var(--main-game-color);
+}
+
+.gearList .btnLoadMore{
+    background-color: var(--main-gear-color);
+}
+
+#btnCompare{
+    outline: none;
+    border: none;
+    color: white;
+    background-color: rgb(54, 54, 54);
+    margin-top: 15px;
+    font-size: large;
+    cursor: pointer;
+}
+
+#compareScreen{
+    width: 60%;
+    height: 600px;
+    min-width: 500px;
+    background-color: white;
+    border: 2px solid rgb(54, 54, 54);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    visibility: hidden;
+    opacity:0;
+    transition:visibility 0.3s ease,opacity 0.3s ease;
+}
+#compareScreen>#closeCompareScreen{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: large;
+    cursor: pointer;
 }
