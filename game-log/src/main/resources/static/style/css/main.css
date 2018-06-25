@@ -5,6 +5,11 @@
     --main-gear-deactive-color: rgb(35, 54, 112);;
   }
 
+#logo{
+    height: 100px;
+    width: 500px;
+}
+
 body{
     font-family: roboto;
 }
