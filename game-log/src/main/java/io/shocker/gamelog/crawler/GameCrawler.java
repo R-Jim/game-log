@@ -90,9 +90,6 @@ public class GameCrawler extends BasicCrawler {
         source = crawler.cleanXML(source, "details", "div", "class", "game_area_sys_req");
         InputStream is = source.getInputStream();
         List<String> lines = IOUtils.readLines(is, "UTF-8");
-        for (String line : lines) {
-            System.out.println(line);
-        }
         return lines;
     }
 }

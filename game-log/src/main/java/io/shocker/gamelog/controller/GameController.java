@@ -32,6 +32,12 @@ public class GameController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/games/load")
+    @ResponseBody
+    public void loadGames() {
+        this.gameService.crawlGame();
+    }
+
     @GetMapping(value = "/categories")
     @ResponseBody
     public ResponseEntity<List<GameCategories.GameCategory>> getAll() {
@@ -45,5 +51,4 @@ public class GameController {
     public void loadGameCategories() {
         this.gameService.crawlGameCategory();
     }
-
 }

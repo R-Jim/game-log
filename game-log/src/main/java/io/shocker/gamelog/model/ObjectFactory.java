@@ -1,6 +1,7 @@
 
 package io.shocker.gamelog.model;
 
+
 import javax.xml.bind.annotation.XmlRegistry;
 
 
@@ -43,6 +44,55 @@ public class ObjectFactory {
      */
     public GameCategories.GameCategory createCategoriesCategory() {
         return new GameCategories.GameCategory();
+    }
+
+
+    /**
+     * Create an instance of {@link Games }
+     *
+     */
+    public Games createGames() {
+        return new Games();
+    }
+
+    /**
+     * Create an instance of {@link SpecDetail }
+     *
+     */
+    public SpecDetail createSpecDetail() {
+        return new SpecDetail();
+    }
+
+    /**
+     * Create an instance of {@link Games.Game }
+     *
+     */
+    public Games.Game createGamesGame() {
+        return new Games.Game();
+    }
+
+    /**
+     * Create an instance of {@link SpecDetail.Spec }
+     *
+     */
+    public SpecDetail.Spec createSpecDetailSpec() {
+        return new SpecDetail.Spec();
+    }
+
+    /**
+     * Create an instance of {@link Games.Game.Specs }
+     *
+     */
+    public Games.Game.Specs createGamesGameSpecs() {
+        return new Games.Game.Specs();
+    }
+
+    /**
+     * Create an instance of {@link Games.Game.Tags }
+     *
+     */
+    public Games.Game.Tags createGamesGameTags() {
+        return new Games.Game.Tags();
     }
 
 }

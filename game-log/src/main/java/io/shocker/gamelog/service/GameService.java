@@ -2,7 +2,9 @@ package io.shocker.gamelog.service;
 
 import io.shocker.gamelog.config.WebEnum;
 import io.shocker.gamelog.crawler.BasicCrawler;
+import io.shocker.gamelog.crawler.GameCrawler;
 import io.shocker.gamelog.model.GameCategories;
+import io.shocker.gamelog.model.Games;
 import io.shocker.gamelog.repository.GameCategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -67,9 +69,52 @@ public class GameService {
     private StreamSource getGamesCategoryData() throws TransformerException {
         BasicCrawler crawler = new BasicCrawler();
 
-        StreamSource result = crawler.crawlingFromWeb(WebEnum.GameCategory);
-        return result;
+        return crawler.crawlingFromWeb(WebEnum.GameCategory);
+    }
 
+
+    public int crawlGame() {
+        int count = 0;
+
+        try {
+
+            WebEnum webEnum = WebEnum.Game;
+            webEnum.setUrl("https://store.steampowered.com/tags/en/Action/");
+            StreamSource streamResult =
+                    getGamesData(webEnum);
+            System.out.println("Found Source");
+            if (streamResult != null) {
+
+                JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
+                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+                Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
+                List<Games.Game> list = games.getGame();
+                for(Games.Game game : list){
+                    System.out.print(game.getName()+" tag: ");
+                    for(String tag : game.getTags().getTag()){
+                        System.out.print(tag+", ");
+                    }
+                    System.out.println("");
+                    count++;
+                }
+                System.out.println("Added Source");
+
+            }
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+        catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    private StreamSource getGamesData(WebEnum webEnum) throws TransformerException {
+        GameCrawler crawler = new GameCrawler();
+
+        return crawler.crawlingFromWeb(webEnum);
     }
 
 }

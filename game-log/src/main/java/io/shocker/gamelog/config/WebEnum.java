@@ -3,7 +3,9 @@ package io.shocker.gamelog.config;
 public enum WebEnum {
     GameCategory("https://store.steampowered.com/","categories",
             "<div class=\"popup_menu_subheader\">Browse by genre:</div>","<div class=\"hr\"></div>",
-            "a","class", "popup_menu_item","src\\main\\resources\\static\\gameCategoryCleaned.xsl");
+            "a","class", "popup_menu_item","src\\main\\resources\\static\\gameCategoryCleaned.xsl"),
+    Game(null,"games","<div id=\"tab_NewReleases_content\">","<div id=\"tab_TopSellers_content\" style=\"display: none;\">",
+            "a","class", "tab_item","src\\main\\resources\\static\\gameCleaned.xsl");
 
     private String url;
     private String root;
@@ -56,5 +58,9 @@ public enum WebEnum {
 
     public String getXslFilePath() {
         return xslFilePath;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
