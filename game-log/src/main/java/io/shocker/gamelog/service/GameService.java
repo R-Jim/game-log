@@ -5,7 +5,11 @@ import io.shocker.gamelog.crawler.BasicCrawler;
 import io.shocker.gamelog.crawler.GameCrawler;
 import io.shocker.gamelog.model.GameCategories;
 import io.shocker.gamelog.model.Games;
+import io.shocker.gamelog.model.SpecDetail;
+import io.shocker.gamelog.model.Tag;
 import io.shocker.gamelog.repository.GameCategoryRepository;
+import io.shocker.gamelog.repository.GameRepository;
+import io.shocker.gamelog.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
@@ -18,9 +22,13 @@ import java.util.List;
 @Service
 public class GameService {
     private final GameCategoryRepository gameCategoryRepository;
+    private final GameRepository gameRepository;
+    private final TagRepository tagRepository;
 
-    public GameService(GameCategoryRepository gameCategoryRepository) {
+    public GameService(GameCategoryRepository gameCategoryRepository, GameRepository gameRepository, TagRepository tagRepository) {
         this.gameCategoryRepository = gameCategoryRepository;
+        this.gameRepository = gameRepository;
+        this.tagRepository = tagRepository;
     }
 
     public List<GameCategories.GameCategory> getAllCategories() {
@@ -47,7 +55,7 @@ public class GameService {
                 List<GameCategories.GameCategory> list = gameCategory.getCategory();
                 for (GameCategories.GameCategory category : list) {
                     GameCategories.GameCategory existed = this.gameCategoryRepository.findByName(category.getName());
-                    if (existed != null){
+                    if (existed != null) {
                         category.setId(existed.getId());
                     }
                     this.addCategory(category);
@@ -58,8 +66,7 @@ public class GameService {
             }
         } catch (TransformerException e) {
             e.printStackTrace();
-        }
-        catch (JAXBException e) {
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
 
@@ -90,12 +97,30 @@ public class GameService {
 
                 Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
                 List<Games.Game> list = games.getGame();
-                for(Games.Game game : list){
-                    System.out.print(game.getName()+" tag: ");
-                    for(String tag : game.getTags().getTag()){
-                        System.out.print(tag+", ");
+                for (Games.Game game : list) {
+
+                    if (game.getId() != null) {
+                        System.out.print("|" + game.getId() + "=" + "," + game.getName() + " tag: ");
+                        for (String tag : game.getTags().getTag()) {
+                            Tag existedTag = this.tagRepository.getByName(tag);
+                            if (existedTag==null){
+                                existedTag = new Tag();
+                                existedTag.setName(tag);
+                                this.tagRepository.save(existedTag);
+                            }
+                            System.out.print(existedTag.getId() + ", ");
+                        }
+                        if (game.getSpecs().getMinimum()!=null) {
+                            List<SpecDetail.Spec> specs = game.getSpecs().getMinimum().getSpec();
+                            if (specs != null) {
+                                for (SpecDetail.Spec spec : specs) {
+                                    System.out.println(spec.getName() + ": " + spec.getValue());
+                                }
+                            }
+                        }
+                        this.gameRepository.save(game);
+                        System.out.println("");
                     }
-                    System.out.println("");
                     count++;
                 }
                 System.out.println("Added Source");
@@ -103,8 +128,7 @@ public class GameService {
             }
         } catch (TransformerException e) {
             e.printStackTrace();
-        }
-        catch (JAXBException e) {
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
 

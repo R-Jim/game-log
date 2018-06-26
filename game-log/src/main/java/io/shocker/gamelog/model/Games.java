@@ -1,6 +1,10 @@
 
 package io.shocker.gamelog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +150,8 @@ public class Games {
      *
      *
      */
+    @Entity
+    @Table(name = "tbl_game")
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "price",
@@ -161,7 +167,7 @@ public class Games {
         @XmlElement(namespace = "https://www.w3schools.com", required = true)
         protected Games.Game.Tags tags;
         @XmlAttribute(name = "id")
-        protected String id;
+        protected Integer id;
         @XmlAttribute(name = "name")
         protected String name;
         @XmlAttribute(name = "href")
@@ -175,6 +181,8 @@ public class Games {
          *     {@link String }
          *
          */
+        @Basic
+        @Column(name = "price")
         public String getPrice() {
             return price;
         }
@@ -199,6 +207,7 @@ public class Games {
          *     {@link Games.Game.Specs }
          *
          */
+        @Transient
         public Games.Game.Specs getSpecs() {
             return specs;
         }
@@ -223,6 +232,7 @@ public class Games {
          *     {@link Games.Game.Tags }
          *
          */
+        @Transient
         public Games.Game.Tags getTags() {
             return tags;
         }
@@ -247,7 +257,9 @@ public class Games {
          *     {@link String }
          *
          */
-        public String getId() {
+        @Id
+        @Column(name = "id")
+        public Integer getId() {
             return id;
         }
 
@@ -259,7 +271,7 @@ public class Games {
          *     {@link String }
          *
          */
-        public void setId(String value) {
+        public void setId(Integer value) {
             this.id = value;
         }
 
@@ -271,6 +283,8 @@ public class Games {
          *     {@link String }
          *
          */
+        @Basic
+        @Column(name = "name")
         public String getName() {
             return name;
         }
@@ -295,6 +309,8 @@ public class Games {
          *     {@link String }
          *
          */
+        @Basic
+        @Column(name = "href")
         public String getHref() {
             return href;
         }
