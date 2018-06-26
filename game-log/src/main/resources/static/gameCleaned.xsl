@@ -18,50 +18,54 @@
                     <price>
                         <xsl:value-of select=".//*[contains(@class,'discount_final_price')]"/>
                     </price>
-                    <specs>
-                        <xsl:variable name="spec" select=".//*[contains(@class,'game_area_sys_req_full')]"/>
-                        <xsl:choose>
-                            <xsl:when test="$spec">
+                    <xsl:variable name="spec" select=".//*[contains(@class,'game_area_sys_req_full')]"/>
+                    <xsl:choose>
+                        <xsl:when test="$spec">
+                            <minimum>
+                                <xsl:for-each
+                                        select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_full')]//*[local-name()='li']">
+                                    <xsl:if test="./*[local-name()='strong'] = 'OS:' or ./*[local-name()='strong'] = 'Processor:'
+                                        or ./*[local-name()='strong'] = 'Memory:' or ./*[local-name()='strong'] = 'Graphics:'">
+                                        <xsl:call-template name="specDetail">
+                                            <xsl:with-param name="name"
+                                                            select="translate(./*[local-name()='strong'],':','')"/>
+                                            <xsl:with-param name="value" select="./text()"/>
+                                        </xsl:call-template>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </minimum>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_leftCol')]">
                                 <minimum>
-                                    <xsl:for-each select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_full')]//*[local-name()='li']">
+                                    <xsl:for-each
+                                            select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_leftCol')]//*[local-name()='li']">
                                         <xsl:if test="./*[local-name()='strong'] = 'OS:' or ./*[local-name()='strong'] = 'Processor:'
                                         or ./*[local-name()='strong'] = 'Memory:' or ./*[local-name()='strong'] = 'Graphics:'">
                                             <xsl:call-template name="specDetail">
-                                                <xsl:with-param name="name" select="translate(./*[local-name()='strong'],':','')"/>
+                                                <xsl:with-param name="name"
+                                                                select="translate(./*[local-name()='strong'],':','')"/>
                                                 <xsl:with-param name="value" select="./text()"/>
                                             </xsl:call-template>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </minimum>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:if test=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_leftCol')]">
-                                    <minimum>
-                                        <xsl:for-each select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_leftCol')]//*[local-name()='li']">
-                                            <xsl:if test="./*[local-name()='strong'] = 'OS:' or ./*[local-name()='strong'] = 'Processor:'
+                                <recommend>
+                                    <xsl:for-each
+                                            select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_rightCol')]//*[local-name()='li']">
+                                        <xsl:if test="./*[local-name()='strong'] = 'OS:' or ./*[local-name()='strong'] = 'Processor:'
                                         or ./*[local-name()='strong'] = 'Memory:' or ./*[local-name()='strong'] = 'Graphics:'">
-                                                <xsl:call-template name="specDetail">
-                                                    <xsl:with-param name="name" select="translate(./*[local-name()='strong'],':','')"/>
-                                                    <xsl:with-param name="value" select="./text()"/>
-                                                </xsl:call-template>
-                                            </xsl:if>
-                                        </xsl:for-each>
-                                    </minimum>
-                                    <recommend>
-                                        <xsl:for-each select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_rightCol')]//*[local-name()='li']">
-                                            <xsl:if test="./*[local-name()='strong'] = 'OS:' or ./*[local-name()='strong'] = 'Processor:'
-                                        or ./*[local-name()='strong'] = 'Memory:' or ./*[local-name()='strong'] = 'Graphics:'">
-                                                <xsl:call-template name="specDetail">
-                                                    <xsl:with-param name="name" select="translate(./*[local-name()='strong'],':','')"/>
-                                                    <xsl:with-param name="value" select="./text()"/>
-                                                </xsl:call-template>
-                                            </xsl:if>
-                                        </xsl:for-each>
-                                    </recommend>
-                                </xsl:if>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </specs>
+                                            <xsl:call-template name="specDetail">
+                                                <xsl:with-param name="name"
+                                                                select="translate(./*[local-name()='strong'],':','')"/>
+                                                <xsl:with-param name="value" select="./text()"/>
+                                            </xsl:call-template>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </recommend>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <tags>
                         <xsl:for-each select=".//*[local-name()='span' and contains(@class,'top_tag')]">
                             <tag>

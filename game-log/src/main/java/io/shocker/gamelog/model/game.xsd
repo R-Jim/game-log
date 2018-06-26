@@ -10,14 +10,10 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="price" type="xs:string"/>
-                            <xs:element name="specs">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="minimum" type="specDetail" minOccurs="0"></xs:element>
-                                        <xs:element name="recommend" type="specDetail" minOccurs="0"></xs:element>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
+                            <xs:sequence>
+                                <xs:element name="minimum" type="specDetail" minOccurs="0"></xs:element>
+                                <xs:element name="recommend" type="specDetail" minOccurs="0"></xs:element>
+                            </xs:sequence>
                             <xs:element name="tags">
                                 <xs:complexType>
                                     <xs:sequence maxOccurs="unbounded">

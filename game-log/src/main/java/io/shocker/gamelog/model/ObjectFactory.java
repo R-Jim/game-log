@@ -79,13 +79,6 @@ public class ObjectFactory {
         return new SpecDetail.Spec();
     }
 
-    /**
-     * Create an instance of {@link Games.Game.Specs }
-     *
-     */
-    public Games.Game.Specs createGamesGameSpecs() {
-        return new Games.Game.Specs();
-    }
 
     /**
      * Create an instance of {@link Games.Game.Tags }

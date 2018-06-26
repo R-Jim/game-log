@@ -110,7 +110,7 @@ public class GameCategories {
         @XmlElement(namespace = "https://www.w3schools.com", required = true)
         protected String name;
         @XmlAttribute(name = "id")
-        protected String id;
+        protected Integer id;
         @XmlAttribute(name = "href")
         protected String href;
 
@@ -152,7 +152,7 @@ public class GameCategories {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
-        public String getId() {
+        public Integer getId() {
             return id;
         }
 
@@ -164,7 +164,7 @@ public class GameCategories {
          *     {@link String }
          *     
          */
-        public void setId(String value) {
+        public void setId(Integer value) {
             this.id = value;
         }
 
