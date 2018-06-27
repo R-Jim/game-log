@@ -90,23 +90,25 @@ public class GameService {
 
             WebEnum webEnum = WebEnum.Game;
             System.out.println("Finding Source");
-            webEnum.setUrl("https://store.steampowered.com/tags/en/Action/");
-            StreamSource streamResult =
-                    getGamesData(webEnum);
-            System.out.println("Found Source");
-            if (streamResult != null) {
+            List<GameCategories.GameCategory> gameCategories = this.gameCategoryRepository.findAll();
+            for(GameCategories.GameCategory category : gameCategories) {
+                webEnum.setUrl(category.getHref());
+                StreamSource streamResult =
+                        getGamesData(webEnum);
+                System.out.println("Found Source");
+                if (streamResult != null) {
 
-                JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
-                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                    JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
+                    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-                Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
-                List<Games.Game> list = games.getGame();
-                for (Games.Game game : list) {
-                    SetUpGameData(game);
-                    count++;
+                    Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
+                    List<Games.Game> list = games.getGame();
+                    for (Games.Game game : list) {
+                        SetUpGameData(game);
+                        count++;
+                    }
+                    System.out.println("Added Source");
                 }
-                System.out.println("Added Source");
-
             }
         } catch (TransformerException e) {
             e.printStackTrace();
