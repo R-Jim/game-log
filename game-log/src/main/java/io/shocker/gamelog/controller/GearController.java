@@ -2,6 +2,7 @@ package io.shocker.gamelog.controller;
 
 import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.service.GameService;
+import io.shocker.gamelog.service.GearService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +17,13 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.ResponseEntity.status;
 
 @Controller
-@RequestMapping(value = "/game")
-public class GameController {
+@RequestMapping(value = "/gear")
+public class GearController {
 
-    private final GameService gameService;
+    private final GearService gearService;
 
-    public GameController(GameService gameService) {
-        this.gameService = gameService;
+    public GearController(GearService gearService) {
+        this.gearService = gearService;
     }
 
     @GetMapping(value = "")
@@ -35,13 +36,13 @@ public class GameController {
     @GetMapping(value = "/load")
     @ResponseBody
     public void loadGames() {
-        this.gameService.crawlGame();
+        this.gearService.crawlGear();
     }
 
     @GetMapping(value = "/categories")
     @ResponseBody
-    public ResponseEntity<List<Categories.GameCategory>> getAll() {
-        List<Categories.GameCategory> domains = this.gameService.getAllCategories();
+    public ResponseEntity<List<Categories.GearCategory>> getAll() {
+        List<Categories.GearCategory> domains = this.gearService.getAllCategories();
         return !domains.isEmpty() ? status(OK).body(domains)
                 : status(NO_CONTENT).build();
     }
@@ -49,6 +50,6 @@ public class GameController {
     @GetMapping(value = "/categories/load")
     @ResponseBody
     public void loadGameCategories() {
-        this.gameService.crawlGameCategory();
+        this.gearService.crawlGearCategory();
     }
 }

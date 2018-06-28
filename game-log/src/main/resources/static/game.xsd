@@ -25,6 +25,7 @@
                         <xs:attribute name="id" type="xs:integer"/>
                         <xs:attribute name="name" type="xs:string"/>
                         <xs:attribute name="href" type="xs:string"/>
+                        <xs:attribute name="img" type="xs:string"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>

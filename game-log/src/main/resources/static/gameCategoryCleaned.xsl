@@ -10,9 +10,7 @@
                     <xsl:attribute name="href">
                         <xsl:value-of select="string(./@href)"/>
                     </xsl:attribute>
-                    <name>
-                        <xsl:value-of select="./text()"/>
-                    </name>
+                    <xsl:value-of select="./text()"/>
                 </xsl:element>
             </xsl:for-each>
         </categories>

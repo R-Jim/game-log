@@ -134,10 +134,14 @@ public class BasicCrawler {
                                 if (element.getName().toString().equals(desElement)) {
                                     Attribute a = element.getAttributeByName(new QName(desAttribute));
                                     if (a != null) {
-                                        for (String value : a.getValue().trim().split(" ")) {
-                                            if (value.equals(desAttrValue)) {
-                                                appendTagContentToBuffer(sb, reader, element);
-                                                break;
+                                        String[] values = a.getValue().trim().split(" ");
+                                        String[] desValues = desAttrValue.split(" ");
+                                        for (String value : values) {
+                                            for (String desValue : desValues) {
+                                                if (value.equals(desValue)) {
+                                                    appendTagContentToBuffer(sb, reader, element);
+                                                    break;
+                                                }
                                             }
                                         }
                                     }

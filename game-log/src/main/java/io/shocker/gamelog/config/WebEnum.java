@@ -5,7 +5,12 @@ public enum WebEnum {
             "<div class=\"popup_menu_subheader\">Browse by genre:</div>","<div class=\"hr\"></div>",
             "a","class", "popup_menu_item","src\\main\\resources\\static\\gameCategoryCleaned.xsl"),
     Game(null,"games","<div id=\"tab_NewReleases_content\">","<div id=\"tab_TopSellers_content\" style=\"display: none;\">",
-            "a","class", "tab_item","src\\main\\resources\\static\\gameCleaned.xsl");
+            "a","class", "tab_item","src\\main\\resources\\static\\gameCleaned.xsl"),
+    GearCategory("https://fptshop.com.vn/may-tinh-xach-tay","categories","<div class=\"mf-body\">",
+            "<div class=\"mf-banner\">","a","class","m_filter_demand m_filter_price m_filter_brand",
+            "src\\main\\resources\\static\\gearCategoryCleaned.xsl"),
+    Gear(null,"gears","<div class=\"mf-pri\">","<div class=\"mf-ctkeys\">","div", "class", "mf-plti",
+            "src\\main\\resources\\static\\gearCleaned.xsl");
 
     private String url;
     private String root;

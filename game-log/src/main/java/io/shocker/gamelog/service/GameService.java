@@ -34,11 +34,11 @@ public class GameService {
         this.gameHasTagRepository = gameHasTagRepository;
     }
 
-    public List<GameCategories.GameCategory> getAllCategories() {
+    public List<Categories.GameCategory> getAllCategories() {
         return this.gameCategoryRepository.findAll();
     }
 
-    public GameCategories.GameCategory addCategory(GameCategories.GameCategory gameCategory) {
+    public Categories.GameCategory addCategory(Categories.GameCategory gameCategory) {
         return this.gameCategoryRepository.save(gameCategory);
     }
 
@@ -54,14 +54,14 @@ public class GameService {
                 JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
                 Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-                GameCategories gameCategory = (GameCategories) unmarshaller.unmarshal(streamResult.getInputStream());
-                List<GameCategories.GameCategory> list = gameCategory.getCategory();
-                for (GameCategories.GameCategory category : list) {
-                    GameCategories.GameCategory existed = this.gameCategoryRepository.findByName(category.getName());
+                Categories gameCategory = (Categories) unmarshaller.unmarshal(streamResult.getInputStream());
+                List<Categories.Category> list = gameCategory.getCategory();
+                for (Categories.Category category : list) {
+                    Categories.GameCategory existed = this.gameCategoryRepository.findByValue(category.getValue());
                     if (existed != null) {
                         category.setId(existed.getId());
                     }
-                    this.addCategory(category);
+                    this.addCategory(category.toGameCategory());
                     count++;
                 }
                 System.out.println("Added Source");
@@ -90,8 +90,8 @@ public class GameService {
 
             WebEnum webEnum = WebEnum.Game;
             System.out.println("Finding Source");
-            List<GameCategories.GameCategory> gameCategories = this.gameCategoryRepository.findAll();
-            for(GameCategories.GameCategory category : gameCategories) {
+            List<Categories.GameCategory> gameCategories = this.gameCategoryRepository.findAll();
+            for(Categories.GameCategory category : gameCategories) {
                 webEnum.setUrl(category.getHref());
                 StreamSource streamResult =
                         getGamesData(webEnum);
@@ -175,7 +175,7 @@ public class GameService {
                     existedTag = new Tag();
                 }
                 existedTag.setName(tag);
-                GameCategories.GameCategory gameCategory = this.gameCategoryRepository.findByName(tag);
+                Categories.GameCategory gameCategory = this.gameCategoryRepository.findByValue(tag);
                 if (gameCategory!=null){
                     existedTag.setCategoryId(gameCategory.getId());
                 }

@@ -2,6 +2,7 @@
 package io.shocker.gamelog.model;
 
 
+
 import javax.xml.bind.annotation.XmlRegistry;
 
 
@@ -31,19 +32,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GameCategories }
+     * Create an instance of {@link Categories }
      *
      */
-    public GameCategories createCategories() {
-        return new GameCategories();
+    public Categories createCategories() {
+        return new Categories();
     }
 
     /**
-     * Create an instance of {@link GameCategories.GameCategory }
+     * Create an instance of {@link Categories.Category }
      *
      */
-    public GameCategories.GameCategory createCategoriesCategory() {
-        return new GameCategories.GameCategory();
+    public Categories.Category createCategoriesCategory() {
+        return new Categories.Category();
     }
 
 
@@ -86,6 +87,38 @@ public class ObjectFactory {
      */
     public Games.Game.Tags createGamesGameTags() {
         return new Games.Game.Tags();
+    }
+
+    /**
+     * Create an instance of {@link Gears }
+     *
+     */
+    public Gears createGears() {
+        return new Gears();
+    }
+
+    /**
+     * Create an instance of {@link Gears.Gear }
+     *
+     */
+    public Gears.Gear createGearsGear() {
+        return new Gears.Gear();
+    }
+
+    /**
+     * Create an instance of {@link Gears.Gear.Specs }
+     *
+     */
+    public Gears.Gear.Specs createGearsGearSpecs() {
+        return new Gears.Gear.Specs();
+    }
+
+    /**
+     * Create an instance of {@link Gears.Gear.Specs.Spec }
+     *
+     */
+    public Gears.Gear.Specs.Spec createGearsGearSpecsSpec() {
+        return new Gears.Gear.Specs.Spec();
     }
 
 }

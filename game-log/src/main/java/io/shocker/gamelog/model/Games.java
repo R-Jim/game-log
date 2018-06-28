@@ -166,6 +166,8 @@ public class Games {
         protected String name;
         @XmlAttribute(name = "href")
         protected String href;
+        @XmlAttribute(name = "img")
+        protected String img;
 
         /**
          * Gets the value of the price property.
@@ -327,6 +329,16 @@ public class Games {
             this.href = value;
         }
 
+
+        @Basic
+        @Column(name = "img_src")
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
 
         /**
          * <p>Java class for anonymous complex type.

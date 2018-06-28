@@ -15,6 +15,9 @@
                     <xsl:attribute name="href">
                         <xsl:value-of select="string(./@href)"/>
                     </xsl:attribute>
+                    <xsl:attribute name="img">
+                        <xsl:value-of select=".//*[local-name()='img']/@src"/>
+                    </xsl:attribute>
                     <price>
                         <xsl:value-of select=".//*[contains(@class,'discount_final_price')]"/>
                     </price>
