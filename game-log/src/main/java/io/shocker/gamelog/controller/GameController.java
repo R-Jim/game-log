@@ -1,6 +1,7 @@
 package io.shocker.gamelog.controller;
 
 import io.shocker.gamelog.model.Categories;
+import io.shocker.gamelog.model.Games;
 import io.shocker.gamelog.service.GameService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,18 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/main")
     @ResponseBody
     public ModelAndView getMainPage(ModelAndView modelAndView) {
         modelAndView.setViewName("main.html");
         return modelAndView;
+    }
+
+    @GetMapping(value = "", produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody
+    public Games getGameList() {
+        Games games = this.gameService.getAllGames();
+        return games;
     }
 
     @GetMapping(value = "/load")
@@ -39,14 +47,14 @@ public class GameController {
         this.gameService.crawlGame();
     }
 
-    @GetMapping(value = "/categories", produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(value = "/category", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
     public Categories getAll() {
         Categories categories = this.gameService.getAllCategories();
         return categories;
     }
 
-    @GetMapping(value = "/categories/load")
+    @GetMapping(value = "/category/load")
     @ResponseBody
     public void loadGameCategories() {
         this.gameService.crawlGameCategory();

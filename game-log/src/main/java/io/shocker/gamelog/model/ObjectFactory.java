@@ -65,11 +65,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Games.Game }
+     * Create an instance of {@link Game }
      *
      */
-    public Games.Game createGamesGame() {
-        return new Games.Game();
+    public Game createGamesGame() {
+        return new Game();
     }
 
     /**
@@ -82,11 +82,11 @@ public class ObjectFactory {
 
 
     /**
-     * Create an instance of {@link Games.Game.Tags }
+     * Create an instance of {@link Game.Tags }
      *
      */
-    public Games.Game.Tags createGamesGameTags() {
-        return new Games.Game.Tags();
+    public Game.Tags createGamesGameTags() {
+        return new Game.Tags();
     }
 
     /**

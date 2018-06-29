@@ -95,26 +95,26 @@ public class GameService {
 //            List<Categories.GameCategory> gameCategories = this.gameCategoryRepository.findAll();
 //            for (Categories.GameCategory category : gameCategories) {
 //                System.out.println(category.getValue());
-                for (int i = 0; i < 20; i++) {
-                    webEnum.setUrl("https://store.steampowered.com/search/?sort_by=Released_DESC&page="+i);
-                    System.out.println(webEnum.getUrl());
-                    StreamSource streamResult =
-                            getGamesData(webEnum);
-                    System.out.println("Found Source");
-                    if (streamResult != null) {
+            for (int i = 0; i < 2; i++) {
+                webEnum.setUrl("https://store.steampowered.com/search/?sort_by=Released_DESC&page=" + i);
+                System.out.println(webEnum.getUrl());
+                StreamSource streamResult =
+                        getGamesData(webEnum);
+                System.out.println("Found Source");
+                if (streamResult != null) {
 
-                        JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
-                        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                    JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
+                    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-                        Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
-                        List<Games.Game> list = games.getGame();
-                        for (Games.Game game : list) {
-                            SetUpGameData(game);
-                            count++;
-                        }
+                    Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
+                    List<Game> list = games.getGame();
+                    for (Game game : list) {
+                        SetUpGameData(game);
+                        count++;
                     }
-                    System.out.println("");
                 }
+                System.out.println("");
+            }
 //            }
             System.out.println("Added Source");
 
@@ -133,7 +133,7 @@ public class GameService {
         return crawler.crawlingFromWeb(webEnum);
     }
 
-    private void SetUpGameData(Games.Game game) {
+    private void SetUpGameData(Game game) {
 
         if (game.getId() != null) {
             System.out.print("|" + game.getId() + "=" + "," + game.getName());
@@ -206,6 +206,12 @@ public class GameService {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
+    }
+
+    public Games getAllGames() {
+        Games games = new Games();
+        games.setGame(this.gameRepository.getAllGames());
+        return games;
     }
 
 }
