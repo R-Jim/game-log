@@ -4,13 +4,13 @@
     <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
     <xsl:template match="/">
         <games>
-            <xsl:for-each select="//*[local-name()='a']">
+            <xsl:for-each select="//*[local-name()='a' and contains(@class,'search_result_row')]">
                 <xsl:element name="game">
                     <xsl:attribute name="id">
                         <xsl:value-of select="string(./@data-ds-appid)"/>
                     </xsl:attribute>
                     <xsl:attribute name="name">
-                        <xsl:value-of select="normalize-space(.//*[contains(@class,'tab_item_name')]/text())"/>
+                        <xsl:value-of select="normalize-space(.//*[contains(@class,'title')]/text())"/>
                     </xsl:attribute>
                     <xsl:attribute name="href">
                         <xsl:value-of select="string(./@href)"/>
@@ -19,19 +19,17 @@
                         <xsl:value-of select=".//*[local-name()='img']/@src"/>
                     </xsl:attribute>
                     <price>
-                        <xsl:value-of select=".//*[contains(@class,'discount_final_price')]"/>
+                        <xsl:value-of select=".//*[contains(@class,'search_price ')]/text()"/>
                     </price>
                     <xsl:variable name="spec" select=".//*[contains(@class,'game_area_sys_req_full')]"/>
                     <xsl:choose>
                         <xsl:when test="$spec">
                             <minimum>
-                                <xsl:for-each
-                                        select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_full')]//*[local-name()='li']">
+                                <xsl:for-each select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_full')]//*[local-name()='li']">
                                     <xsl:if test="./*[local-name()='strong'] = 'OS:' or ./*[local-name()='strong'] = 'Processor:'
                                         or ./*[local-name()='strong'] = 'Memory:' or ./*[local-name()='strong'] = 'Graphics:'">
                                         <xsl:call-template name="specDetail">
-                                            <xsl:with-param name="name"
-                                                            select="translate(./*[local-name()='strong'],':','')"/>
+                                            <xsl:with-param name="name" select="translate(./*[local-name()='strong'],':','')"/>
                                             <xsl:with-param name="value" select="./text()"/>
                                         </xsl:call-template>
                                     </xsl:if>
@@ -41,26 +39,22 @@
                         <xsl:otherwise>
                             <xsl:if test=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_leftCol')]">
                                 <minimum>
-                                    <xsl:for-each
-                                            select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_leftCol')]//*[local-name()='li']">
+                                    <xsl:for-each select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_leftCol')]//*[local-name()='li']">
                                         <xsl:if test="./*[local-name()='strong'] = 'OS:' or ./*[local-name()='strong'] = 'Processor:'
                                         or ./*[local-name()='strong'] = 'Memory:' or ./*[local-name()='strong'] = 'Graphics:'">
                                             <xsl:call-template name="specDetail">
-                                                <xsl:with-param name="name"
-                                                                select="translate(./*[local-name()='strong'],':','')"/>
+                                                <xsl:with-param name="name" select="translate(./*[local-name()='strong'],':','')"/>
                                                 <xsl:with-param name="value" select="./text()"/>
                                             </xsl:call-template>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </minimum>
                                 <recommend>
-                                    <xsl:for-each
-                                            select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_rightCol')]//*[local-name()='li']">
+                                    <xsl:for-each select=".//*[contains(@data-os,'win')]/*[contains(@class,'game_area_sys_req_rightCol')]//*[local-name()='li']">
                                         <xsl:if test="./*[local-name()='strong'] = 'OS:' or ./*[local-name()='strong'] = 'Processor:'
                                         or ./*[local-name()='strong'] = 'Memory:' or ./*[local-name()='strong'] = 'Graphics:'">
                                             <xsl:call-template name="specDetail">
-                                                <xsl:with-param name="name"
-                                                                select="translate(./*[local-name()='strong'],':','')"/>
+                                                <xsl:with-param name="name" select="translate(./*[local-name()='strong'],':','')"/>
                                                 <xsl:with-param name="value" select="./text()"/>
                                             </xsl:call-template>
                                         </xsl:if>
@@ -70,7 +64,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                     <tags>
-                        <xsl:for-each select=".//*[local-name()='span' and contains(@class,'top_tag')]">
+                        <xsl:for-each select=".//*[local-name()='a' and contains(@class,'app_tag')]">
                             <tag>
                                 <xsl:value-of select="translate(.,',','')"/>
                             </tag>

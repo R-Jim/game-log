@@ -2,6 +2,7 @@ package io.shocker.gamelog.controller;
 
 import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.service.GameService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,12 +39,11 @@ public class GameController {
         this.gameService.crawlGame();
     }
 
-    @GetMapping(value = "/categories")
+    @GetMapping(value = "/categories", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
-    public ResponseEntity<List<Categories.GameCategory>> getAll() {
-        List<Categories.GameCategory> domains = this.gameService.getAllCategories();
-        return !domains.isEmpty() ? status(OK).body(domains)
-                : status(NO_CONTENT).build();
+    public Categories getAll() {
+        Categories categories = this.gameService.getAllCategories();
+        return categories;
     }
 
     @GetMapping(value = "/categories/load")

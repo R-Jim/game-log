@@ -9,9 +9,9 @@ import java.util.List;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ * <p>
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -32,12 +32,10 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "category"
+        "category"
 })
 @XmlRootElement(name = "categories", namespace = "https://www.w3schools.com")
 public class Categories {
@@ -47,25 +45,23 @@ public class Categories {
 
     /**
      * Gets the value of the category property.
-     *
+     * <p>
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the category property.
-     *
+     * <p>
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getCategory().add(newItem);
      * </pre>
-     *
-     *
+     * <p>
+     * <p>
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Categories.Category }
-     *
-     *
      */
     public List<Categories.Category> getCategory() {
         if (category == null) {
@@ -74,12 +70,31 @@ public class Categories {
         return this.category;
     }
 
+    public void setCategory(List<Category> categories) {
+        this.category = categories;
+    }
 
+    public static List<Category> gameToCategoryList(List<GameCategory> gameCategories) {
+        List<Category> categories = new ArrayList<>();
+        for (GameCategory gameCategory : gameCategories) {
+            categories.add(Category.toCategory(gameCategory));
+        }
+        return categories;
+    }
+
+
+    public static List<Category> gearToCategoryList(List<GearCategory> gearCategories) {
+        List<Category> categories = new ArrayList<>();
+        for (GearCategory gearCategory : gearCategories) {
+            categories.add(Category.toCategory(gearCategory));
+        }
+        return categories;
+    }
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
      * <pre>
      * &lt;complexType>
      *   &lt;simpleContent>
@@ -90,14 +105,12 @@ public class Categories {
      *   &lt;/simpleContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "value"
+            "value"
     })
     public static class Category {
 
@@ -110,11 +123,9 @@ public class Categories {
 
         /**
          * Gets the value of the value property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Basic
@@ -125,11 +136,9 @@ public class Categories {
 
         /**
          * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setValue(String value) {
             this.value = value;
@@ -137,11 +146,9 @@ public class Categories {
 
         /**
          * Gets the value of the id property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Id
@@ -153,11 +160,9 @@ public class Categories {
 
         /**
          * Sets the value of the id property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setId(Integer value) {
             this.id = value;
@@ -165,11 +170,9 @@ public class Categories {
 
         /**
          * Gets the value of the href property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Basic
@@ -180,17 +183,15 @@ public class Categories {
 
         /**
          * Sets the value of the href property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setHref(String value) {
             this.href = value;
         }
 
-        public GameCategory toGameCategory(){
+        public GameCategory toGameCategory() {
             GameCategory gameCategory = new GameCategory();
             gameCategory.setId(this.id);
             gameCategory.setValue(this.value);
@@ -198,18 +199,35 @@ public class Categories {
             return gameCategory;
         }
 
-        public GearCategory toGearCategory(){
+        public GearCategory toGearCategory() {
             GearCategory gearCategory = new GearCategory();
             gearCategory.setId(this.id);
             gearCategory.setValue(this.value);
             gearCategory.setHref(this.href);
             return gearCategory;
         }
+
+
+        public static Category toCategory(GameCategory gameCategory) {
+            Category category = new Category();
+            category.setId(gameCategory.getId());
+            category.setHref(gameCategory.getHref());
+            category.setValue(gameCategory.getValue());
+            return category;
+        }
+
+        public static Category toCategory(GearCategory gearCategory) {
+            Category category = new Category();
+            category.setId(gearCategory.getId());
+            category.setHref(gearCategory.getHref());
+            category.setValue(gearCategory.getValue());
+            return category;
+        }
     }
 
     @Entity
     @Table(name = "tbl_game_category")
-    public static class GameCategory{
+    public static class GameCategory {
 
         protected Integer id;
         protected String value;
@@ -218,10 +236,8 @@ public class Categories {
         /**
          * Gets the value of the value property.
          *
-         * @return
-         *     possible object is
-         *     {@link String }
-         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Basic
@@ -233,10 +249,8 @@ public class Categories {
         /**
          * Sets the value of the value property.
          *
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setValue(String value) {
             this.value = value;
@@ -245,10 +259,8 @@ public class Categories {
         /**
          * Gets the value of the id property.
          *
-         * @return
-         *     possible object is
-         *     {@link String }
-         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Id
@@ -261,10 +273,8 @@ public class Categories {
         /**
          * Sets the value of the id property.
          *
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setId(Integer value) {
             this.id = value;
@@ -273,10 +283,8 @@ public class Categories {
         /**
          * Gets the value of the href property.
          *
-         * @return
-         *     possible object is
-         *     {@link String }
-         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Basic
@@ -288,10 +296,8 @@ public class Categories {
         /**
          * Sets the value of the href property.
          *
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setHref(String value) {
             this.href = value;
@@ -301,7 +307,7 @@ public class Categories {
 
     @Entity
     @Table(name = "tbl_gear_category")
-    public static class GearCategory{
+    public static class GearCategory {
 
         protected Integer id;
         protected String value;
@@ -310,10 +316,8 @@ public class Categories {
         /**
          * Gets the value of the value property.
          *
-         * @return
-         *     possible object is
-         *     {@link String }
-         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Basic
@@ -325,10 +329,8 @@ public class Categories {
         /**
          * Sets the value of the value property.
          *
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setValue(String value) {
             this.value = value;
@@ -337,10 +339,8 @@ public class Categories {
         /**
          * Gets the value of the id property.
          *
-         * @return
-         *     possible object is
-         *     {@link String }
-         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Id
@@ -353,10 +353,8 @@ public class Categories {
         /**
          * Sets the value of the id property.
          *
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setId(Integer value) {
             this.id = value;
@@ -365,10 +363,8 @@ public class Categories {
         /**
          * Gets the value of the href property.
          *
-         * @return
-         *     possible object is
-         *     {@link String }
-         *
+         * @return possible object is
+         * {@link String }
          */
 
         @Basic
@@ -380,10 +376,8 @@ public class Categories {
         /**
          * Sets the value of the href property.
          *
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setHref(String value) {
             this.href = value;

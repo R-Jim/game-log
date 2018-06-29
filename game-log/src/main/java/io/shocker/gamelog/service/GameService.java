@@ -34,8 +34,10 @@ public class GameService {
         this.gameHasTagRepository = gameHasTagRepository;
     }
 
-    public List<Categories.GameCategory> getAllCategories() {
-        return this.gameCategoryRepository.findAll();
+    public Categories getAllCategories() {
+        Categories categories = new Categories();
+        categories.setCategory(Categories.gameToCategoryList(this.gameCategoryRepository.findAll()));
+        return categories;
     }
 
     public Categories.GameCategory addCategory(Categories.GameCategory gameCategory) {
@@ -90,26 +92,32 @@ public class GameService {
 
             WebEnum webEnum = WebEnum.Game;
             System.out.println("Finding Source");
-            List<Categories.GameCategory> gameCategories = this.gameCategoryRepository.findAll();
-            for(Categories.GameCategory category : gameCategories) {
-                webEnum.setUrl(category.getHref());
-                StreamSource streamResult =
-                        getGamesData(webEnum);
-                System.out.println("Found Source");
-                if (streamResult != null) {
+//            List<Categories.GameCategory> gameCategories = this.gameCategoryRepository.findAll();
+//            for (Categories.GameCategory category : gameCategories) {
+//                System.out.println(category.getValue());
+                for (int i = 0; i < 20; i++) {
+                    webEnum.setUrl("https://store.steampowered.com/search/?sort_by=Released_DESC&page="+i);
+                    System.out.println(webEnum.getUrl());
+                    StreamSource streamResult =
+                            getGamesData(webEnum);
+                    System.out.println("Found Source");
+                    if (streamResult != null) {
 
-                    JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
-                    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                        JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
+                        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-                    Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
-                    List<Games.Game> list = games.getGame();
-                    for (Games.Game game : list) {
-                        SetUpGameData(game);
-                        count++;
+                        Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
+                        List<Games.Game> list = games.getGame();
+                        for (Games.Game game : list) {
+                            SetUpGameData(game);
+                            count++;
+                        }
                     }
-                    System.out.println("Added Source");
+                    System.out.println("");
                 }
-            }
+//            }
+            System.out.println("Added Source");
+
         } catch (TransformerException e) {
             e.printStackTrace();
         } catch (JAXBException e) {
@@ -125,20 +133,19 @@ public class GameService {
         return crawler.crawlingFromWeb(webEnum);
     }
 
-    private void SetUpGameData(Games.Game game){
+    private void SetUpGameData(Games.Game game) {
 
         if (game.getId() != null) {
-            System.out.print("|" + game.getId() + "=" + "," + game.getName() + " tag: ");
+            System.out.print("|" + game.getId() + "=" + "," + game.getName());
 
 
             this.gameRepository.save(game);
 
             //Set up specs
-            System.out.println("");
             if (game.getMinimum() != null) {
                 List<SpecDetail.Spec> specs = game.getMinimum().getSpec();
                 if (specs != null) {
-                    Spec specDetail = this.specRepository.findByGameIdAndMinimum(game.getId(),true);
+                    Spec specDetail = this.specRepository.findByGameIdAndMinimum(game.getId(), true);
                     for (SpecDetail.Spec spec : specs) {
                         if (specDetail == null) {
                             specDetail = new Spec();
@@ -155,7 +162,7 @@ public class GameService {
             if (game.getRecommend() != null) {
                 List<SpecDetail.Spec> specs = game.getRecommend().getSpec();
                 if (specs != null) {
-                    Spec specDetail = this.specRepository.findByGameIdAndMinimum(game.getId(),false);
+                    Spec specDetail = this.specRepository.findByGameIdAndMinimum(game.getId(), false);
                     for (SpecDetail.Spec spec : specs) {
                         if (specDetail == null) {
                             specDetail = new Spec();
@@ -176,7 +183,7 @@ public class GameService {
                 }
                 existedTag.setName(tag);
                 Categories.GameCategory gameCategory = this.gameCategoryRepository.findByValue(tag);
-                if (gameCategory!=null){
+                if (gameCategory != null) {
                     existedTag.setCategoryId(gameCategory.getId());
                 }
                 this.tagRepository.save(existedTag);
@@ -195,7 +202,6 @@ public class GameService {
             Method method = specDetail.getClass().getMethod(methodName, new Class[]{spec.getValue().getClass()});
             if (method != null) {
                 method.invoke(specDetail, spec.getValue());
-                System.out.println(method.getName());
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

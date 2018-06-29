@@ -8,6 +8,7 @@ package io.shocker.gamelog.crawler;
 
 import com.sun.xml.internal.stream.events.XMLEventAllocatorImpl;
 import io.shocker.gamelog.config.WebEnum;
+import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 import java.net.URL;
@@ -239,6 +240,16 @@ public class BasicCrawler {
 
         InputStream is = new ByteArrayInputStream(outputStream.toByteArray());
 
+
+//                List<String> lines;
+//        try {
+//            lines = IOUtils.readLines(is, "UTF-8");
+//            for (String line : lines) {
+//                System.out.println(line);
+//            }
+//        } catch (IOException ex) {
+////            Logger.getLogger(BasicCrawler.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         return new StreamSource(is);
     }
 }

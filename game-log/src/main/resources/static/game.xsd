@@ -16,7 +16,7 @@
                             </xs:sequence>
                             <xs:element name="tags">
                                 <xs:complexType>
-                                    <xs:sequence maxOccurs="unbounded">
+                                    <xs:sequence maxOccurs="unbounded" minOccurs="0">
                                         <xs:element name="tag" type="xs:string"/>
                                     </xs:sequence>
                                 </xs:complexType>

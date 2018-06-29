@@ -363,7 +363,7 @@ public class Games {
         })
         public static class Tags {
 
-            @XmlElement(namespace = "https://www.w3schools.com", required = true)
+            @XmlElement(namespace = "https://www.w3schools.com")
             protected List<String> tag;
 
             /**

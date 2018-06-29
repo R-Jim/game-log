@@ -1,8 +1,11 @@
 :root {
-    --main-game-color: rgb(233, 34, 34);
+    --main-game-color: #DB504A;
     --main-game-deactive-color:rgb(134, 0, 0);
-    --main-gear-color: #1565C0;
-    --main-gear-deactive-color: rgb(35, 54, 112);;
+    --main-gear-color: rgb(17, 103, 216);
+    --main-gear-deactive-color: #084C61;
+
+    --main-banner-color: #eeb244;
+    --main-tab-color:white;
   }
 
 #logo{
@@ -12,6 +15,8 @@
 
 body{
     font-family: roboto;
+    background-color: var(--main-banner-color);
+    color: white;
 }
 
 #banner{
@@ -115,9 +120,10 @@ body{
 
 .tabContentHolder{
     width: 100%;
-    height: calc(100% - 20px);
+    height: 100%;
     float: left;
     border-top: 2px solid black;    
+    color: black;
 } 
 
 .tab{
@@ -125,6 +131,7 @@ body{
     height: 100%;
     visibility: hidden;
     display: none;
+    background-color:  var(--main-tab-color);
 }
 
 
@@ -152,15 +159,17 @@ body{
 .item{
     margin: 10px;
     width: 160px;
-    height: 240px;
+    height: 200px;
     box-sizing: border-box;
     border: 2px solid lightgray;
     padding: 5px;
     position: relative;
     box-shadow: 2px 2px gray;
     transition: 0.5s;
-    border-radius: 2px;
+    border-radius: 5px;
     overflow: hidden;
+    background-color: white;
+    color: black;
 }
 
 .gameList  .item:hover{
@@ -173,7 +182,7 @@ body{
 
 .item > .itemImg{
     width: 100%;
-    height: 160px;
+    height: 120px;
     white-space: nowrap;
     text-align: center;
     display: inline-table;
@@ -440,6 +449,7 @@ body{
 .btnLoadMore{
     width: 200px;
     height: 40px;
+    margin-top: 20px;
     border: none;
     outline: none;
     cursor: pointer;
