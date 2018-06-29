@@ -208,9 +208,9 @@ public class GameService {
         }
     }
 
-    public Games getAllGames() {
+    public Games getAllGames(Integer categoryId) {
         Games games = new Games();
-        games.setGame(this.gameRepository.getAllGames());
+        games.setGame(this.gameRepository.getAllGames(5,1,1));
         return games;
     }
 

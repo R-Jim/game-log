@@ -4,18 +4,12 @@ import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.model.Games;
 import io.shocker.gamelog.service.GameService;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.ResponseEntity.status;
 
 @Controller
 @RequestMapping(value = "/game")
@@ -37,7 +31,7 @@ public class GameController {
     @GetMapping(value = "", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
     public Games getGameList() {
-        Games games = this.gameService.getAllGames();
+        Games games = this.gameService.getAllGames(null);
         return games;
     }
 
