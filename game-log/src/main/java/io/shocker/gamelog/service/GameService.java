@@ -208,9 +208,13 @@ public class GameService {
         }
     }
 
-    public Games getAllGames(Integer categoryId) {
+    public Games getAllGames(Integer currentPage, Integer categoryId) {
         Games games = new Games();
-        games.setGame(this.gameRepository.getAllGames(5,1,1));
+        if (currentPage==null){
+            currentPage = 1;
+        }
+        int offset = 10 * (currentPage - 1);
+        games.setGame(this.gameRepository.getAllGames(10,offset,categoryId));
         return games;
     }
 

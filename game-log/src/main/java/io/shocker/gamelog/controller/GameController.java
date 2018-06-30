@@ -5,10 +5,10 @@ import io.shocker.gamelog.model.Games;
 import io.shocker.gamelog.service.GameService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 
 @Controller
@@ -28,10 +28,11 @@ public class GameController {
         return modelAndView;
     }
 
-    @GetMapping(value = "", produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(value = {""}, produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
-    public Games getGameList() {
-        Games games = this.gameService.getAllGames(null);
+    public Games getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
+            , @RequestParam(value = "categoryId", required = false) Integer categoryId) {
+        Games games = this.gameService.getAllGames(currentPage, categoryId);
         return games;
     }
 

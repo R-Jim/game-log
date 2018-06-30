@@ -1,3 +1,80 @@
+// traversalDOMTree("GET","http://localhost:8080/game/category","//*[local-name()='category']");
+
+function traversalDOMTree(method, url, parseFunction, tabId) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var doc = this.responseXML;
+            parseFunction(doc, tabId);
+        }
+    };
+    xhttp.open(method, url, false);
+    xhttp.send();
+}
+
+
+function printGameData(doc, tabId) {
+    var result = doc.getElementsByTagName("game");
+    for (var i = 0; i < result.length; i++) {
+        var imgSrc = result[i].getAttribute("img");
+        var itemName = result[i].getAttribute("name");
+        var itemPrice = result[i].getElementsByTagName("price")[0].nodeValue;
+        newItem(tabId, imgSrc, itemName, null, itemPrice);
+    }
+}
+
+function newItem(tabId, imgSrc, itemName, itemType, itemPrice) {
+// <div class="item" id="10">
+//         <div class="btnCompare">
+//         <div class="tri"></div>
+//         <div class="icon"> So sánh</div>
+//     </div>
+//     <div class="itemImg">
+//         <span class="imgHelper"></span>
+//         <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
+//         </div>
+//         <div class="itemName">Gunbound</div>
+//         <div class="itemType">Turn-based</div>
+//         <div class="itemPrice">20.00 $</div>
+//     </div>
+    var tabContent = document.getElementById(tabId + "Content");
+    var itemList = tabContent.getElementsByClassName("itemList")[0];
+    var item = document.createElement("div");
+    item.className = "item";
+
+    var btnCompare = document.createElement("div");
+    btnCompare.className = "btnCompare";
+    var tri = document.createElement("div");
+    tri.className = "tri";
+    var icon = document.createElement("div");
+    icon.className = "icon";
+    icon.textContent = "So Sánh";
+    btnCompare.appendChild(tri);
+    btnCompare.appendChild(icon);
+    item.appendChild(btnCompare);
+
+    var itemImg = document.createElement("div");
+    itemImg.className = "itemImg";
+    var imgHelper = document.createElement("span");
+    imgHelper.className = "imgHelper";
+    var img = document.createElement("img");
+    img.src = imgSrc;
+    itemImg.appendChild(imgHelper);
+    itemImg.appendChild(img);
+    item.appendChild(itemImg);
+
+    var name = document.createElement("div");
+    name.className = "itemName";
+    name.textContent = itemName;
+    item.appendChild(name);
+
+    var price = document.createElement("div");
+    price.className = "itemPrice";
+    price.textContent = itemPrice;
+    item.appendChild(price);
+
+    itemList.appendChild(item);
+}
 
 
 var lastTab = null;
@@ -41,6 +118,7 @@ function addTab(type, tabIndicatorHolder) {
     if (lastTab == null) {
         changeTab(tabIndicator.id.substring(0, tabIndicator.id.length - 9));
     }
+    traversalDOMTree("GET", "http://localhost:8080/game", printGameData, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
     tabCount++;
 }
 
@@ -48,6 +126,7 @@ setUpItemEvent();
 var cmpUp = false;
 
 var gamesInCompareTab = false;
+
 function setUpItemEvent() {
     var items = document.getElementsByClassName("item");
     for (var i = 0; i < items.length; i++) {
@@ -89,7 +168,9 @@ function setUpItemEvent() {
                     this.parentElement.style.minWidth = "0";
                     var node = this.parentElement.parentElement.children[0];
                     this.parentElement.classList.add((this.parentElement.id == node.id) ? "cmpItem-remove-first" : "cmpItem-remove");
-                    this.parentElement.addEventListener('animationend', function (evt) { this.remove(); });
+                    this.parentElement.addEventListener('animationend', function (evt) {
+                        this.remove();
+                    });
                 }
                 cmpItem.addEventListener('animationend', function (evt) {
                     this.style.minWidth = "100px";
@@ -114,6 +195,7 @@ function setUpItemEvent() {
 }
 
 function changeTab(tabId) {
+
     if (lastTab == tabId) {
         return;
     }
@@ -176,6 +258,7 @@ function closeTab(ev, tabId) {
 }
 
 setUpCompareTabEvent();
+
 function setUpCompareTabEvent() {
     var btnHide = document.getElementById("btnHideCompareTab");
     btnHide.onclick = function () {
@@ -225,3 +308,4 @@ function compareScreenPopUp() {
         cmpScreen.style.opacity = 0;
     }
 }
+
