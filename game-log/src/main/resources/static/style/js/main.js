@@ -1,61 +1,25 @@
-// function addTabHolder() {
-//     var mainContend = document.getElementById("mainContent");
-//     var fragment = document.createElement("div");
 
-//     fragment.className = "tabHolder";
-
-//     var tabIndicatorHolder = document.createElement("div");
-//     tabIndicatorHolder.className = "tabIndicatorHolder";
-
-//     var gameTabIndi = document.createElement("div");
-//     gameTabIndi.className = "game";
-//     gameTabIndi.innerText = "Game";
-
-//     tabIndicatorHolder.appendChild(gameTabIndi);
-
-//     var tabToolbar = document.createElement("div");
-//     tabToolbar.className = "tabToolbar";
-//     var btnAddGame = document.createElement("button");
-//     btnAddGame.textContent = "+ Game";
-//     var btnAddGear = document.createElement("button");
-//     btnAddGear.textContent = "+ Gear";
-//     tabToolbar.appendChild(btnAddGame);
-//     tabToolbar.appendChild(btnAddGear);
-
-//     var tabContentHolder = document.createElement("tabContentHolder");
-//     tabContentHolder.className = "tabContentHolder";
-
-//     var tab = document.createElement("div");
-//     tab.className = "tab";
-
-//     var itemHolder = document.createElement("div");
-//     itemHolder.className = "itemHolder";
-//     for (var i = 0; i < 8; i++) {
-//         var item = document.createElement("div");
-//         item.className = "item";
-//         itemHolder.appendChild(item);
-//     }
-
-//     tab.appendChild(itemHolder);
-//     tabContentHolder.appendChild(tab);
-
-//     fragment.appendChild(tabIndicatorHolder);
-//     fragment.appendChild(tabToolbar);
-//     fragment.appendChild(tabContentHolder);
-
-//     mainContend.appendChild(fragment);
-// }
 
 var lastTab = null;
 var tabCount = 1;
-addTab(0, "fragment1tabIndicatorHolder");
-addTab(1, "fragment1tabIndicatorHolder");
+addTab(0, "tabIndicatorHolder");
+addTab(1, "tabIndicatorHolder");
 
 function addTab(type, tabIndicatorHolder) {
     var tabIndicatorHolder = document.getElementById(tabIndicatorHolder);
     var tabIndicator = document.createElement("div");
     tabIndicator.className = (type == 0) ? "gameTabIndicator tabIndicator" : "gearTabIndicator tabIndicator";
-    tabIndicator.textContent = (type == 0) ? "Game" : "Gear";
+
+    var indicator = document.createElement("ion-icon");
+    indicator.name = (type == 0) ? "logo-game-controller-a" : "tv";
+    indicator.className = "indicatorIndicator";
+
+    tabIndicator.appendChild(indicator);
+
+    var span = document.createElement("span");
+    span.textContent = (type == 0) ? "Game" : "Gear";
+    tabIndicator.appendChild(span);
+
     var a = document.createElement("a");
     var i = document.createElement("ion-icon");
     i.name = "close";
@@ -72,7 +36,8 @@ function addTab(type, tabIndicatorHolder) {
         changeTab(id);
     }
 
-    tabIndicatorHolder.appendChild(tabIndicator);
+    // tabIndicatorHolder.appendChild(tabIndicator);
+    tabIndicatorHolder.insertBefore(tabIndicator, tabIndicatorHolder.childNodes[tabIndicatorHolder.childNodes.length - 2]);
     if (lastTab == null) {
         changeTab(tabIndicator.id.substring(0, tabIndicator.id.length - 9));
     }
@@ -252,11 +217,11 @@ function checkScrollBtn(holder) {
 function compareScreenPopUp() {
     var cmpScreen = document.getElementById("compareScreen");
     var visible = cmpScreen.style.visibility;
-    if(visible == "hidden" || visible=="") {
-        cmpScreen.style.visibility =  "visible";
+    if (visible == "hidden" || visible == "") {
+        cmpScreen.style.visibility = "visible";
         cmpScreen.style.opacity = 1;
-    }else{
-        cmpScreen.style.visibility =  "hidden";
+    } else {
+        cmpScreen.style.visibility = "hidden";
         cmpScreen.style.opacity = 0;
     }
 }
