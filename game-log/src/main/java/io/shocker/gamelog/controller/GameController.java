@@ -32,6 +32,7 @@ public class GameController {
     @ResponseBody
     public Games getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
             , @RequestParam(value = "categoryId", required = false) Integer categoryId) {
+        System.out.println(currentPage+","+categoryId);
         Games games = this.gameService.getAllGames(currentPage, categoryId);
         return games;
     }

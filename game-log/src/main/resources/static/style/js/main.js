@@ -2,6 +2,7 @@
 
 function traversalDOMTree(method, url, parseFunction, tabId) {
     var xhttp = new XMLHttpRequest();
+    console.log(url);
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var doc = this.responseXML;
@@ -12,18 +13,38 @@ function traversalDOMTree(method, url, parseFunction, tabId) {
     xhttp.send();
 }
 
+function printCategoryData(doc, tabId) {
+    var result = doc.getElementsByTagName("category");
+
+    var tabContent = document.getElementById(tabId + "DropSrch");
+
+    for (var i = 0; i < result.length; i++) {
+        var id = result[i].getAttribute("id");
+        var name = result[i].childNodes[0].nodeValue;
+
+        var option = document.createElement("option");
+        option.value = id;
+        option.label = name;
+        tabContent.appendChild(option);
+    }
+};
 
 function printGameData(doc, tabId) {
     var result = doc.getElementsByTagName("game");
+
+    var tabContent = document.getElementById(tabId + "Content");
+    var itemList = tabContent.getElementsByClassName("itemList")[0];
+
     for (var i = 0; i < result.length; i++) {
         var imgSrc = result[i].getAttribute("img");
         var itemName = result[i].getAttribute("name");
         var itemPrice = result[i].getElementsByTagName("price")[0].nodeValue;
-        newItem(tabId, imgSrc, itemName, null, itemPrice);
+
+        newItem(itemList, imgSrc, itemName, null, itemPrice);
     }
 }
 
-function newItem(tabId, imgSrc, itemName, itemType, itemPrice) {
+function newItem(itemList, imgSrc, itemName, itemType, itemPrice) {
 // <div class="item" id="10">
 //         <div class="btnCompare">
 //         <div class="tri"></div>
@@ -37,8 +58,6 @@ function newItem(tabId, imgSrc, itemName, itemType, itemPrice) {
 //         <div class="itemType">Turn-based</div>
 //         <div class="itemPrice">20.00 $</div>
 //     </div>
-    var tabContent = document.getElementById(tabId + "Content");
-    var itemList = tabContent.getElementsByClassName("itemList")[0];
     var item = document.createElement("div");
     item.className = "item";
 
@@ -74,6 +93,28 @@ function newItem(tabId, imgSrc, itemName, itemType, itemPrice) {
     item.appendChild(price);
 
     itemList.appendChild(item);
+}
+
+function loadMore(element, url) {
+    var id = element.id.substring(0, element.id.length - 8);
+    var currentPage = document.getElementById(id + "CurrentPage");
+    currentPage.value = +currentPage.value + 1;
+
+    var categoryId = document.getElementById(id + "DropSrch").value;
+    var categoryUrl = (categoryId == "null") ? "" : "&categoryId=" + categoryId;
+    traversalDOMTree("GET", url + "?currentPage=" + currentPage.value + categoryUrl, printGameData, id);
+}
+
+function sortByCategory(element, url) {
+
+    var id = element.id.substring(0, element.id.length - 8);
+    var categoryId = element.value;
+
+    var tabContent = document.getElementById(id + "Content");
+    var itemList = tabContent.getElementsByClassName("itemList")[0];
+    itemList.innerHTML = "";
+
+    traversalDOMTree("GET", url + "?categoryId=" + categoryId, printGameData, id);
 }
 
 
@@ -118,7 +159,11 @@ function addTab(type, tabIndicatorHolder) {
     if (lastTab == null) {
         changeTab(tabIndicator.id.substring(0, tabIndicator.id.length - 9));
     }
+    var currentPage = document.getElementById(tabIndicator.id.substring(0, tabIndicator.id.length - 9) + "CurrentPage");
+    currentPage.value = 1;
     traversalDOMTree("GET", "http://localhost:8080/game", printGameData, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
+    traversalDOMTree("GET", "http://localhost:8080/game/category", printCategoryData, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
+
     tabCount++;
 }
 

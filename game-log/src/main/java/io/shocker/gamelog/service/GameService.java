@@ -214,7 +214,11 @@ public class GameService {
             currentPage = 1;
         }
         int offset = 10 * (currentPage - 1);
-        games.setGame(this.gameRepository.getAllGames(10,offset,categoryId));
+        String cateId = "%";
+        if (categoryId!=null){
+            cateId = String.valueOf(categoryId);
+        }
+        games.setGame(this.gameRepository.getAllGames(10,offset,cateId));
         return games;
     }
 
