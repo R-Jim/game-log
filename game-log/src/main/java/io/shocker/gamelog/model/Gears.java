@@ -95,6 +95,10 @@ public class Gears {
     }
 
 
+    public void setGear(List<Gear> gear) {
+        this.gear = gear;
+    }
+
     /**
      * <p>Java class for anonymous complex type.
      * <p>

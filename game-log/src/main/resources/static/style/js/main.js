@@ -1,5 +1,7 @@
 // traversalDOMTree("GET","http://localhost:8080/game/category","//*[local-name()='category']");
 
+//Start traversal
+
 function traversalDOMTree(method, url, parseFunction, tabId) {
     var xhttp = new XMLHttpRequest();
     console.log(url);
@@ -29,6 +31,7 @@ function printCategoryData(doc, tabId) {
     }
 };
 
+
 function printGameData(doc, tabId) {
     var result = doc.getElementsByTagName("game");
 
@@ -38,11 +41,34 @@ function printGameData(doc, tabId) {
     for (var i = 0; i < result.length; i++) {
         var imgSrc = result[i].getAttribute("img");
         var itemName = result[i].getAttribute("name");
-        var itemPrice = result[i].getElementsByTagName("price")[0].nodeValue;
+        var x = result[i].getElementsByTagName("price")[0].childNodes[0];
+        var itemPrice = "";
+        if (x != null) {
+            itemPrice = x.nodeValue;
+        }
 
         newItem(itemList, imgSrc, itemName, null, itemPrice);
     }
 }
+
+function printGearData(doc, tabId) {
+    var result = doc.getElementsByTagName("gear");
+
+    var tabContent = document.getElementById(tabId + "Content");
+    var itemList = tabContent.getElementsByClassName("itemList")[0];
+
+    for (var i = 0; i < result.length; i++) {
+        var imgSrc = result[i].getAttribute("img");
+        var itemName = result[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+        var x = result[i].getElementsByTagName("price")[0].childNodes[0];
+        var itemPrice = "";
+        if (x != null) {
+            itemPrice = x.nodeValue;
+        }
+        newItem(itemList, imgSrc, itemName, null, itemPrice);
+    }
+}
+
 
 function newItem(itemList, imgSrc, itemName, itemType, itemPrice) {
 // <div class="item" id="10">
@@ -95,17 +121,18 @@ function newItem(itemList, imgSrc, itemName, itemType, itemPrice) {
     itemList.appendChild(item);
 }
 
-function loadMore(element, url) {
+function loadMore(element, url, type) {
     var id = element.id.substring(0, element.id.length - 8);
     var currentPage = document.getElementById(id + "CurrentPage");
     currentPage.value = +currentPage.value + 1;
 
     var categoryId = document.getElementById(id + "DropSrch").value;
     var categoryUrl = (categoryId == "null") ? "" : "&categoryId=" + categoryId;
-    traversalDOMTree("GET", url + "?currentPage=" + currentPage.value + categoryUrl, printGameData, id);
+    var functionName = (type==0)? printGameData : printGearData;
+    traversalDOMTree("GET", url + "?currentPage=" + currentPage.value + categoryUrl, functionName, id);
 }
 
-function sortByCategory(element, url) {
+function sortByCategory(element, url, type) {
 
     var id = element.id.substring(0, element.id.length - 8);
     var categoryId = element.value;
@@ -114,9 +141,12 @@ function sortByCategory(element, url) {
     var itemList = tabContent.getElementsByClassName("itemList")[0];
     itemList.innerHTML = "";
 
-    traversalDOMTree("GET", url + "?categoryId=" + categoryId, printGameData, id);
+    var functionName = (type==0)? printGameData : printGearData;
+    traversalDOMTree("GET", url + "?categoryId=" + categoryId, functionName, id);
 }
 
+
+//End traversal
 
 var lastTab = null;
 var tabCount = 1;
@@ -161,8 +191,10 @@ function addTab(type, tabIndicatorHolder) {
     }
     var currentPage = document.getElementById(tabIndicator.id.substring(0, tabIndicator.id.length - 9) + "CurrentPage");
     currentPage.value = 1;
-    traversalDOMTree("GET", "http://localhost:8080/game", printGameData, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
-    traversalDOMTree("GET", "http://localhost:8080/game/category", printCategoryData, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
+    var url = (type == 0) ? "http://localhost:8080/game" : "http://localhost:8080/gear";
+    var functionName = (type == 0) ? printGameData : printGearData;
+    traversalDOMTree("GET", url, functionName, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
+    traversalDOMTree("GET", url + "/category", printCategoryData, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
 
     tabCount++;
 }

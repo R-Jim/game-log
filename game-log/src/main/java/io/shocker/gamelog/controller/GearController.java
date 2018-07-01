@@ -1,12 +1,15 @@
 package io.shocker.gamelog.controller;
 
 import io.shocker.gamelog.model.Categories;
+import io.shocker.gamelog.model.Gears;
 import io.shocker.gamelog.service.GameService;
 import io.shocker.gamelog.service.GearService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,11 +29,20 @@ public class GearController {
         this.gearService = gearService;
     }
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/main")
     @ResponseBody
     public ModelAndView getMainPage(ModelAndView modelAndView) {
         modelAndView.setViewName("main.html");
         return modelAndView;
+    }
+
+    @GetMapping(value = {""}, produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody
+    public Gears getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
+            , @RequestParam(value = "categoryId", required = false) Integer categoryId) {
+        System.out.println(currentPage+","+categoryId);
+        Gears gears = this.gearService.getAllGears(currentPage, categoryId);
+        return gears;
     }
 
     @GetMapping(value = "/load")
@@ -39,15 +51,14 @@ public class GearController {
         this.gearService.crawlGear();
     }
 
-    @GetMapping(value = "/categories")
+    @GetMapping(value = "/category", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
-    public ResponseEntity<List<Categories.GearCategory>> getAll() {
-        List<Categories.GearCategory> domains = this.gearService.getAllCategories();
-        return !domains.isEmpty() ? status(OK).body(domains)
-                : status(NO_CONTENT).build();
+    public Categories getAll() {
+        Categories categories = this.gearService.getAllCategories();
+        return categories;
     }
 
-    @GetMapping(value = "/categories/load")
+    @GetMapping(value = "/category/load")
     @ResponseBody
     public void loadGameCategories() {
         this.gearService.crawlGearCategory();

@@ -31,8 +31,10 @@ public class GearService {
         this.gearHasCategoryRepository = gearHasCategoryRepository;
     }
 
-    public List<Categories.GearCategory> getAllCategories() {
-        return this.gearCategoryRepository.findAll();
+    public Categories getAllCategories() {
+        Categories categories = new Categories();
+        categories.setCategory(Categories.gearToCategoryList(this.gearCategoryRepository.findAll()));
+        return categories;
     }
 
     public Categories.GearCategory addCategory(Categories.GearCategory gearCategory) {
@@ -85,7 +87,7 @@ public class GearService {
 
         WebEnum webEnum = WebEnum.Gear;
         System.out.println("Finding Gear Source");
-        List<Categories.GearCategory> categories = this.getAllCategories();
+        List<Categories.GearCategory> categories = this.gearCategoryRepository.findAll();
         if (categories != null) {
             for (Categories.GearCategory category : categories) {
                 try {
@@ -132,4 +134,19 @@ public class GearService {
         return crawler.crawlingFromWeb(webEnum);
     }
 
+
+    public Gears getAllGears(Integer currentPage, Integer categoryId) {
+        Gears gears = new Gears();
+        if (currentPage==null){
+            currentPage = 1;
+        }
+        int offset = 10 * (currentPage - 1);
+        String cateId = "%";
+        if (categoryId!=null){
+            cateId = String.valueOf(categoryId);
+        }
+        System.out.println(offset+","+cateId);
+        gears.setGear(this.gearRepository.getAllGears(10,offset,cateId));
+        return gears;
+    }
 }
