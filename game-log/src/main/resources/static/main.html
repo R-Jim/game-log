@@ -23,9 +23,12 @@
 </div>
 <div class="left-content">
     <div id="tabIndicatorHolder" class="tabIndicatorHolder">
-        <div class="tabToolbar">
-            <button onclick="addTab(1, 'tabIndicatorHolder',true)" class="gear">+ Gear</button>
-            <button onclick="addTab(0, 'tabIndicatorHolder',true)" class="game">+ Game</button>
+        <div class="tabIndicator" style="background-color: #292929; padding: 0" onclick="tabToolBarVisible()">
+            <div id="tabToolbarOverlay" >Danh mục mới +</div>
+            <div id="tabToolbar">
+                <button onclick="addTab(1, 'tabIndicatorHolder',true)" class="gear" style="border-radius: 0 5px 5px 0;">+ Gear</button>
+                <button onclick="addTab(0, 'tabIndicatorHolder',true)" class="game" style="border-radius: 5px 0 0 5px;">+ Game</button>
+            </div>
         </div>
     </div>
 </div>
@@ -33,26 +36,26 @@
     <div id="mainContent" class="tabContentHolder">
 
     </div>
-    <!-- <div id="compareTab">
-        <div id="btnHideCompareTab">
-            <span>Hide</span>
-        </div>
-        <div id="cmpTypeHolder">
-            <div id="cmpLeft">
-                <button onclick="moveIt('gears',true)" class="left mover">&ltcc;</button>
-                <div id="games" class="typeHolder">
-                </div>
-                <button onclick="moveIt('games',false)" class="right mover">&gtcc;</button>
+</div>
+<div id="compareTab">
+    <div id="btnHideCompareTab">
+        <span>Hide</span>
+    </div>
+    <div id="cmpTypeHolder">
+        <div id="cmpLeft">
+            <button onclick="moveIt('gears',true)" class="left mover">&ltcc;</button>
+            <div id="games" class="typeHolder">
             </div>
-            <button id="btnCompare" onclick="compareScreenPopUp()">Compare</button>
-            <div id="cmpRight">
-                <button onclick="moveIt('gears',true)" class="left mover">&ltcc;</button>
-                <div id="gears" class="typeHolder">
-                </div>
-                <button onclick="moveIt('gears',false)" class="right mover">&gtcc;</button>
-            </div>
+            <button onclick="moveIt('games',false)" class="right mover">&gtcc;</button>
         </div>
-    </div> -->
+        <button id="btnCompare" onclick="compareScreenPopUp()">Compare</button>
+        <div id="cmpRight">
+            <button onclick="moveIt('gears',true)" class="left mover">&ltcc;</button>
+            <div id="gears" class="typeHolder">
+            </div>
+            <button onclick="moveIt('gears',false)" class="right mover">&gtcc;</button>
+        </div>
+    </div>
 </div>
 <div id="compareScreen">
     <a id="closeCompareScreen" onclick="compareScreenPopUp()">x</a>
