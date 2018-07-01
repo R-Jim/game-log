@@ -1,6 +1,15 @@
 // traversalDOMTree("GET","http://localhost:8080/game/category","//*[local-name()='category']");
+var url =
+    ['http://localhost:8080/game', 'http://localhost:8080/gear']
+;
 
 //Start traversal
+
+function createElementWithClassName(name, className) {
+    var element = document.createElement(name);
+    element.className = className;
+    return element;
+}
 
 function traversalDOMTree(method, url, parseFunction, tabId) {
     var xhttp = new XMLHttpRequest();
@@ -84,37 +93,29 @@ function newItem(itemList, imgSrc, itemName, itemType, itemPrice) {
 //         <div class="itemType">Turn-based</div>
 //         <div class="itemPrice">20.00 $</div>
 //     </div>
-    var item = document.createElement("div");
-    item.className = "item";
+    var item = createElementWithClassName("div", "item");
 
-    var btnCompare = document.createElement("div");
-    btnCompare.className = "btnCompare";
-    var tri = document.createElement("div");
-    tri.className = "tri";
-    var icon = document.createElement("div");
-    icon.className = "icon";
+    var btnCompare = createElementWithClassName("div", "btnCompare");
+    var tri = createElementWithClassName("div", "tri");
+    var icon = createElementWithClassName("div", "icon");
     icon.textContent = "So Sánh";
     btnCompare.appendChild(tri);
     btnCompare.appendChild(icon);
     item.appendChild(btnCompare);
 
-    var itemImg = document.createElement("div");
-    itemImg.className = "itemImg";
-    var imgHelper = document.createElement("span");
-    imgHelper.className = "imgHelper";
+    var itemImg = createElementWithClassName("div", "itemImg");
+    var imgHelper = createElementWithClassName("span", "imgHelper");
     var img = document.createElement("img");
     img.src = imgSrc;
     itemImg.appendChild(imgHelper);
     itemImg.appendChild(img);
     item.appendChild(itemImg);
 
-    var name = document.createElement("div");
-    name.className = "itemName";
+    var name = createElementWithClassName("div", "itemName");
     name.textContent = itemName;
     item.appendChild(name);
 
-    var price = document.createElement("div");
-    price.className = "itemPrice";
+    var price = createElementWithClassName("div", "itemPrice");
     price.textContent = itemPrice;
     item.appendChild(price);
 
@@ -128,7 +129,7 @@ function loadMore(element, url, type) {
 
     var categoryId = document.getElementById(id + "DropSrch").value;
     var categoryUrl = (categoryId == "null") ? "" : "&categoryId=" + categoryId;
-    var functionName = (type==0)? printGameData : printGearData;
+    var functionName = (type == 0) ? printGameData : printGearData;
     traversalDOMTree("GET", url + "?currentPage=" + currentPage.value + categoryUrl, functionName, id);
 }
 
@@ -141,7 +142,7 @@ function sortByCategory(element, url, type) {
     var itemList = tabContent.getElementsByClassName("itemList")[0];
     itemList.innerHTML = "";
 
-    var functionName = (type==0)? printGameData : printGearData;
+    var functionName = (type == 0) ? printGameData : printGearData;
     traversalDOMTree("GET", url + "?categoryId=" + categoryId, functionName, id);
 }
 
@@ -150,17 +151,17 @@ function sortByCategory(element, url, type) {
 
 var lastTab = null;
 var tabCount = 1;
-addTab(0, "tabIndicatorHolder");
-addTab(1, "tabIndicatorHolder");
+addTab(0, "tabIndicatorHolder",false);
+addTab(1, "tabIndicatorHolder",false);
+changeTab("tab"+1);
 
-function addTab(type, tabIndicatorHolder) {
+function addTab(type, tabIndicatorHolder, isChangeTab) {
     var tabIndicatorHolder = document.getElementById(tabIndicatorHolder);
     var tabIndicator = document.createElement("div");
     tabIndicator.className = (type == 0) ? "gameTabIndicator tabIndicator" : "gearTabIndicator tabIndicator";
 
-    var indicator = document.createElement("ion-icon");
+    var indicator = createElementWithClassName("ion-icon", "indicatorIndicator");
     indicator.name = (type == 0) ? "logo-game-controller-a" : "tv";
-    indicator.className = "indicatorIndicator";
 
     tabIndicator.appendChild(indicator);
 
@@ -176,8 +177,8 @@ function addTab(type, tabIndicatorHolder) {
     a.onclick = function (ev) {
         closeTab(ev, this.id);
     }
-
-    tabIndicator.id = "tab" + tabCount + "Indicator";
+    var id = "tab" + tabCount;
+    tabIndicator.id = id + "Indicator";
     tabIndicator.appendChild(a);
     tabIndicator.onclick = function () {
         var id = this.id.substring(0, this.id.length - 9);
@@ -186,90 +187,79 @@ function addTab(type, tabIndicatorHolder) {
 
     // tabIndicatorHolder.appendChild(tabIndicator);
     tabIndicatorHolder.insertBefore(tabIndicator, tabIndicatorHolder.childNodes[tabIndicatorHolder.childNodes.length - 2]);
-    if (lastTab == null) {
-        changeTab(tabIndicator.id.substring(0, tabIndicator.id.length - 9));
+    if (lastTab == null && isChangeTab) {
+        changeTab(id);
     }
-    var currentPage = document.getElementById(tabIndicator.id.substring(0, tabIndicator.id.length - 9) + "CurrentPage");
+    addTabContent(id,type);
+
+    var currentPage = document.getElementById(id + "CurrentPage");
     currentPage.value = 1;
     var url = (type == 0) ? "http://localhost:8080/game" : "http://localhost:8080/gear";
     var functionName = (type == 0) ? printGameData : printGearData;
-    traversalDOMTree("GET", url, functionName, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
-    traversalDOMTree("GET", url + "/category", printCategoryData, tabIndicator.id.substring(0, tabIndicator.id.length - 9));
+    traversalDOMTree("GET", url, functionName, id);
+    traversalDOMTree("GET", url + "/category", printCategoryData, id);
 
     tabCount++;
+}
+
+function addTabContent(tabId, type) {
+    var tabContent = createElementWithClassName("div", "tab");
+    tabContent.id = tabId + "Content";
+
+    var tabUtitlites = createElementWithClassName("div", "tabUtilities");
+
+    var inputCurrentPage = document.createElement("input");
+    inputCurrentPage.id = tabId + "CurrentPage";
+    inputCurrentPage.type = "hidden";
+    tabUtitlites.appendChild(inputCurrentPage);
+
+    var tabUtility = createElementWithClassName("span","tabUtility");
+    var text = document.createElement("span");
+    text.textContent = "Tìm Kiếm";
+    tabUtility.appendChild(text);
+    var txtSearch = document.createElement("input");
+    tabUtility.appendChild(txtSearch);
+    tabUtitlites.appendChild(tabUtility);
+
+    tabUtility = createElementWithClassName("span","tabUtility");
+    text = document.createElement("span");
+    text.textContent = "Lọc";
+    tabUtility.appendChild(text);
+    var dropbox = document.createElement("select");
+    dropbox.id = tabId + "DropSrch";
+    dropbox.onchange = function () {
+        sortByCategory(this, url[type], type);
+    }
+    var defaultDB = document.createElement("option");
+    defaultDB.label = "Tất cả";
+    defaultDB.value = null;
+    dropbox.appendChild(defaultDB);
+    tabUtility .appendChild(dropbox);
+    tabUtitlites.appendChild(tabUtility);
+    tabContent.appendChild(tabUtitlites);
+
+    var className = (type == 0) ? "gameList" : "gearList";
+    var itemListHolder = createElementWithClassName("div", "itemListHolder " + className);
+    var itemList = createElementWithClassName("div", "itemList");
+    itemListHolder.appendChild(itemList);
+    var btnLoadMore = createElementWithClassName("button", "btnLoadMore");
+    btnLoadMore.id = tabId + "LoadMore";
+    btnLoadMore.textContent = "Tải thêm";
+    btnLoadMore.onclick = function () {
+        loadMore(this,url[type],type)
+    }
+    itemListHolder.appendChild(btnLoadMore);
+    tabContent.appendChild(itemListHolder);
+
+
+    var mainContent = document.getElementById("mainContent");
+    mainContent.appendChild(tabContent);
 }
 
 setUpItemEvent();
 var cmpUp = false;
 
-var gamesInCompareTab = false;
 
-function setUpItemEvent() {
-    var items = document.getElementsByClassName("item");
-    for (var i = 0; i < items.length; i++) {
-        var button = items[i].childNodes[1];
-        if (button != null) {
-            button.onclick = function () {
-                var item = this.parentElement;
-                var isGame = this.parentElement.parentElement.parentElement.className.includes("gameList");
-
-                var list = (isGame) ? document.getElementById("games") : document.getElementById("gears");
-                var itemInCmpList = list.childNodes;
-
-                for (var i = 0; i < itemInCmpList.length; i++) {
-                    if (item.id == itemInCmpList[i].id) {
-                        return;
-                    }
-                }
-
-
-                var cmpItem = document.createElement("div");
-                cmpItem.className = "cmpItem";
-                cmpItem.id = item.id;
-                cmpItem.className = (isGame) ? "cmpGame cmpItem" : "cmpGear cmpItem";
-
-                var cmpListType = (isGame) ? document.getElementById("games") : document.getElementById("gears");
-
-                var image = document.createElement("div");
-                image.innerHTML = item.childNodes[3].innerHTML;
-                image.className = "cmpItemImg";
-
-                var cmpItemName = document.createElement("div");
-                cmpItemName.textContent = item.childNodes[5].textContent;
-
-                var removeButton = document.createElement("button");
-                removeButton.id = "removeCmpItemButton";
-                removeButton.textContent = "x";
-                removeButton.onclick = function () {
-                    this.parentElement.removeEventListener('animationend', null);
-                    this.parentElement.style.minWidth = "0";
-                    var node = this.parentElement.parentElement.children[0];
-                    this.parentElement.classList.add((this.parentElement.id == node.id) ? "cmpItem-remove-first" : "cmpItem-remove");
-                    this.parentElement.addEventListener('animationend', function (evt) {
-                        this.remove();
-                    });
-                }
-                cmpItem.addEventListener('animationend', function (evt) {
-                    this.style.minWidth = "100px";
-                    this.parentElement.scrollLeft = this.parentElement.scrollWidth - this.parentElement.clientWidth;
-                    checkScrollBtn(this.parentElement);
-                });
-                cmpItem.appendChild(removeButton);
-                cmpItem.appendChild(image);
-                cmpItem.appendChild(cmpItemName);
-
-                cmpListType.appendChild(cmpItem);
-                gamesInCompareTab = true;
-                if (gamesInCompareTab) {
-                    var compareTab = document.getElementById("compareTab");
-                    compareTab.style.bottom = "0px";
-                    compareTab.style.transitionDuration = "0.5s";
-                    cmpUp = true;
-                }
-            }
-        }
-    }
-}
 
 function changeTab(tabId) {
 
@@ -386,3 +376,71 @@ function compareScreenPopUp() {
     }
 }
 
+var gamesInCompareTab = false;
+
+function setUpItemEvent() {
+    var items = document.getElementsByClassName("item");
+    for (var i = 0; i < items.length; i++) {
+        var button = items[i].childNodes[1];
+        if (button != null) {
+            button.onclick = function () {
+                var item = this.parentElement;
+                var isGame = this.parentElement.parentElement.parentElement.className.includes("gameList");
+
+                var list = (isGame) ? document.getElementById("games") : document.getElementById("gears");
+                var itemInCmpList = list.childNodes;
+
+                for (var i = 0; i < itemInCmpList.length; i++) {
+                    if (item.id == itemInCmpList[i].id) {
+                        return;
+                    }
+                }
+
+
+                var cmpItem = document.createElement("div");
+                cmpItem.className = "cmpItem";
+                cmpItem.id = item.id;
+                cmpItem.className = (isGame) ? "cmpGame cmpItem" : "cmpGear cmpItem";
+
+                var cmpListType = (isGame) ? document.getElementById("games") : document.getElementById("gears");
+
+                var image = document.createElement("div");
+                image.innerHTML = item.childNodes[3].innerHTML;
+                image.className = "cmpItemImg";
+
+                var cmpItemName = document.createElement("div");
+                cmpItemName.textContent = item.childNodes[5].textContent;
+
+                var removeButton = document.createElement("button");
+                removeButton.id = "removeCmpItemButton";
+                removeButton.textContent = "x";
+                removeButton.onclick = function () {
+                    this.parentElement.removeEventListener('animationend', null);
+                    this.parentElement.style.minWidth = "0";
+                    var node = this.parentElement.parentElement.children[0];
+                    this.parentElement.classList.add((this.parentElement.id == node.id) ? "cmpItem-remove-first" : "cmpItem-remove");
+                    this.parentElement.addEventListener('animationend', function (evt) {
+                        this.remove();
+                    });
+                }
+                cmpItem.addEventListener('animationend', function (evt) {
+                    this.style.minWidth = "100px";
+                    this.parentElement.scrollLeft = this.parentElement.scrollWidth - this.parentElement.clientWidth;
+                    checkScrollBtn(this.parentElement);
+                });
+                cmpItem.appendChild(removeButton);
+                cmpItem.appendChild(image);
+                cmpItem.appendChild(cmpItemName);
+
+                cmpListType.appendChild(cmpItem);
+                gamesInCompareTab = true;
+                if (gamesInCompareTab) {
+                    var compareTab = document.getElementById("compareTab");
+                    compareTab.style.bottom = "0px";
+                    compareTab.style.transitionDuration = "0.5s";
+                    cmpUp = true;
+                }
+            }
+        }
+    }
+}
