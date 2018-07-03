@@ -14,4 +14,17 @@ public interface GearRepository extends JpaRepository<Gears.Gear,Integer> {
 
 
     Gears.Gear findByName(String name);
+
+
+    @Query(value = "SELECT DISTINCT cpu FROM tbl_gear",nativeQuery = true)
+    List<String> getProcessorType();
+
+    @Query(value = "SELECT DISTINCT ram FROM tbl_gear",nativeQuery = true)
+    List<String> getRamType();
+
+    @Query(value = "SELECT DISTINCT os FROM tbl_gear",nativeQuery = true)
+    List<String> getOsType();
+
+    @Query(value = "SELECT DISTINCT vga FROM tbl_gear",nativeQuery = true)
+    List<String> getGraphicType();
 }

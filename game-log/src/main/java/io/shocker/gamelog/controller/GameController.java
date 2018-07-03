@@ -1,5 +1,6 @@
 package io.shocker.gamelog.controller;
 
+import io.shocker.gamelog.config.SpecEnum;
 import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.model.Games;
 import io.shocker.gamelog.service.GameService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 
 
 @Controller
@@ -53,5 +55,32 @@ public class GameController {
     @ResponseBody
     public void loadGameCategories() {
         this.gameService.crawlGameCategory();
+    }
+
+    @GetMapping(value = "/type/os")
+    @ResponseBody
+    public List<String> loadGameOsType() {
+        return this.gameService.getSpecTypeData(SpecEnum.OS);
+    }
+
+
+    @GetMapping(value = "/type/ram")
+    @ResponseBody
+    public List<String> loadGameRamType() {
+        return this.gameService.getSpecTypeData(SpecEnum.Ram);
+    }
+
+
+    @GetMapping(value = "/type/cpu")
+    @ResponseBody
+    public List<String> loadGameCpuType() {
+        return this.gameService.getSpecTypeData(SpecEnum.CPU);
+    }
+
+
+    @GetMapping(value = "/type/gpu")
+    @ResponseBody
+    public List<String> loadGameGpuType() {
+        return this.gameService.getSpecTypeData(SpecEnum.GPU);
     }
 }

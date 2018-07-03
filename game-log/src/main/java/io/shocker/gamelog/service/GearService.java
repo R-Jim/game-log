@@ -1,5 +1,6 @@
 package io.shocker.gamelog.service;
 
+import io.shocker.gamelog.config.SpecEnum;
 import io.shocker.gamelog.config.WebEnum;
 import io.shocker.gamelog.crawler.BasicCrawler;
 import io.shocker.gamelog.crawler.GameCrawler;
@@ -16,6 +17,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -148,5 +150,28 @@ public class GearService {
         System.out.println(offset+","+cateId);
         gears.setGear(this.gearRepository.getAllGears(10,offset,cateId));
         return gears;
+    }
+
+
+    public List<String> getSpecTypeData(int type){
+        List<String> specList=null;
+        switch (type){
+            case SpecEnum.OS:
+                specList = this.gearRepository.getOsType();
+                break;
+            case SpecEnum.Ram:
+                specList = this.gearRepository.getRamType();
+                break;
+            case SpecEnum.CPU:
+                specList = this.gearRepository.getProcessorType();
+                break;
+            case SpecEnum.GPU:
+                specList = this.gearRepository.getGraphicType();
+                break;
+        }
+        if (specList!=null) {
+            specList.removeAll(Collections.singleton(null));
+        }
+        return specList;
     }
 }

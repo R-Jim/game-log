@@ -69,3 +69,4 @@ public enum WebEnum {
         this.url = url;
     }
 }
+

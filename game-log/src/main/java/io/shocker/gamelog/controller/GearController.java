@@ -1,5 +1,6 @@
 package io.shocker.gamelog.controller;
 
+import io.shocker.gamelog.config.SpecEnum;
 import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.model.Gears;
 import io.shocker.gamelog.service.GameService;
@@ -62,5 +63,33 @@ public class GearController {
     @ResponseBody
     public void loadGameCategories() {
         this.gearService.crawlGearCategory();
+    }
+
+
+    @GetMapping(value = "/type/os")
+    @ResponseBody
+    public List<String> loadGameOsType() {
+        return this.gearService.getSpecTypeData(SpecEnum.OS);
+    }
+
+
+    @GetMapping(value = "/type/ram")
+    @ResponseBody
+    public List<String> loadGameRamType() {
+        return this.gearService.getSpecTypeData(SpecEnum.Ram);
+    }
+
+
+    @GetMapping(value = "/type/cpu")
+    @ResponseBody
+    public List<String> loadGameCpuType() {
+        return this.gearService.getSpecTypeData(SpecEnum.CPU);
+    }
+
+
+    @GetMapping(value = "/type/gpu")
+    @ResponseBody
+    public List<String> loadGameGpuType() {
+        return this.gearService.getSpecTypeData(SpecEnum.GPU);
     }
 }

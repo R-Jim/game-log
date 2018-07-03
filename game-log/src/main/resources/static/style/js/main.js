@@ -449,3 +449,46 @@ function tabToolBarVisible() {
     tabToolbar.style.visibility = (tabToolbar.style.visibility == "hidden" || tabToolbar.style.visibility == "") ? "visible" : "hidden";
 }
 
+//Getting data type
+var os = [];
+var ram = [];
+var cpu = [];
+var gpu = [];
+processDataType();
+
+function processDataType() {
+    //Get os type data
+    os = (loadTypeToList("http://localhost:8080/game/type/os"));
+    os = os.concat(loadTypeToList("http://localhost:8080/gear/type/os"));
+    //Get ram type data
+    ram = loadTypeToList("http://localhost:8080/game/type/ram");
+    ram = ram.concat(loadTypeToList("http://localhost:8080/gear/type/ram"));
+    //Get cpu type data
+    cpu =  loadTypeToList("http://localhost:8080/game/type/cpu");
+    cpu = cpu.concat(loadTypeToList("http://localhost:8080/gear/type/cpu"));
+    //Get gpu type data
+    gpu =  loadTypeToList("http://localhost:8080/game/type/gpu");
+    gpu = gpu.concat(loadTypeToList("http://localhost:8080/gear/type/gpu"));
+
+}
+
+function loadTypeToList(url) {
+    var xhttp = new XMLHttpRequest();
+    console.log(url);
+    var tmpArray = [];
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var txt = this.responseText;
+            txt = txt.replace("[", "").replace("]", "").replace(/"/g,"");
+            alert(txt);
+            tmpArray = txt.split(",");
+        }
+    };
+    xhttp.open("GET", url, false);
+    xhttp.send();
+    return tmpArray;
+}
+
+function sortThatShit(array) {
+    alert(array);
+}
