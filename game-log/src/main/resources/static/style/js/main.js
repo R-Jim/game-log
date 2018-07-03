@@ -454,9 +454,9 @@ var os = [];
 var ram = [];
 var cpu = [];
 var gpu = [];
-processDataType();
+setUpDataType();
 
-function processDataType() {
+function setUpDataType() {
     //Get os type data
     os = (loadTypeToList("http://localhost:8080/game/type/os"));
     os = os.concat(loadTypeToList("http://localhost:8080/gear/type/os"));
@@ -464,12 +464,21 @@ function processDataType() {
     ram = loadTypeToList("http://localhost:8080/game/type/ram");
     ram = ram.concat(loadTypeToList("http://localhost:8080/gear/type/ram"));
     //Get cpu type data
-    cpu =  loadTypeToList("http://localhost:8080/game/type/cpu");
+    cpu = loadTypeToList("http://localhost:8080/game/type/cpu");
     cpu = cpu.concat(loadTypeToList("http://localhost:8080/gear/type/cpu"));
     //Get gpu type data
-    gpu =  loadTypeToList("http://localhost:8080/game/type/gpu");
+    gpu = loadTypeToList("http://localhost:8080/game/type/gpu");
     gpu = gpu.concat(loadTypeToList("http://localhost:8080/gear/type/gpu"));
 
+    //Remove dublicate
+    os = uniq(os);
+    //To matrix
+    os = processOSsypeList(os);
+    // console.log(os);
+    //Remove dublicate
+    ram = uniq(ram);
+    //To matrix
+    ram = processSpecTypeList(ram, "\\d{1,20} ?(GB|MB)");
 }
 
 function loadTypeToList(url) {
@@ -479,8 +488,7 @@ function loadTypeToList(url) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var txt = this.responseText;
-            txt = txt.replace("[", "").replace("]", "").replace(/"/g,"");
-            alert(txt);
+            txt = txt.replace("[", "").replace("]", "").replace(/"/g, "");
             tmpArray = txt.split(",");
         }
     };
@@ -489,6 +497,93 @@ function loadTypeToList(url) {
     return tmpArray;
 }
 
-function sortThatShit(array) {
-    alert(array);
+function uniq(array) {
+    var prims = {"boolean": {}, "number": {}, "string": {}}, objs = [];
+
+    return array.filter(function (item) {
+        var type = typeof item;
+        if (type in prims)
+            return prims[type].hasOwnProperty(item) ? false : (prims[type][item] = true);
+        else
+            return objs.indexOf(item) >= 0 ? false : objs.push(item);
+    });
 }
+
+
+function processSpecTypeList(array, regex) {
+    var processedArray = [];
+    for (var i = 0; i < array.length; i++) {
+        if (processedArray.length > 0) {
+            var fitInParent = false;
+            for (var j = 0; j < processedArray.length; j++) {
+                var parentArray = processedArray[j];
+                for (var z = 0; z < parentArray.length; z++) {
+                    var txt = parentArray[z].match(regex);
+                    if (txt != null) {
+                        if (array[i].includes(txt[0])) {
+                            parentArray.push(array[i]);
+                            fitInParent = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!fitInParent) {
+                var parentArray = [];
+                parentArray.push(array[i]);
+                processedArray.push(parentArray);
+            }
+
+        } else {
+            var parentArray = [];
+            parentArray.push(array[i]);
+            processedArray.push(parentArray);
+        }
+    }
+    return processedArray;
+}
+
+function processOSsypeList(array) {
+    console.log(array.length);
+    var processedArray = [];
+    var window7Array = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(Windows|Win|Window)( \\w*)*7");
+        if (txt != null) {
+            window7Array.push(array[i]);
+            array.splice(i,1);
+            i--;
+        }
+    }
+    console.log(window7Array.length);
+    console.log(array.length);
+    processedArray[0] = window7Array;
+    var window8Array = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(Windows|Win|Window)( \\w*)*8");
+        if (txt != null) {
+            window8Array.push(array[i]);
+            array.splice(i,1);
+            i--
+        }
+    }
+    processedArray[1] = window8Array;
+    var window10Array = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(Windows|Win|Window)( \\w*)*10");
+        if (txt != null) {
+            window8Array.push(array[i]);
+            array.splice(i,1);
+            i--
+        }
+    }
+    processedArray[2] = window10Array;
+    processedArray[3] = array;
+    console.log(window8Array.length);
+    console.log(array.toString());
+    console.log(processedArray);
+    return processedArray;
+}
+
+
+
