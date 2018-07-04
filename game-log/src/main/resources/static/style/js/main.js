@@ -473,12 +473,21 @@ function setUpDataType() {
     //Remove dublicate
     os = uniq(os);
     //To matrix
-    os = processOSsypeList(os);
-    // console.log(os);
+    os = processOsTypeList(os);
     //Remove dublicate
     ram = uniq(ram);
     //To matrix
     ram = processSpecTypeList(ram, "\\d{1,20} ?(GB|MB)");
+    //Remove dublicate
+    cpu = uniq(cpu);
+    //To matrix
+    cpu = processCpuTypeList(cpu);
+    //Remove dublicate
+    gpu = uniq(gpu);
+    //To matrix
+    // console.log(gpu.toString());
+    gpu = processGpuTypeList(gpu);
+
 }
 
 function loadTypeToList(url) {
@@ -543,27 +552,25 @@ function processSpecTypeList(array, regex) {
     return processedArray;
 }
 
-function processOSsypeList(array) {
-    console.log(array.length);
+function processOsTypeList(array) {
     var processedArray = [];
     var window7Array = [];
     for (var i = 0; i < array.length; i++) {
         var txt = array[i].match("(Windows|Win|Window)( \\w*)*7");
         if (txt != null) {
             window7Array.push(array[i]);
-            array.splice(i,1);
+            array.splice(i, 1);
             i--;
         }
     }
-    console.log(window7Array.length);
-    console.log(array.length);
+
     processedArray[0] = window7Array;
     var window8Array = [];
     for (var i = 0; i < array.length; i++) {
         var txt = array[i].match("(Windows|Win|Window)( \\w*)*8");
         if (txt != null) {
             window8Array.push(array[i]);
-            array.splice(i,1);
+            array.splice(i, 1);
             i--
         }
     }
@@ -573,17 +580,147 @@ function processOSsypeList(array) {
         var txt = array[i].match("(Windows|Win|Window)( \\w*)*10");
         if (txt != null) {
             window8Array.push(array[i]);
-            array.splice(i,1);
+            array.splice(i, 1);
             i--
         }
     }
     processedArray[2] = window10Array;
     processedArray[3] = array;
-    console.log(window8Array.length);
-    console.log(array.toString());
-    console.log(processedArray);
     return processedArray;
 }
 
+function processCpuTypeList(array) {
+    var processedArray = [];
+    var _4GHzArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(^4|[^\\d.]4)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
+        if (txt != null) {
+            _4GHzArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
 
+    processedArray[0] = _4GHzArray;
+    var _3GHzArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(^3|[^\\d.]3)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
+        if (txt != null) {
+            _3GHzArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[1] = _3GHzArray;
+    var _2GHzArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(^2|[^\\d.]2)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
+        if (txt != null) {
+            _2GHzArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[2] = _2GHzArray;
+    var _1GHzArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(^1|[^\\d.]1)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
+        if (txt != null) {
+            _1GHzArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[3] = _1GHzArray;
+    var IntelArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(Intel|Core i|i\\d)");
+        if (txt != null) {
+            IntelArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[4] = IntelArray;
+    // other shit
+    processedArray[5] = array;
+    return processedArray;
+}
+
+function processGpuTypeList(array) {
+    var processedArray = [];
+    var intelArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(Intel|intel)");
+        if (txt != null) {
+            intelArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[0] = intelArray;
+    var geforceArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(Geforce|GTX|GeForce|GEFORCE|NVIDIA|Nvidia|GT|geforce|gtx|Ge force)");
+        if (txt != null) {
+            geforceArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[1] = geforceArray;
+    var amdArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(AMD|Radeon)");
+        if (txt != null) {
+            amdArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[2] = amdArray;
+    var vramArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(VRAM|RAM|MB|GB|mb|Mb)");
+        if (txt != null) {
+            vramArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[3] = vramArray;
+    var directXArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("(DX|DirectX|Direct)");
+        if (txt != null) {
+            directXArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[4] = directXArray;
+    var resolutionArray = [];
+    for (var i = 0; i < array.length; i++) {
+        var txt = array[i].match("\\d ?(x|X) ?\\d");
+        if (txt != null) {
+            resolutionArray.push(array[i]);
+            array.splice(i, 1);
+            i--;
+        }
+    }
+
+    processedArray[5] = resolutionArray;
+    //get other shit
+    processedArray[6] = array;
+    return processedArray;
+}
 
