@@ -479,9 +479,41 @@ body{
     margin-right:auto;
 }
 
-#removeCmpItemButton{
+.removeCmpItemButton{
     position: absolute;
     right: 1px;
+}
+
+#gameCompareHolder{
+    width: 20%;
+    height: 100%;
+    box-sizing: border-box;
+    float: left;
+    border: 2px solid black;
+}
+#gearCompareHolder{
+    width: 20%;
+    height: 100%;
+    box-sizing: border-box;
+    float: right;
+    border: 2px solid black;
+}
+
+#compareStatScreen{
+    width: 57%;
+    height: 100%;
+    box-sizing: border-box;
+    float: left;
+    border: 2px solid black;
+    margin-left: 1.5%;
+}
+.cmpScreenItem{
+    width: 100%;
+    position: relative;
+}
+
+.cmpScreenItem .cmpItemImg{
+    width: 100%;
 }
 
 #cmpTypeHolder{
@@ -575,6 +607,9 @@ body{
     visibility: hidden;
     opacity:0;
     transition:visibility 0.3s ease,opacity 0.3s ease;
+    padding: 10px;
+    box-sizing: border-box;
+    padding-top: 30px;
 }
 #compareScreen>#closeCompareScreen{
     position: absolute;

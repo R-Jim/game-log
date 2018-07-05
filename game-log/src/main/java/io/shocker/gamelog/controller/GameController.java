@@ -44,7 +44,7 @@ public class GameController {
 
     @GetMapping(value = {"/spec"})
     @ResponseBody
-    public List<Spec> getGameSpec(@RequestParam(value = "gameId") Integer gameId) {
+    public List<Spec> getGameSpec(@RequestParam(value = "id") Integer gameId) {
         return this.gameService.getGameSpec(gameId);
     }
 

@@ -48,7 +48,7 @@ public class GearController {
 
     @GetMapping(value = {"/spec"})
     @ResponseBody
-    public Gears.Gear getGearDetail(@RequestParam(value = "gearId") Integer gearId) {
+    public Gears.Gear getGearDetail(@RequestParam(value = "id") Integer gearId) {
         return this.gearService.getGearDetail(gearId);
     }
 
