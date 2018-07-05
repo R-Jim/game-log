@@ -3,6 +3,7 @@ package io.shocker.gamelog.controller;
 import io.shocker.gamelog.config.SpecEnum;
 import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.model.Games;
+import io.shocker.gamelog.model.Spec;
 import io.shocker.gamelog.service.GameService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,18 @@ public class GameController {
     @ResponseBody
     public Games getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
             , @RequestParam(value = "categoryId", required = false) Integer categoryId) {
-        System.out.println(currentPage+","+categoryId);
+        System.out.println(currentPage + "," + categoryId);
         Games games = this.gameService.getAllGames(currentPage, categoryId);
         return games;
+    }
+
+
+
+
+    @GetMapping(value = {"/spec"})
+    @ResponseBody
+    public List<Spec> getGameSpec(@RequestParam(value = "gameId") Integer gameId) {
+        return this.gameService.getGameSpec(gameId);
     }
 
     @GetMapping(value = "/load")

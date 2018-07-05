@@ -16,8 +16,10 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameService {
@@ -212,22 +214,36 @@ public class GameService {
 
     public Games getAllGames(Integer currentPage, Integer categoryId) {
         Games games = new Games();
-        if (currentPage==null){
+        if (currentPage == null) {
             currentPage = 1;
         }
         int offset = 10 * (currentPage - 1);
         String cateId = "%";
-        if (categoryId!=null){
+        if (categoryId != null) {
             cateId = String.valueOf(categoryId);
         }
-        games.setGame(this.gameRepository.getAllGames(10,offset,cateId));
+        List<Game> gameList = this.gameRepository.getAllGames(10, offset, cateId);
+        for (Game game : gameList) {
+            //Get all tags
+            List<GameHasTag> tagList = this.gameHasTagRepository.findAllByGameId(game.getId());
+            List<String> tagNames = new ArrayList<>();
+            for (GameHasTag tag : tagList) {
+                Tag tagEntity = this.tagRepository.getById(tag.getTagId());
+                tagNames.add(tagEntity.getName());
+            }
+
+            Game.Tags tags = new Game.Tags();
+            tags.setTag(tagNames);
+            game.setTags(tags);
+        }
+        games.setGame(gameList);
         return games;
     }
 
 
-    public List<String> getSpecTypeData(int type){
-        List<String> specList=null;
-        switch (type){
+    public List<String> getSpecTypeData(int type) {
+        List<String> specList = null;
+        switch (type) {
             case SpecEnum.OS:
                 specList = this.specRepository.getOsType();
                 break;
@@ -241,9 +257,22 @@ public class GameService {
                 specList = this.specRepository.getGraphicType();
                 break;
         }
-        if (specList!=null) {
+        if (specList != null) {
             specList.removeAll(Collections.singleton(null));
         }
         return specList;
+    }
+
+    public List<Spec> getGameSpec(Integer gameId){
+        List<Spec> specs = new ArrayList<>();
+        Spec gameSpec = this.specRepository.findByGameIdAndMinimum(gameId, true);
+        if (gameSpec!=null){
+            specs.add(gameSpec);
+        }
+        gameSpec = this.specRepository.findByGameIdAndMinimum(gameId, false);
+        if (gameSpec!=null){
+            specs.add(gameSpec);
+        }
+        return specs;
     }
 }

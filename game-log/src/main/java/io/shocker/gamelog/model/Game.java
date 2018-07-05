@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_game")
 @NamedStoredProcedureQueries({
-        @NamedStoredProcedureQuery(name = "get_all_games",procedureName = "get_all_games")
+        @NamedStoredProcedureQuery(name = "get_all_games", procedureName = "get_all_games")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -262,6 +262,32 @@ public class Game implements Serializable {
             return this.tag;
         }
 
+        public void setTag(List<String> tag) {
+            this.tag = tag;
+        }
     }
 
+    @XmlTransient
+    private Spec minimumEntity;
+
+    @XmlTransient
+    private Spec recommendEntity;
+
+    @Transient
+    public Spec getMinimumEntity() {
+        return minimumEntity;
+    }
+
+    public void setMinimumEntity(Spec minimumEntity) {
+        this.minimumEntity = minimumEntity;
+    }
+
+    @Transient
+    public Spec getRecommendEntity() {
+        return recommendEntity;
+    }
+
+    public void setRecommendEntity(Spec recommendEntity) {
+        this.recommendEntity = recommendEntity;
+    }
 }

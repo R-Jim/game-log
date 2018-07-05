@@ -27,4 +27,6 @@ public interface GearRepository extends JpaRepository<Gears.Gear,Integer> {
 
     @Query(value = "SELECT DISTINCT vga FROM tbl_gear",nativeQuery = true)
     List<String> getGraphicType();
+
+    Gears.Gear getById(Integer id);
 }

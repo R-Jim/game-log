@@ -482,7 +482,7 @@ function setUpDataType() {
     // console.log(compareOsStat(os[1][2], os[2][3]));
     // console.log(cpu.toString());
     // compareCpuStat("Intel Core i7-4790 4.0GHz or equivalent", "Intel Celeron 1.10 GHz");
-    compareGpuStat("NVIDIA GeForce 940MX 4 GB","Intel HD Graphics 3000 or equivalent");
+    // compareGpuStat("NVIDIA GeForce 940MX 4 GB","Intel HD Graphics 3000 or equivalent");
 }
 
 function loadTypeToList(url) {

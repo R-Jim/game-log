@@ -152,6 +152,10 @@ public class GearService {
         return gears;
     }
 
+    public Gears.Gear getGearDetail(Integer gearId){
+        return this.gearRepository.getById(gearId);
+    }
+
 
     public List<String> getSpecTypeData(int type){
         List<String> specList=null;
