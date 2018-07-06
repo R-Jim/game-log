@@ -484,43 +484,6 @@ body{
     right: 1px;
 }
 
-#gameCompareHolder{
-    width: 20%;
-    height: 100%;
-    box-sizing: border-box;
-    float: left;
-    border: 2px solid black;
-}
-#gearCompareHolder{
-    width: 20%;
-    height: 100%;
-    box-sizing: border-box;
-    float: right;
-    border: 2px solid black;
-}
-
-#compareStatScreen{
-    width: 57%;
-    height: 100%;
-    box-sizing: border-box;
-    float: left;
-    border: 2px solid black;
-    margin-left: 1.5%;
-}
-.cmpScreenItem{
-    width: 100%;
-    position: relative;
-}
-
-.cmpScreenItem .cmpItemImg{
-    width: 100%;
-}
-
-#cmpTypeHolder{
-    height: 80px;
-    width: 100%;
-}
-
 .mover{
     width: 30px;
     height: 30px;
@@ -594,7 +557,7 @@ body{
 }
 
 #compareScreen{
-    width: 60%;
+    width: 80%;
     height: 600px;
     min-width: 500px;
     background-color: white;
@@ -617,4 +580,60 @@ body{
     top: 10px;
     font-size: large;
     cursor: pointer;
+}
+
+
+#gameCompareHolder{
+    width: 15%;
+    height: 100%;
+    box-sizing: border-box;
+    float: left;
+    border: 2px solid black;
+}
+#gearCompareHolder{
+    width: 15%;
+    height: 100%;
+    box-sizing: border-box;
+    float: right;
+    border: 2px solid black;
+}
+
+#compareStatScreen{
+    width: 67%;
+    height: 100%;
+    box-sizing: border-box;
+    float: left;
+    border: 2px solid black;
+    margin-left: 1.5%;
+}
+.cmpScreenItem{
+    width: 100%;
+    position: relative;
+}
+
+.cmpScreenItem .cmpItemImg{
+    width: 100%;
+}
+
+#cmpTypeHolder{
+    height: 80px;
+    width: 100%;
+}
+
+#gameCmpData{
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+#gearCmpData{
+    width: 20%;
+    height: 100%;
+    float: right;
+}
+
+#cmpResult{
+    width: 57%;
+    height: 100%;
+    float: left;
+    margin-left: 1.5%;
 }

@@ -455,6 +455,7 @@ function compareScreenComparing() {
     gearHolder.innerHTML = "";
     for (var i = 0; i < games.length; i++) {
         var game = document.createElement("div");
+        game.id = games[i].id;
         game.className = "cmpScreenItem";
         var gameExist = false;
         for (var j = 0; j < gameChoosed.length; j++) {
@@ -470,11 +471,16 @@ function compareScreenComparing() {
             gameChoosed.push(gameSpec);
         }
         game.innerHTML = games[i].innerHTML;
+        game.onclick = function (ev) {
+            setIdForCmp(true, this.id);
+            comparingGameAndGear();
+        }
         gameHolder.appendChild(game);
     }
 
     for (var i = 0; i < gears.length; i++) {
         var gear = document.createElement("div");
+        gear.id = gears[i].id;
         gear.className = "cmpScreenItem";
         var gearExist = false;
         for (var j = 0; j < gearChoosed; j++) {
@@ -490,14 +496,18 @@ function compareScreenComparing() {
             gearChoosed.push(gearSpec);
         }
         gear.innerHTML = gears[i].innerHTML;
+        gear.onclick = function (ev) {
+            setIdForCmp(false, this.id);
+            comparingGameAndGear();
+        }
         gearHolder.appendChild(gear);
     }
     console.log(gameChoosed);
     console.log(gearChoosed);
 
-    setIdForCmp(true, gameChoosed[0][0]);
-    setIdForCmp(false, gearChoosed[0][0]);
-    comparingGameAndGear()
+    setIdForCmp(true, games[0].id);
+    setIdForCmp(false, gears[0].id);
+    comparingGameAndGear();
 }
 
 function castListToSpec(array) {
@@ -585,6 +595,15 @@ function comparingGameAndGear() {
         document.getElementById("cpuResult").textContent = compareCpuStat(game[1][0].processor,gear[1][0].processor);
         document.getElementById("ramResult").textContent = compareRamStat(game[1][0].memory,gear[1][0].memory);
         document.getElementById("graphicResult").textContent = compareGpuStat(game[1][0].graphic,gear[1][0].graphic);
+
+        document.getElementById("gameCmpData").innerHTML = game[1][0].os +"<br/>";
+        document.getElementById("gameCmpData").innerHTML += game[1][0].processor +"<br/>";
+        document.getElementById("gameCmpData").innerHTML += game[1][0].memory +"<br/>";
+        document.getElementById("gameCmpData").innerHTML += game[1][0].graphic +"<br/>";
+        document.getElementById("gearCmpData").innerHTML = gear[1][0].os +"<br/>";
+        document.getElementById("gearCmpData").innerHTML += gear[1][0].processor +"<br/>";
+        document.getElementById("gearCmpData").innerHTML += gear[1][0].memory +"<br/>";
+        document.getElementById("gearCmpData").innerHTML += gear[1][0].graphic +"<br/>";
     }
 }
 
@@ -946,11 +965,11 @@ function compareOsStat(os1, os2) {
         for (var j = 0; j < os[i].length; j++) {
             if (os1 == os[i][j]) {
                 console.log("1: "+i+"|"+j);
-                os1Score = i^1.5 * j / os[i].length;
+                os1Score = i^1.5 * j / os[i].length * 2;
             }
             if (os2 == os[i][j]) {
                 console.log("2: "+i+"|"+j);
-                os2Score = i^1.5 * j  / os[i].length;
+                os2Score = i^1.5 * j  / os[i].length * 2;
             }
         }
     }

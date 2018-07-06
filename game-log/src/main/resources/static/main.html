@@ -24,10 +24,14 @@
 <div class="left-content">
     <div id="tabIndicatorHolder" class="tabIndicatorHolder">
         <div class="tabIndicator" style="background-color: #292929; padding: 0" onclick="tabToolBarVisible()">
-            <div id="tabToolbarOverlay" >Danh mục mới +</div>
+            <div id="tabToolbarOverlay">Danh mục mới +</div>
             <div id="tabToolbar">
-                <button onclick="addTab(1, 'tabIndicatorHolder',true)" class="gear" style="border-radius: 0 5px 5px 0;">+ Gear</button>
-                <button onclick="addTab(0, 'tabIndicatorHolder',true)" class="game" style="border-radius: 5px 0 0 5px;">+ Game</button>
+                <button onclick="addTab(1, 'tabIndicatorHolder',true)" class="gear" style="border-radius: 0 5px 5px 0;">
+                    + Gear
+                </button>
+                <button onclick="addTab(0, 'tabIndicatorHolder',true)" class="game" style="border-radius: 5px 0 0 5px;">
+                    + Game
+                </button>
             </div>
         </div>
     </div>
@@ -61,10 +65,17 @@
     <a id="closeCompareScreen" onclick="compareScreenPopUp()">x</a>
     <div id="gameCompareHolder"></div>
     <div id="compareStatScreen">
-        <div id="osResult"></div><br/>
-        <div id="cpuResult"></div><br/>
-        <div id="ramResult"></div><br/>
-        <div id="graphicResult"></div>
+        <div id="gameCmpData"></div>
+        <div id="cmpResult">
+            <div id="osResult"></div>
+            <br/>
+            <div id="cpuResult"></div>
+            <br/>
+            <div id="ramResult"></div>
+            <br/>
+            <div id="graphicResult"></div>
+        </div>
+        <div id="gearCmpData"></div>
     </div>
     <div id="gearCompareHolder"></div>
 </div>
