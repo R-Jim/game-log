@@ -56,8 +56,9 @@ function printGameData(doc, tabId) {
         if (x != null) {
             itemPrice = x.nodeValue;
         }
+        var tags = result[i].getElementsByTagName("tags")[0];
 
-        newItem(itemList, "A" + itemId, imgSrc, itemName, null, itemPrice);
+        newItem(itemList, "A" + itemId, imgSrc, itemName, null, itemPrice, tags);
     }
 }
 
@@ -81,7 +82,7 @@ function printGearData(doc, tabId) {
 }
 
 
-function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice) {
+function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) {
 // <div class="item" id="10">
 //         <div class="btnCompare">
 //         <div class="tri"></div>
@@ -125,6 +126,18 @@ function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice) {
     var price = createElementWithClassName("div", "itemPrice");
     price.textContent = itemPrice;
     item.appendChild(price);
+
+    var tagsUl = createElementWithClassName("ul", "itemTags");
+    if (tags != null) {
+        var tagArray = tags.getElementsByTagName("tag");
+        for (var i = 0; i < tagArray.length; i++) {
+            var tag = createElementWithClassName("li", "itemTag");
+            tag.textContent = tagArray[i].childNodes[0].textContent;
+            console.log(tagArray[i].childNodes[0]);
+            tagsUl.appendChild(tag);
+        }
+        item.appendChild(tagsUl);
+    }
 
     itemList.appendChild(item);
 }
@@ -280,7 +293,7 @@ function addTabContent(tabId, type) {
 
     var tabUtility = createElementWithClassName("span", "tabUtility");
     var text = document.createElement("span");
-    text.textContent = "Tìm Kiếm";
+    text.textContent = "Tìm Kiếm ";
     tabUtility.appendChild(text);
     var txtSearch = document.createElement("input");
     tabUtility.appendChild(txtSearch);
@@ -288,7 +301,7 @@ function addTabContent(tabId, type) {
 
     tabUtility = createElementWithClassName("span", "tabUtility");
     text = document.createElement("span");
-    text.textContent = "Lọc";
+    text.textContent = "Lọc ";
     tabUtility.appendChild(text);
     var dropbox = document.createElement("select");
     dropbox.id = tabId + "DropSrch";
@@ -322,7 +335,6 @@ function addTabContent(tabId, type) {
 }
 
 var cmpUp = false;
-
 
 function changeTab(tabId) {
 
