@@ -217,12 +217,12 @@ public class GameService {
         if (currentPage == null) {
             currentPage = 1;
         }
-        int offset = 10 * (currentPage - 1);
+        int offset = 9 * (currentPage - 1);
         String cateId = "%";
         if (categoryId != null) {
             cateId = String.valueOf(categoryId);
         }
-        List<Game> gameList = this.gameRepository.getAllGames(10, offset, cateId);
+        List<Game> gameList = this.gameRepository.getAllGames(9, offset, cateId);
         for (Game game : gameList) {
             //Get all tags
             List<GameHasTag> tagList = this.gameHasTagRepository.findAllByGameId(game.getId());

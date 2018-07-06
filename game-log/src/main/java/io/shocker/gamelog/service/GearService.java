@@ -142,13 +142,13 @@ public class GearService {
         if (currentPage==null){
             currentPage = 1;
         }
-        int offset = 10 * (currentPage - 1);
+        int offset = 9 * (currentPage - 1);
         String cateId = "%";
         if (categoryId!=null){
             cateId = String.valueOf(categoryId);
         }
         System.out.println(offset+","+cateId);
-        gears.setGear(this.gearRepository.getAllGears(10,offset,cateId));
+        gears.setGear(this.gearRepository.getAllGears(9,offset,cateId));
         return gears;
     }
 

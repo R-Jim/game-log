@@ -522,9 +522,6 @@ body{
     top: 0;
 }
 .btnLoadMore{
-    width: 200px;
-    height: 40px;
-    margin-top: 20px;
     border: none;
     outline: none;
     cursor: pointer;

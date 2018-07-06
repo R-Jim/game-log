@@ -139,7 +139,7 @@ function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) 
         item.appendChild(tagsUl);
     }
 
-    itemList.appendChild(item);
+    itemList.insertBefore(item,itemList.getElementsByClassName("btnLoadMore")[0]);
 }
 
 function btnCompareEvent(element) {
@@ -320,13 +320,13 @@ function addTabContent(tabId, type) {
     var itemListHolder = createElementWithClassName("div", "itemListHolder " + className);
     var itemList = createElementWithClassName("div", "itemList");
     itemListHolder.appendChild(itemList);
-    var btnLoadMore = createElementWithClassName("button", "btnLoadMore");
+    var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
     btnLoadMore.id = tabId + "LoadMore";
     btnLoadMore.textContent = "Tải thêm";
     btnLoadMore.onclick = function () {
         loadMore(this, url[type], type)
     }
-    itemListHolder.appendChild(btnLoadMore);
+    itemList.appendChild(btnLoadMore);
     tabContent.appendChild(itemListHolder);
 
 
