@@ -641,15 +641,9 @@ body{
 }
 #switchCmpMode{
     position: absolute;
+    top: 10px;
 }
 
-/*#switchCmpModeRecommend{*/
-    /*pointer-events: none;*/
-/*}*/
-
-/*.hasRecommend #switchCmpModeRecommend{*/
-    /*background-color: yellow;*/
-/*}*/
 .meterGame{
     width: 50%;
     height: 100%;
@@ -663,7 +657,7 @@ body{
 
 .scoreBarHolder{
     margin-bottom: 10px;
-    height: 60px;
+    height: 30px;
 }
 
 .meterGame .scoreBar{

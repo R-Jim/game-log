@@ -644,9 +644,6 @@ function runScoreBar(typeScoreId, score) {
 }
 
 function clearCmpData() {
-    // document.getElementById("osResult").textContent = "";
-    // document.getElementById("cpuResult").textContent = "";
-    // document.getElementById("ramResult").textContent = "";
     var scorebars = document.getElementById("cmpResult").getElementsByClassName("scoreBar");
     for (var i = 0; i < scorebars.length; i++) {
         scorebars[i].style.width = "0px";
@@ -987,26 +984,29 @@ function compareRamStat(ram1, ram2) {
     console.log("compare: " + ram1 + " vs " + ram2);
     var ramI = 0;
     var ramJ = 0;
-
-    var txt = ram1.match("\\d{1,20} ?(GB|MB)");
-    if (txt != null) {
-        var multi = 1;
-        var index = txt[0].indexOf("MB");
-        if (index == -1) {
-            index = txt[0].indexOf("GB");
-            multi = 1024;//convert to MB
+    if (ram1 != null) {
+        var txt = ram1.match("\\d{1,20} ?(GB|MB)");
+        if (txt != null) {
+            var multi = 1;
+            var index = txt[0].indexOf("MB");
+            if (index == -1) {
+                index = txt[0].indexOf("GB");
+                multi = 1024;//convert to MB
+            }
+            ramI = parseInt(txt[0].substring(0, index)) * multi;
         }
-        ramI = parseInt(txt[0].substring(0, index)) * multi;
     }
-    var txtJ = ram2.match("\\d{1,20} ?(GB|MB)");
-    if (txtJ != null) {
-        multi = 1;
-        index = txtJ[0].indexOf("MB");
-        if (index == -1) {
-            index = txtJ[0].indexOf("GB");
-            multi = 1024;//convert to MB
+    if (ram2 != null) {
+        var txtJ = ram2.match("\\d{1,20} ?(GB|MB)");
+        if (txtJ != null) {
+            multi = 1;
+            index = txtJ[0].indexOf("MB");
+            if (index == -1) {
+                index = txtJ[0].indexOf("GB");
+                multi = 1024;//convert to MB
+            }
+            ramJ = parseInt(txtJ[0].substring(0, index)) * multi;
         }
-        ramJ = parseInt(txtJ[0].substring(0, index)) * multi;
     }
     return (ramI - ramJ) / 1024;
 }
@@ -1020,11 +1020,11 @@ function compareOsStat(os1, os2) {
         for (var j = 0; j < os[i].length; j++) {
             if (os1 == os[i][j]) {
                 console.log("1: " + i + "|" + j);
-                os1Score = i ^ 1.5 * j / os[i].length * 2;
+                os1Score = i ^ 1.3 * j / os[i].length * 1.5;
             }
             if (os2 == os[i][j]) {
                 console.log("2: " + i + "|" + j);
-                os2Score = i ^ 1.5 * j / os[i].length * 2;
+                os2Score = i ^ 1.3 * j / os[i].length * 1.5;
             }
         }
     }
@@ -1038,10 +1038,10 @@ function compareCpuStat(cpu1, cpu2) {
     for (var i = 0; i < cpu.length; i++) {
         for (var j = 0; j < cpu[i].length; j++) {
             if (cpu1 == cpu[i][j]) {
-                score1 = i ^ 1.5 + j / cpu[i].length;
+                score1 = i ^ 1.5 + j / cpu[i].length * 4;
             }
             if (cpu2 == cpu[i][j]) {
-                score2 = i ^ 1.5 + j / cpu[i].length;
+                score2 = i ^ 1.5 + j / cpu[i].length * 4;
             }
         }
     }
@@ -1055,10 +1055,10 @@ function compareGpuStat(gpu1, gpu2) {
     for (var i = 0; i < gpu.length; i++) {
         for (var j = 0; j < gpu[i].length; j++) {
             if (gpu1 == gpu[i][j]) {
-                score1 = i ^ 1.5 + j / gpu[i].length;
+                score1 = i ^ 1.5 + j / gpu[i].length * 4;
             }
             if (gpu2 == gpu[i][j]) {
-                score2 = i ^ 1.5 + j / gpu[i].length;
+                score2 = i ^ 1.5 + j / gpu[i].length * 4;
             }
         }
     }
