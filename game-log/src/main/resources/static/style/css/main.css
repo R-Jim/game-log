@@ -637,3 +637,14 @@ body{
     float: left;
     margin-left: 1.5%;
 }
+#switchCmpMode{
+    position: absolute;
+}
+
+/*#switchCmpModeRecommend{*/
+    /*pointer-events: none;*/
+/*}*/
+
+/*.hasRecommend #switchCmpModeRecommend{*/
+    /*background-color: yellow;*/
+/*}*/
