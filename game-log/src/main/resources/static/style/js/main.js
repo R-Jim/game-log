@@ -461,7 +461,7 @@ function compareScreenComparing() {
         for (var j = 0; j < gameChoosed.length; j++) {
             if (gameChoosed[j][0].includes(games[i].id)) {
                 gameExist = true;
-                if (gameChoosed[j][1][1]!=null){
+                if (gameChoosed[j][1][1] != null) {
                     game.className += " hasRecommend";
                 }
             }
@@ -595,6 +595,7 @@ function setIdForCmp(isGame, value) {
 
 function comparingGameAndGear(isMinimum) {
     document.getElementById("errorResult").textContent = "";
+    clearCmpData();
     if (gameIdCmpChoose != null && gearIdCmpChoose != null) {
         var game;
         var gear;
@@ -613,22 +614,52 @@ function comparingGameAndGear(isMinimum) {
         console.log(game);
         console.log(gear);
         var gameSpec = (isMinimum) ? game[1][0] : game[1][1];
-        document.getElementById("osResult").textContent = compareOsStat(gameSpec.os, gear[1][0].os);
-        document.getElementById("cpuResult").textContent = compareCpuStat(gameSpec.processor, gear[1][0].processor);
-        document.getElementById("ramResult").textContent = compareRamStat(gameSpec.memory, gear[1][0].memory);
-        document.getElementById("graphicResult").textContent = compareGpuStat(gameSpec.graphic, gear[1][0].graphic);
+        runScoreBar("osResult", compareOsStat(gameSpec.os, gear[1][0].os));
+        runScoreBar("cpuResult", compareCpuStat(gameSpec.processor, gear[1][0].processor));
+        runScoreBar("ramResult", compareRamStat(gameSpec.memory, gear[1][0].memory));
+        runScoreBar("graphicResult", compareGpuStat(gameSpec.graphic, gear[1][0].graphic));
 
-        document.getElementById("gameCmpData").innerHTML = gameSpec.os + "<br/>";
-        document.getElementById("gameCmpData").innerHTML += gameSpec.processor + "<br/>";
-        document.getElementById("gameCmpData").innerHTML += gameSpec.memory + "<br/>";
-        document.getElementById("gameCmpData").innerHTML += gameSpec.graphic + "<br/>";
-        document.getElementById("gearCmpData").innerHTML = gear[1][0].os + "<br/>";
-        document.getElementById("gearCmpData").innerHTML += gear[1][0].processor + "<br/>";
-        document.getElementById("gearCmpData").innerHTML += gear[1][0].memory + "<br/>";
-        document.getElementById("gearCmpData").innerHTML += gear[1][0].graphic + "<br/>";
+        document.getElementById("osGameResult").textContent = gameSpec.os;
+        document.getElementById("cpuGameResult").textContent += gameSpec.processor;
+        document.getElementById("ramGameResult").textContent += gameSpec.memory;
+        document.getElementById("graphicGameResult").textContent += gameSpec.graphic;
+        document.getElementById("osGearResult").textContent = gear[1][0].os;
+        document.getElementById("cpuGearResult").textContent += gear[1][0].processor;
+        document.getElementById("ramGearResult").textContent += gear[1][0].memory;
+        document.getElementById("graphicGearResult").textContent += gear[1][0].graphic;
     } else {
         document.getElementById("errorResult").textContent = "Are you missing something ?";
     }
+}
+
+function runScoreBar(typeScoreId, score) {
+    var typeScoreHolder = document.getElementById(typeScoreId);
+    if (score > 0) {
+        var scorebar = typeScoreHolder.getElementsByClassName("meterGame")[0].getElementsByClassName("scoreBar")[0];
+        scorebar.style.width = 20 * score + "px";
+    } else {
+        var scorebar = typeScoreHolder.getElementsByClassName("meterGear")[0].getElementsByClassName("scoreBar")[0];
+        scorebar.style.width = -1 * 20 * score + "px";
+    }
+}
+
+function clearCmpData() {
+    // document.getElementById("osResult").textContent = "";
+    // document.getElementById("cpuResult").textContent = "";
+    // document.getElementById("ramResult").textContent = "";
+    var scorebars = document.getElementById("cmpResult").getElementsByClassName("scoreBar");
+    for (var i = 0; i < scorebars.length; i++) {
+        scorebars[i].style.width = "0px";
+    }
+
+    document.getElementById("osGameResult").textContent = "";
+    document.getElementById("cpuGameResult").textContent = "";
+    document.getElementById("ramGameResult").textContent = "";
+    document.getElementById("graphicGameResult").textContent = "";
+    document.getElementById("osGearResult").textContent = "";
+    document.getElementById("cpuGearResult").textContent = "";
+    document.getElementById("ramGearResult").textContent = "";
+    document.getElementById("graphicGearResult").textContent = "";
 }
 
 var gamesInCompareTab = false;

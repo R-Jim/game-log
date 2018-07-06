@@ -605,6 +605,8 @@ body{
     float: left;
     border: 2px solid black;
     margin-left: 1.5%;
+    padding: 10px;
+    padding-top: 50px;
 }
 .cmpScreenItem{
     width: 100%;
@@ -648,3 +650,33 @@ body{
 /*.hasRecommend #switchCmpModeRecommend{*/
     /*background-color: yellow;*/
 /*}*/
+.meterGame{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+.meterGear{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.scoreBarHolder{
+    margin-bottom: 10px;
+    height: 60px;
+}
+
+.meterGame .scoreBar{
+    height: 100%;
+    background-color: #DB504A;
+    float: right;
+}
+.meterGear .scoreBar{
+    height: 100%;
+    background-color: mediumblue;
+    float: left;
+}
+
+.scoreBar{
+    transition: .6s;
+}
