@@ -33,13 +33,15 @@ public class GameController {
     @GetMapping(value = {""}, produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
     public Games getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
-            , @RequestParam(value = "categoryId", required = false) Integer categoryId) {
-        System.out.println(currentPage + "," + categoryId);
-        Games games = this.gameService.getAllGames(currentPage, categoryId);
+            , @RequestParam(value = "categoryId", required = false) String categoryId) {
+        Integer parsedCategoryId = null;
+        try {
+            parsedCategoryId = Integer.parseInt(categoryId);
+        } catch (NumberFormatException ex) {
+        }
+        Games games = this.gameService.getAllGames(currentPage, parsedCategoryId);
         return games;
     }
-
-
 
 
     @GetMapping(value = {"/spec"})

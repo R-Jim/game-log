@@ -6,28 +6,27 @@
 
     --main-background-color: #f5f7f8af;
     --main-banner-color: #f8f5f5c4;
-    --main-tab-color:#ffffff;
+    --main-tab-color: #ffffff;
     --main-left-tab-color: #ffffff;
     --main-indicator-color: #292929;
-  }
+}
 
-#logo{
+#logo {
     height: 100px;
     width: 500px;
 }
 
-body{
+body {
     font-family: roboto;
     /* background-image: url("am0pzVo2_700w_0.jpg"); */
     background-color: var(--main-background-color);
 }
 
-.description{
+.description {
     float: right;
 }
 
-
-#banner{
+#banner {
     width: 100%;
     float: left;
     padding-left: 20px;
@@ -37,28 +36,27 @@ body{
     /* color: white; */
 }
 
-#toolbar{
+#toolbar {
     right: 20px;
     position: absolute;
     top: 65px;
 }
 
-#toolbar button{
+#toolbar button {
     float: right;
 }
 
-
-.tabIndicatorHolder{
+.tabIndicatorHolder {
     width: 100%;
     float: left;
     padding: 20px;
     box-sizing: border-box;
 }
 
-.tabIndicatorHolder > div{
+.tabIndicatorHolder > div {
     width: 100%;
     height: 50px;
-    float: left;    
+    float: left;
     color: white;
     padding: 10px;
     display: flex;
@@ -71,67 +69,67 @@ body{
     position: relative;
 }
 
-
-.gameTabIndicator{
+.gameTabIndicator {
     background-color: var(--main-game-deactive-color);
 }
 
-.gameTabIndicator-active{
+.gameTabIndicator-active {
     background-color: var(--main-game-color);
 }
 
-.gearTabIndicator{
+.gearTabIndicator {
     background-color: var(--main-gear-deactive-color);
 }
 
-.gearTabIndicator-active{
+.gearTabIndicator-active {
     background-color: var(--main-gear-color);
 }
 
-
-.indicatorIndicator{
+.indicatorIndicator {
     font-size: x-large;
     margin-right: 10px;
 }
 
-.tabIndicatorHolder > div:hover{
+.tabIndicatorHolder > div:hover {
     color: yellow;
 }
 
-.tabIndicatorHolder > div:hover{
- cursor: pointer;
- box-shadow: none;
+.tabIndicatorHolder > div:hover {
+    cursor: pointer;
+    box-shadow: none;
 }
 
-.tabUtilities{
+.tabUtilities {
     padding: 10px;
     text-align: right;
     padding-right: 3.7%;
 }
 
-.tabUtilities .tabTitle{
+.tabUtilities .tabTitle {
     float: left;
     font-size: x-large;
     font-weight: bold;
     padding-left: 45px;
 }
-.tabUtility{
+
+.tabUtility {
     margin-left: 20px;
 }
 
-.tabUtility input, .tabUtility select{
+.tabUtility input, .tabUtility select {
     border-radius: 4px;
     outline: none;
     border: 1px solid gray;
     height: 25px;
 }
-#tabToolbarOverlay{
+
+#tabToolbarOverlay {
     width: 80%;
     position: absolute;
     padding-left: 10px;
 }
 
-#tabToolbar{
+#tabToolbar {
     width: 100%;
     height: 100%;
     float: left;
@@ -140,7 +138,7 @@ body{
     border-radius: 5px;
 }
 
-#tabToolbar button{
+#tabToolbar button {
     width: 50%;
     float: right;
     outline: none;
@@ -152,32 +150,29 @@ body{
     font-size: 16px;
     cursor: pointer;
 }
-    
-.tabIndicator > a{
+
+.tabIndicator > a {
     color: inherit;
     position: absolute;
     right: 5px;
 }
 
-.tabIndicator > a:hover{
+.tabIndicator > a:hover {
     color: white;
 }
 
-
-
-.tabIndicator:first-child a, .tabIndicator:nth-child(2) a{
+.tabIndicator:first-child a, .tabIndicator:nth-child(2) a {
     visibility: hidden;
 }
 
-
-#mainContent{
+#mainContent {
     width: 100%;
     margin-bottom: 20px;
-    height: 650px;
+    height: 700px;
     float: left;
 }
 
-.left-content{
+.left-content {
     height: 100%;
     width: 22%;
     float: left;
@@ -187,33 +182,34 @@ body{
     border-right: 2px solid var(--main-background-color);
 }
 
-
-.right-content{
+.right-content {
     width: 78%;
     float: left;
     box-sizing: border-box;
     padding-left: 10px;
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
 }
 
-.tabContentHolder{
+.tabContentHolder {
     width: 100%;
     height: 100%;
     float: left;
     color: black;
-} 
+}
 
-.tab{
+.tab {
     width: 100%;
     height: 100%;
     visibility: hidden;
     display: none;
-    background-color:  var(--main-tab-color);
-    padding: 20px;
+    background-color: var(--main-tab-color);
+    /*padding: 20px;*/
     box-sizing: border-box;
 }
 
-
-.itemListHolder{
+.itemListHolder {
     height: 95%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -222,22 +218,22 @@ body{
     text-align: center;
 }
 
-.itemList{
+.itemList {
     width: 100%;
     height: fit-content;
     float: left;
-    grid-gap: 20px;
+    grid-gap: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.item:nth-child(1), .item:nth-child(2){
+.item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4), .item:nth-child(5) {
     width: 340px;
 }
 
-.item{
-    margin: 10px;
+.item {
+    margin: 8px;
     width: 160px;
     height: 200px;
     box-sizing: border-box;
@@ -247,20 +243,48 @@ body{
     box-shadow: 2px 2px gray;
     transition: 0.5s;
     border-radius: 5px;
-    overflow: hidden;
     background-color: white;
-    /* flex-grow: 1; */
+    font-size: 1vw;
+    overflow: hidden;
 }
 
-.gameList  .item:hover{
+.itemName{
+    max-height: 18.4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.item .itemTags {
+    bottom: 4px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 30px;
+    position: absolute;
+}
+
+.itemTags .itemTag {
+    background-color: var(--main-game-color);
+    color: white;
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.gameList .item:hover {
     border: 2px solid var(--main-game-color);
 }
 
-.gearList  .item:hover{
+.gearList .item:hover {
     border: 2px solid var(--main-gear-color);
 }
 
-.item > .itemImg{
+.item > .itemImg {
     width: 100%;
     height: 120px;
     white-space: nowrap;
@@ -268,18 +292,19 @@ body{
     display: inline-table;
 }
 
-.item > .itemImg > img{
-    max-width:100%;
-    max-height:100%;
+.item > .itemImg > img {
+    max-width: 100%;
+    max-height: 100%;
     vertical-align: middle;
 }
 
-.item > .itemImg > .imgHelper{
+.item > .itemImg > .imgHelper {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
 }
-.item > .btnCompare{
+
+.item > .btnCompare {
     position: absolute;
     visibility: visible;
     right: -21px;
@@ -289,7 +314,7 @@ body{
     display: inline;
 }
 
-.btnCompare > .icon{
+.btnCompare > .icon {
     position: absolute;
     font-weight: bold;
     width: 80px;
@@ -300,7 +325,7 @@ body{
     border-bottom: 2px solid lightgray;
 }
 
-.btnCompare > .tri{
+.btnCompare > .tri {
     position: absolute;
     font-weight: bold;
     border: solid 28px;
@@ -310,27 +335,27 @@ body{
     right: -38px;
 }
 
-.item:hover > .btnCompare{
-    right:80px;
-  }
+.item:hover > .btnCompare {
+    right: 80px;
+}
 
-.gameList .btnCompare > .icon, .game{
+.gameList .btnCompare > .icon, .game {
     background-color: var(--main-game-color);
 }
 
-.gearList .btnCompare > .icon, .gear{
+.gearList .btnCompare > .icon, .gear {
     background-color: var(--main-gear-color);
 }
 
-.gameList .btnCompare > .tri{
-    border-color: transparent transparent var(--main-game-color) var(--main-game-color);   
+.gameList .btnCompare > .tri {
+    border-color: transparent transparent var(--main-game-color) var(--main-game-color);
 }
 
-.gearList .btnCompare > .tri{
+.gearList .btnCompare > .tri {
     border-color: transparent transparent var(--main-gear-color) var(--main-gear-color);
 }
 
-#compareTab{
+#compareTab {
     width: 100%;
     height: 100px;
     position: fixed;
@@ -339,15 +364,15 @@ body{
     bottom: -100px;
 }
 
-#cmpTypeHolder{
+#cmpTypeHolder {
     display: flex;
 }
 
-#cmpTypeHolder #btnCompare{
+#cmpTypeHolder #btnCompare {
     width: 10%;
 }
 
-.cmpItemImg{
+.cmpItemImg {
     width: 100px;
     height: 50px;
     white-space: nowrap;
@@ -355,20 +380,20 @@ body{
     display: inline-table;
 }
 
-.cmpItemImg>img{
-    max-width:100%;
-    max-height:100%;
+.cmpItemImg > img {
+    max-width: 100%;
+    max-height: 100%;
     vertical-align: middle;
 }
 
-.cmpItemImg>.imgHelper{
+.cmpItemImg > .imgHelper {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
 }
 
-.typeHolder{
-    margin :10px;
+.typeHolder {
+    margin: 10px;
     width: 97%;
     height: 100%;
     display: flex;
@@ -380,27 +405,29 @@ body{
     scroll-behavior: smooth;
 }
 
-#cmpLeft{
+#cmpLeft {
     width: 45%;
     height: 100%;
     position: relative;
 }
 
-#cmpRight{
+#cmpRight {
     width: 45%;
     height: 100%;
     position: relative;
 }
-.cmpGame{
+
+.cmpGame {
     border: 2px solid var(--main-game-color);
     text-align: center;
 }
-.cmpGear{
+
+.cmpGear {
     border: 2px solid var(--main-gear-color);
     text-align: center;
 }
 
-#btnHideCompareTab{
+#btnHideCompareTab {
     width: 100px;
     height: 20px;
     position: absolute;
@@ -412,49 +439,50 @@ body{
     padding: 5px;
 }
 
-.cmpItem{
+.cmpItem {
     position: relative;
     margin-left: 10px;
     transition: 1s;
     text-align: center;
     overflow: hidden;
-    animation:fadeIn 0.3s ease forwards;
+    animation: fadeIn 0.3s ease forwards;
 }
 
-.cmpItem-remove{
+.cmpItem-remove {
     position: relative;
     transition: 1s;
     text-align: center;
     overflow: hidden;
-    animation:fadeOut 0.3s ease-out forwards;
+    animation: fadeOut 0.3s ease-out forwards;
 }
-.cmpItem-remove-first{
+
+.cmpItem-remove-first {
     position: relative;
     transition: 1s;
     text-align: center;
     overflow: hidden;
-    animation:fadeOutFist 0.3s ease-out forwards;
+    animation: fadeOutFist 0.3s ease-out forwards;
 }
-
 
 @keyframes fadeIn {
     from {
-        opacity:0.3;
+        opacity: 0.3;
         width: 5px;
     }
-	to {
-        opacity:1.0;
+    to {
+        opacity: 1.0;
         width: 100px;
     }
 }
+
 @keyframes fadeOut {
     from {
-        opacity:1;
+        opacity: 1;
         width: 100px;
         margin-left: 10px;
     }
-	to {
-        opacity:0.3;
+    to {
+        opacity: 0.3;
         width: 0;
         margin-left: 0;
     }
@@ -462,29 +490,29 @@ body{
 
 @keyframes fadeOutFist {
     from {
-        opacity:1;
+        opacity: 1;
         width: 100px;
     }
-	to {
-        opacity:0.3;
+    to {
+        opacity: 0.3;
         width: 0;
     }
 }
 
-
-.cmpItem:first-child{
+.cmpItem:first-child {
     margin-left: auto;
 }
-.cmpItem:last-child{
-    margin-right:auto;
+
+.cmpItem:last-child {
+    margin-right: auto;
 }
 
-.removeCmpItemButton{
+.removeCmpItemButton {
     position: absolute;
     right: 1px;
 }
 
-.mover{
+.mover {
     width: 30px;
     height: 30px;
     z-index: 100;
@@ -497,31 +525,34 @@ body{
     outline: none;
 }
 
-#cmpLeft .mover{
+#cmpLeft .mover {
     background-color: var(--main-game-deactive-color);
 }
-#cmpLeft .mover:hover{
+
+#cmpLeft .mover:hover {
     background-color: var(--main-game-color);
 }
 
-#cmpRight .mover{
+#cmpRight .mover {
     background-color: var(--main-gear-deactive-color);
 }
-#cmpRight .mover:hover{
+
+#cmpRight .mover:hover {
     background-color: var(--main-gear-color);
 }
 
-.left{
+.left {
     position: absolute;
     left: 0;
 }
 
-.right{
+.right {
     position: absolute;
     right: 10px;
     top: 0;
 }
-.btnLoadMore{
+
+.btnLoadMore {
     border: none;
     outline: none;
     cursor: pointer;
@@ -531,19 +562,19 @@ body{
     box-shadow: 2px 2px gray;
 }
 
-.btnLoadMore:hover{
+.btnLoadMore:hover {
     box-shadow: none;
 }
 
-.gameList .btnLoadMore{
+.gameList .btnLoadMore {
     background-color: var(--main-game-color);
 }
 
-.gearList .btnLoadMore{
+.gearList .btnLoadMore {
     background-color: var(--main-gear-color);
 }
 
-#btnCompare{
+#btnCompare {
     outline: none;
     border: none;
     color: white;
@@ -553,7 +584,7 @@ body{
     cursor: pointer;
 }
 
-#compareScreen{
+#compareScreen {
     width: 80%;
     height: 600px;
     min-width: 500px;
@@ -565,13 +596,14 @@ body{
     transform: translate(-50%, -50%);
     border-radius: 5px;
     visibility: hidden;
-    opacity:0;
-    transition:visibility 0.3s ease,opacity 0.3s ease;
+    opacity: 0;
+    transition: visibility 0.3s ease, opacity 0.3s ease;
     padding: 10px;
     box-sizing: border-box;
     padding-top: 30px;
 }
-#compareScreen>#closeCompareScreen{
+
+#compareScreen > #closeCompareScreen {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -579,15 +611,15 @@ body{
     cursor: pointer;
 }
 
-
-#gameCompareHolder{
+#gameCompareHolder {
     width: 15%;
     height: 100%;
     box-sizing: border-box;
     float: left;
     border: 2px solid black;
 }
-#gearCompareHolder{
+
+#gearCompareHolder {
     width: 15%;
     height: 100%;
     box-sizing: border-box;
@@ -595,7 +627,7 @@ body{
     border: 2px solid black;
 }
 
-#compareStatScreen{
+#compareStatScreen {
     width: 67%;
     height: 100%;
     box-sizing: border-box;
@@ -605,69 +637,74 @@ body{
     padding: 10px;
     padding-top: 50px;
 }
-.cmpScreenItem{
+
+.cmpScreenItem {
     width: 100%;
     position: relative;
 }
 
-.cmpScreenItem .cmpItemImg{
+.cmpScreenItem .cmpItemImg {
     width: 100%;
 }
 
-#cmpTypeHolder{
+#cmpTypeHolder {
     height: 80px;
     width: 100%;
 }
 
-#gameCmpData{
+#gameCmpData {
     width: 20%;
     height: 100%;
     float: left;
 }
-#gearCmpData{
+
+#gearCmpData {
     width: 20%;
     height: 100%;
     float: right;
 }
 
-#cmpResult{
+#cmpResult {
     width: 57%;
     height: 100%;
     float: left;
     margin-left: 1.5%;
 }
-#switchCmpMode{
+
+#switchCmpMode {
     position: absolute;
     top: 10px;
 }
 
-.meterGame{
-    width: 50%;
-    height: 100%;
-    float: left;
-}
-.meterGear{
+.meterGame {
     width: 50%;
     height: 100%;
     float: left;
 }
 
-.scoreBarHolder{
+.meterGear {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.scoreBarHolder {
     margin-bottom: 10px;
     height: 30px;
 }
 
-.meterGame .scoreBar{
+.meterGame .scoreBar {
     height: 100%;
     background-color: #DB504A;
     float: right;
 }
-.meterGear .scoreBar{
+
+.meterGear .scoreBar {
     height: 100%;
     background-color: mediumblue;
     float: left;
 }
 
-.scoreBar{
+.scoreBar {
     transition: .6s;
 }

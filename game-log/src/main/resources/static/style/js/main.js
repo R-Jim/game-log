@@ -168,6 +168,7 @@ function btnCompareEvent(element) {
     image.className = "cmpItemImg";
 
     var cmpItemName = document.createElement("div");
+    cmpItemName.className = "itemName";
     cmpItemName.textContent = item.getElementsByClassName("itemName")[0].textContent;
 
     var removeButton = document.createElement("button");
@@ -212,7 +213,7 @@ function loadMore(element, url, type) {
     traversalDOMTree("GET", url + "?currentPage=" + currentPage.value + categoryUrl, functionName, id);
 }
 
-function sortByCategory(element, url, type) {
+function sortByCategory(element, urlParam, type) {
 
     var id = element.id.substring(0, element.id.length - 8);
     var categoryId = element.value;
@@ -220,9 +221,16 @@ function sortByCategory(element, url, type) {
     var tabContent = document.getElementById(id + "Content");
     var itemList = tabContent.getElementsByClassName("itemList")[0];
     itemList.innerHTML = "";
+    var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
+    btnLoadMore.id = id + "LoadMore";
+    btnLoadMore.textContent = "Tải thêm";
+    btnLoadMore.onclick = function () {
+        loadMore(this, url[type], type)
+    }
+    itemList.appendChild(btnLoadMore);
 
     var functionName = (type == 0) ? printGameData : printGearData;
-    traversalDOMTree("GET", url + "?categoryId=" + categoryId, functionName, id);
+    traversalDOMTree("GET", urlParam + "?categoryId=" + categoryId, functionName, id);
 }
 
 

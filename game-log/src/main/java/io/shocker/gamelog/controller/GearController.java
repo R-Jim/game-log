@@ -40,9 +40,12 @@ public class GearController {
     @GetMapping(value = {""}, produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
     public Gears getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
-            , @RequestParam(value = "categoryId", required = false) Integer categoryId) {
-        System.out.println(currentPage+","+categoryId);
-        Gears gears = this.gearService.getAllGears(currentPage, categoryId);
+            , @RequestParam(value = "categoryId", required = false) String categoryId) {
+        Integer parsedCategoryId = null;
+        try {
+            parsedCategoryId = Integer.parseInt(categoryId);
+        } catch (NumberFormatException ex) {}
+        Gears gears = this.gearService.getAllGears(currentPage, parsedCategoryId);
         return gears;
     }
 
