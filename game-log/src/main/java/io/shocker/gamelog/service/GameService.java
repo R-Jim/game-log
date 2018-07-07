@@ -19,7 +19,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GameService {
@@ -89,55 +88,42 @@ public class GameService {
     }
 
 
-    public int crawlGame() {
-        int count = 0;
-
-        try {
-
-            WebEnum webEnum = WebEnum.Game;
-            System.out.println("Finding Source");
-//            List<Categories.GameCategory> gameCategories = this.gameCategoryRepository.findAll();
-//            for (Categories.GameCategory category : gameCategories) {
-//                System.out.println(category.getValue());
-            for (int i = 0; i < 2; i++) {
-                webEnum.setUrl("https://store.steampowered.com/search/?sort_by=Released_DESC&page=" + i);
-                System.out.println(webEnum.getUrl());
-                StreamSource streamResult =
-                        getGamesData(webEnum);
-                System.out.println("Found Source");
-                if (streamResult != null) {
-
-                    JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
-                    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-                    Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
-                    List<Game> list = games.getGame();
-                    for (Game game : list) {
-                        SetUpGameData(game);
-                        count++;
-                    }
+    public String crawlGame(String name) {
+        ThreadService.GameCrawlingThread gameCrawlingThread = new ThreadService.GameCrawlingThread(this);
+        boolean existed;
+        do {
+            existed = false;
+            for (Thread t : Thread.getAllStackTraces().keySet()) {
+                if (t.getName().equals(name)) {
+                    name += "1";
+                    existed = true;
+                    break;
                 }
-                System.out.println("");
             }
-//            }
-            System.out.println("Added Source");
-
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-
-        return count;
+        }while (existed);
+        gameCrawlingThread.setName(name);
+        gameCrawlingThread.start();
+        return name;
     }
 
-    private StreamSource getGamesData(WebEnum webEnum) throws TransformerException {
+    public int stopCrawling(String name){
+        for (Thread t : Thread.getAllStackTraces().keySet()) {
+            if (t.getName().equals(name)) {
+                t.interrupt();
+                ThreadService.GameCrawlingThread gameCrawlingThread = (ThreadService.GameCrawlingThread) t;
+                return gameCrawlingThread.getGameCrawled();
+            }
+        }
+        return -1;
+    }
+
+    public StreamSource getGamesData(WebEnum webEnum) throws TransformerException {
         GameCrawler crawler = new GameCrawler();
 
         return crawler.crawlingFromWeb(webEnum);
     }
 
-    private void SetUpGameData(Game game) {
+    public void setUpGameData(Game game) {
 
         if (game.getId() != null) {
             System.out.print("|" + game.getId() + "=" + "," + game.getName());
@@ -263,14 +249,14 @@ public class GameService {
         return specList;
     }
 
-    public List<Spec> getGameSpec(Integer gameId){
+    public List<Spec> getGameSpec(Integer gameId) {
         List<Spec> specs = new ArrayList<>();
         Spec gameSpec = this.specRepository.findByGameIdAndMinimum(gameId, true);
-        if (gameSpec!=null){
+        if (gameSpec != null) {
             specs.add(gameSpec);
         }
         gameSpec = this.specRepository.findByGameIdAndMinimum(gameId, false);
-        if (gameSpec!=null){
+        if (gameSpec != null) {
             specs.add(gameSpec);
         }
         return specs;

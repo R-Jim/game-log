@@ -5,6 +5,7 @@ import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.model.Games;
 import io.shocker.gamelog.model.Spec;
 import io.shocker.gamelog.service.GameService;
+import io.shocker.gamelog.service.ThreadService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -50,10 +51,21 @@ public class GameController {
         return this.gameService.getGameSpec(gameId);
     }
 
+    //    @GetMapping(value = "/load")
+//    @ResponseBody
+//    public void loadGames() {
+//        this.gameService.crawlGame();
+//    }
     @GetMapping(value = "/load")
     @ResponseBody
-    public void loadGames() {
-        this.gameService.crawlGame();
+    public String loadGames() {
+        return this.gameService.crawlGame("gameCrawler");
+    }
+
+    @GetMapping(value = "/stop")
+    @ResponseBody
+    public int stopThread(@RequestParam(value = "name") String threadName) {
+        return this.gameService.stopCrawling(threadName);
     }
 
     @GetMapping(value = "/category", produces = MediaType.APPLICATION_XML_VALUE)
@@ -95,4 +107,21 @@ public class GameController {
     public List<String> loadGameGpuType() {
         return this.gameService.getSpecTypeData(SpecEnum.GPU);
     }
+
+    @GetMapping(value = "/fire")
+    public void fireThread() {
+        ThreadService t1 = new ThreadService(this.gameService);
+        t1.setName("firing 1");
+        t1.start();
+    }
+
+//    @GetMapping(value = "/stop")
+//    public void stopThread() {
+//        for(Thread t: Thread.getAllStackTraces().keySet()){
+//            if (t.getName().equals("firing 1")){
+//                System.out.println("got them");
+//                t.stop();
+//            }
+//        }
+//    }
 }
