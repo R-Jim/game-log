@@ -51,11 +51,6 @@ public class GameController {
         return this.gameService.getGameSpec(gameId);
     }
 
-    //    @GetMapping(value = "/load")
-//    @ResponseBody
-//    public void loadGames() {
-//        this.gameService.crawlGame();
-//    }
     @GetMapping(value = "/load")
     @ResponseBody
     public String loadGames() {
@@ -108,20 +103,4 @@ public class GameController {
         return this.gameService.getSpecTypeData(SpecEnum.GPU);
     }
 
-    @GetMapping(value = "/fire")
-    public void fireThread() {
-        ThreadService t1 = new ThreadService(this.gameService);
-        t1.setName("firing 1");
-        t1.start();
-    }
-
-//    @GetMapping(value = "/stop")
-//    public void stopThread() {
-//        for(Thread t: Thread.getAllStackTraces().keySet()){
-//            if (t.getName().equals("firing 1")){
-//                System.out.println("got them");
-//                t.stop();
-//            }
-//        }
-//    }
 }

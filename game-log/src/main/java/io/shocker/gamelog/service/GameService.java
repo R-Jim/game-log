@@ -126,7 +126,7 @@ public class GameService {
     public void setUpGameData(Game game) {
 
         if (game.getId() != null) {
-            System.out.print("|" + game.getId() + "=" + "," + game.getName());
+            System.out.println(game.getId() + "=" + "," + game.getName());
 
 
             this.gameRepository.save(game);

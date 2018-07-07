@@ -42,7 +42,7 @@ public class ThreadService extends Thread {
 
                 WebEnum webEnum = WebEnum.Game;
                 System.out.println("Finding Source");
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 20; i++) {
 
                     if (Thread.currentThread().isInterrupted()) {
                         System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gameCrawled);
