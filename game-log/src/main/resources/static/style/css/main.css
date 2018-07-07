@@ -51,6 +51,8 @@ body {
     float: left;
     padding: 20px;
     box-sizing: border-box;
+    max-height: 650px;
+    overflow: auto;
 }
 
 .tabIndicatorHolder > div {
@@ -67,6 +69,7 @@ body {
     box-sizing: border-box;
     margin-bottom: 10px;
     position: relative;
+    transition: 0.5s;
 }
 
 .gameTabIndicator {
@@ -92,9 +95,7 @@ body {
 
 .tabIndicatorHolder > div:hover {
     color: yellow;
-}
-
-.tabIndicatorHolder > div:hover {
+    transition: 0.5s;
     cursor: pointer;
     box-shadow: none;
 }
