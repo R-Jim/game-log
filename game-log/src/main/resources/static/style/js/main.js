@@ -495,7 +495,7 @@ function compareScreenComparing() {
         game.onclick = function (ev) {
             if (lastCmpGame != null) {
                 document.getElementById(lastCmpGame).className =
-                    document.getElementById(lastCmpGame).className.replace(" cmpItemActive","");
+                    document.getElementById(lastCmpGame).className.replace(" cmpItemActive", "");
             }
             this.className += " cmpItemActive";
             lastCmpGame = this.id;
@@ -550,6 +550,12 @@ function compareScreenComparing() {
     }
     document.getElementById("switchCmpModeMinimum").disabled = true;
     document.getElementById("switchCmpModeRecommend").disabled = true;
+    
+    if (gameHolder.childNodes[0] == null || gearHolder.childNodes[0] == null) {
+        clearCmpData();
+        document.getElementById("errorResult").textContent = "Are you missing something ?";
+        return;
+    }
     if (gameHolder.childNodes[0] != null) {
         gameHolder.childNodes[0].click();
     }

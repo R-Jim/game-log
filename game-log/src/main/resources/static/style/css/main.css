@@ -780,6 +780,7 @@ body {
     height: 100%;
     float: left;
     margin-left: 1.5%;
+    overflow-x: hidden;
 }
 
 #switchCmpMode {
