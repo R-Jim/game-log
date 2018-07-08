@@ -24,6 +24,10 @@
     --cmp-game-background-color: rgba(150, 57, 54, 0.56);
     --cmp-gear-background-color: rgba(8, 76, 97, 0.56);
     --cmp-screen-background-color: rgba(255, 255, 255, 0.61);
+
+    --cmp-game-item-background: linear-gradient(55deg, rgb(255, 249, 251) 80%, rgba(0, 0, 0, 0) 50%), linear-gradient(55deg, var(--main-game-color) 90%, rgb(255, 249, 251) 10%);
+    --cmp-gear-item-background: linear-gradient(55deg, #f2f8ff 80%, rgba(0, 0, 0, 0) 50%), linear-gradient(55deg, var(--main-gear-color) 90%, #f2f8ff 10%);
+
 }
 
 /* width */
@@ -601,7 +605,7 @@ body {
     border-radius: 0 0 0 5px;
 }
 
-.removeCmpItemButton:hover{
+.removeCmpItemButton:hover {
     cursor: pointer;
 }
 
@@ -719,7 +723,7 @@ body {
     border-radius: 5px;
     background-color: var(--cmp-game-background-color);
     overflow-y: scroll;
-    padding: 5px;
+    padding: 10px 0 10px 10px;
 }
 
 #gearCompareHolder {
@@ -730,7 +734,7 @@ body {
     border-radius: 5px;
     background-color: var(--cmp-gear-background-color);
     overflow-y: scroll;
-    padding: 5px;
+    padding: 10px 0 10px 10px;
 }
 
 #compareStatScreen {
@@ -748,14 +752,38 @@ body {
 .cmpScreenItem {
     width: 100%;
     position: relative;
+    height: 100px;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-bottom: 7px;
+    border-radius: 4px;
+    color: white;
+}
+
+.cmpScreenItem:hover {
+    cursor: pointer;
+}
+
+#gameCompareHolder .cmpScreenItem {
+    background: var(--main-game-deactive-color);
+}
+
+#gearCompareHolder .cmpScreenItem {
+    background: var(--main-gear-deactive-color);
+}
+
+#gameCompareHolder .cmpItemActive {
+    color: var(--main-game-color);
+    background: var(--cmp-game-item-background);
+}
+
+#gearCompareHolder .cmpItemActive {
+    color: var(--main-gear-color);
+    background: var(--cmp-gear-item-background);
 }
 
 .cmpScreenItem .cmpItemImg {
     width: 100%;
-}
-
-.cmpItemActive{
-    color: yellow;
 }
 
 #cmpTypeHolder {

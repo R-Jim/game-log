@@ -550,7 +550,7 @@ function compareScreenComparing() {
     }
     document.getElementById("switchCmpModeMinimum").disabled = true;
     document.getElementById("switchCmpModeRecommend").disabled = true;
-    
+
     if (gameHolder.childNodes[0] == null || gearHolder.childNodes[0] == null) {
         clearCmpData();
         document.getElementById("errorResult").textContent = "Are you missing something ?";
