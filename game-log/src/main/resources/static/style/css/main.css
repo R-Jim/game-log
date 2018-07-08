@@ -594,7 +594,23 @@ body {
 
 .removeCmpItemButton {
     position: absolute;
-    right: 1px;
+    right: 0;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 0 0 0 5px;
+}
+
+.removeCmpItemButton:hover{
+    cursor: pointer;
+}
+
+.cmpGame .removeCmpItemButton {
+    background-color: var(--main-game-color);
+}
+
+.cmpGear .removeCmpItemButton {
+    background-color: var(--main-gear-color);
 }
 
 .mover {
@@ -779,7 +795,7 @@ body {
 }
 
 #switchCmpMode button:disabled,
-#switchCmpMode button[disabled]{
+#switchCmpMode button[disabled] {
     background-color: #cccccc;
     color: gray;
 }
@@ -803,13 +819,13 @@ body {
 
 .meterGame .scoreBar {
     height: 100%;
-    background-color: #DB504A;
+    background-color: var(--main-game-color);
     float: right;
 }
 
 .meterGear .scoreBar {
     height: 100%;
-    background-color: mediumblue;
+    background-color: var(--main-gear-color);
     float: left;
 }
 
