@@ -4,11 +4,25 @@
     --main-gear-color: rgb(23, 108, 134);
     --main-gear-deactive-color: #084C61;
 
-    --main-background-color: #f5f7f8af;
-    --main-banner-color: #f8f5f5c4;
-    --main-tab-color: #ffffff;
-    --main-left-tab-color: #ffffff;
+    --main-game-indicator: linear-gradient(105deg, var(--main-game-deactive-color) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-game-color) 85%, rgb(94, 40, 39) 15%);
+    /*--main-game-indicator-active: linear-gradient(105deg, rgb(255, 229, 224) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-game-color) 85%, var(--main-game-deactive-color) 15%);*/
+    --main-game-indicator-active: linear-gradient(105deg, rgb(255, 229, 224) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-game-color) 85%, rgb(255, 229, 224) 15%);
+
+    --main-gear-indicator: linear-gradient(105deg, var(--main-gear-deactive-color) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-gear-color) 85%, #243548 15%);
+    /*--main-gear-indicator-active: linear-gradient(105deg, #f2f8ff 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-gear-color) 85%, var(--main-gear-deactive-color) 15%);*/
+    --main-gear-indicator-active: linear-gradient(105deg, #f2f8ff 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-gear-color) 85%, #f2f8ff 15%);
+
+    --main-background-color: rgba(147, 150, 149, 0.81);
+    --main-banner-color: rgba(248, 245, 245, 0);
+    --main-tab-color: rgba(255, 255, 255, 0.21);
+    --main-left-tab-color: rgba(255, 255, 255, 0.21);
     --main-indicator-color: #292929;
+    --main-cmp-tab-color: rgba(25, 25, 25, 0.82);
+
+    --cmp-main-background-color: rgba(255, 255, 255, 0.84);
+    --cmp-game-background-color: rgba(150, 57, 54, 0.56);
+    --cmp-gear-background-color: rgba(8, 76, 97, 0.56);
+    --cmp-screen-background-color: rgba(255, 255, 255, 0.61);
 }
 
 #logo {
@@ -18,8 +32,16 @@
 
 body {
     font-family: roboto;
-    /* background-image: url("am0pzVo2_700w_0.jpg"); */
+    /*background-image: url("725611.jpg");*/
     background-color: var(--main-background-color);
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    filter: opacity(50%);
+    overflow: hidden;
+    height: 730px;
 }
 
 .description {
@@ -59,33 +81,39 @@ body {
     width: 100%;
     height: 50px;
     float: left;
-    color: white;
+    /*color: white;*/
     padding: 10px;
     display: flex;
     align-items: center;
-    box-shadow: 2px 2px gray;
-    /* border: 2px solid rgb(54, 54, 54); */
     border-radius: 5px;
     box-sizing: border-box;
     margin-bottom: 10px;
     position: relative;
-    transition: 0.5s;
+    transition: 0.2s;
 }
 
 .gameTabIndicator {
-    background-color: var(--main-game-deactive-color);
+    background: var(--main-game-indicator);
+    color: white;
 }
 
 .gameTabIndicator-active {
-    background-color: var(--main-game-color);
+    background: var(--main-game-indicator-active);
+    color: var(--main-game-color);
 }
 
 .gearTabIndicator {
-    background-color: var(--main-gear-deactive-color);
+    background: var(--main-gear-indicator);
+    color: white;
 }
 
 .gearTabIndicator-active {
-    background-color: var(--main-gear-color);
+    background: var(--main-gear-indicator-active);
+    color: var(--main-gear-color);
+}
+
+#tabToolbarOverlay {
+    color: white;
 }
 
 .indicatorIndicator {
@@ -95,7 +123,7 @@ body {
 
 .tabIndicatorHolder > div:hover {
     color: yellow;
-    transition: 0.5s;
+    transition: 0.2s;
     cursor: pointer;
     box-shadow: none;
 }
@@ -181,6 +209,7 @@ body {
     background-color: var(--main-left-tab-color);
     margin-top: 2px;
     border-right: 2px solid var(--main-background-color);
+    border-radius: 0 5px 5px 0;
 }
 
 .right-content {
@@ -190,7 +219,9 @@ body {
     padding-left: 10px;
     position: absolute;
     right: 0;
-    margin-top: 10px;
+    margin-top: 5px;
+    background-color: var(--main-tab-color);
+    border-radius: 5px 0 0 5px;
 }
 
 .tabContentHolder {
@@ -205,7 +236,6 @@ body {
     height: 100%;
     visibility: hidden;
     display: none;
-    background-color: var(--main-tab-color);
     /*padding: 20px;*/
     box-sizing: border-box;
 }
@@ -238,10 +268,10 @@ body {
     width: 160px;
     height: 200px;
     box-sizing: border-box;
-    border: 2px solid lightgray;
+    border: 1.5px solid lightgray;
     padding: 5px;
     position: relative;
-    box-shadow: 2px 2px gray;
+    box-shadow: 3px 2px rgba(128, 128, 128, 0.51);
     transition: 0.5s;
     border-radius: 5px;
     background-color: white;
@@ -249,13 +279,12 @@ body {
     overflow: hidden;
 }
 
-.itemName{
+.itemName {
     max-height: 18.4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 
 .item .itemTags {
     bottom: 4px;
@@ -278,11 +307,11 @@ body {
 }
 
 .gameList .item:hover {
-    border: 2px solid var(--main-game-color);
+    border: 1.5px solid var(--main-game-color);
 }
 
 .gearList .item:hover {
-    border: 2px solid var(--main-gear-color);
+    border: 1.5px solid var(--main-gear-color);
 }
 
 .item > .itemImg {
@@ -361,7 +390,7 @@ body {
     height: 100px;
     position: fixed;
     border: 2px solid rgb(54, 54, 54);
-    background-color: white;
+    background-color: var(--main-cmp-tab-color);
     bottom: -100px;
 }
 
@@ -560,7 +589,7 @@ body {
     border-radius: 5px;
     color: white;
     font-size: large;
-    box-shadow: 2px 2px gray;
+    /*box-shadow: 2px 2px gray;*/
 }
 
 .btnLoadMore:hover {
@@ -589,7 +618,7 @@ body {
     width: 80%;
     height: 600px;
     min-width: 500px;
-    background-color: white;
+    background-color: var(--cmp-main-background-color);
     border: 2px solid rgb(54, 54, 54);
     position: absolute;
     top: 50%;
@@ -617,7 +646,9 @@ body {
     height: 100%;
     box-sizing: border-box;
     float: left;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
+    border-radius: 5px;
+    background-color: var(--cmp-game-background-color);
 }
 
 #gearCompareHolder {
@@ -625,7 +656,9 @@ body {
     height: 100%;
     box-sizing: border-box;
     float: right;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
+    border-radius: 5px;
+    background-color: var(--cmp-gear-background-color);
 }
 
 #compareStatScreen {
@@ -633,10 +666,12 @@ body {
     height: 100%;
     box-sizing: border-box;
     float: left;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
     margin-left: 1.5%;
     padding: 10px;
     padding-top: 50px;
+    border-radius: 5px;
+    background-color: var(--cmp-screen-background-color);
 }
 
 .cmpScreenItem {
@@ -675,6 +710,16 @@ body {
 #switchCmpMode {
     position: absolute;
     top: 10px;
+}
+
+#switchCmpMode button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-size: large;
+    /*box-shadow: 2px 2px gray;*/
 }
 
 .meterGame {
