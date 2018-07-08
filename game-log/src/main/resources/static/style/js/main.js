@@ -139,7 +139,7 @@ function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) 
         item.appendChild(tagsUl);
     }
 
-    itemList.insertBefore(item,itemList.getElementsByClassName("btnLoadMore")[0]);
+    itemList.insertBefore(item, itemList.getElementsByClassName("btnLoadMore")[0]);
 }
 
 function btnCompareEvent(element) {
@@ -229,6 +229,12 @@ function sortByCategory(element, urlParam, type) {
     }
     itemList.appendChild(btnLoadMore);
 
+    for(var i = 0; i< element.childNodes.length;i++) {
+        if (categoryId == element.childNodes[i].value) {
+            document.getElementById(id + "TabDescription").textContent = " - " +  element.childNodes[i].label;
+        }
+    }
+
     var functionName = (type == 0) ? printGameData : printGearData;
     traversalDOMTree("GET", urlParam + "?categoryId=" + categoryId, functionName, id);
 }
@@ -292,7 +298,7 @@ function addTabContent(tabId, type) {
     var tabContent = createElementWithClassName("div", "tab");
     tabContent.id = tabId + "Content";
 
-    var tabUtitlites = createElementWithClassName("div", "tabUtilities");
+    var tabUtitlites = createElementWithClassName("div", (type == 0) ? "tabUtilities gameUti" : "tabUtilities gearUti");
 
     var inputCurrentPage = document.createElement("input");
     inputCurrentPage.id = tabId + "CurrentPage";
@@ -300,6 +306,19 @@ function addTabContent(tabId, type) {
     tabUtitlites.appendChild(inputCurrentPage);
 
     var tabUtility = createElementWithClassName("span", "tabUtility");
+    var tabName = createElementWithClassName("div", "tabNameContent");
+    var indicator = createElementWithClassName("ion-icon", "tabTxtNameIcon");
+    indicator.name = (type == 0) ? "logo-game-controller-a" : "tv";
+    tabName.appendChild(indicator);
+    var tabTxtName = createElementWithClassName("span", "tabTxtName");
+    tabTxtName.textContent = (type == 0) ? "Game" : "Gear";
+    var tabTxtDescription = createElementWithClassName("span", "");
+    tabTxtDescription.id = tabId + "TabDescription";
+    tabTxtName.appendChild(tabTxtDescription);
+    tabName.appendChild(tabTxtName);
+
+    tabUtility.appendChild(tabName);
+
     var text = document.createElement("span");
     text.textContent = "Tìm Kiếm ";
     tabUtility.appendChild(text);
