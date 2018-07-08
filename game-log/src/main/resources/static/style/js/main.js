@@ -454,6 +454,9 @@ function compareScreenPopUp() {
 var gameChoosed = [];
 var gearChoosed = [];
 
+var lastCmpGame = null;
+var lastCmpGear = null;
+
 function compareScreenComparing() {
     var tabGame = document.getElementById("games");
     var tabGear = document.getElementById("gears");
@@ -466,7 +469,7 @@ function compareScreenComparing() {
     gearHolder.innerHTML = "";
     for (var i = 0; i < games.length; i++) {
         var game = document.createElement("div");
-        game.id = games[i].id;
+        game.id = games[i].id + "CmpItem";
         game.className = "cmpScreenItem";
         var gameExist = false;
         for (var j = 0; j < gameChoosed.length; j++) {
@@ -490,6 +493,12 @@ function compareScreenComparing() {
         game.innerHTML = games[i].innerHTML;
         game.getElementsByClassName("removeCmpItemButton")[0].remove();
         game.onclick = function (ev) {
+            if (lastCmpGame != null) {
+                document.getElementById(lastCmpGame).className =
+                    document.getElementById(lastCmpGame).className.replace(" cmpItemActive","");
+            }
+            this.className += " cmpItemActive";
+            lastCmpGame = this.id;
             setIdForCmp(true, this.id);
             comparingGameAndGear(true);
             var btnMinimum = document.getElementById("switchCmpModeMinimum");
@@ -511,7 +520,7 @@ function compareScreenComparing() {
 
     for (var i = 0; i < gears.length; i++) {
         var gear = document.createElement("div");
-        gear.id = gears[i].id;
+        gear.id = gears[i].id + "CmpItem";
         gear.className = "cmpScreenItem";
         var gearExist = false;
         for (var j = 0; j < gearChoosed; j++) {
@@ -528,6 +537,11 @@ function compareScreenComparing() {
         }
         gear.innerHTML = gears[i].innerHTML;
         gear.onclick = function (ev) {
+            if (lastCmpGear != null) {
+                document.getElementById(lastCmpGear).className = "cmpScreenItem";
+            }
+            this.className += " cmpItemActive";
+            lastCmpGear = this.id;
             setIdForCmp(false, this.id);
             comparingGameAndGear(true);
         }
@@ -600,9 +614,9 @@ var gearIdCmpChoose = null;
 
 function setIdForCmp(isGame, value) {
     if (isGame) {
-        gameIdCmpChoose = value;
+        gameIdCmpChoose = value.substring(0, value.length - 7);
     } else {
-        gearIdCmpChoose = value;
+        gearIdCmpChoose = value.substring(0, value.length - 7);
     }
 }
 

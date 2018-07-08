@@ -701,7 +701,6 @@ body {
     transition: visibility 0.3s ease, opacity 0.3s ease;
     padding: 10px;
     box-sizing: border-box;
-    padding-top: 30px;
 }
 
 #compareScreen > #closeCompareScreen {
@@ -720,6 +719,7 @@ body {
     border-radius: 5px;
     background-color: var(--cmp-game-background-color);
     overflow-y: scroll;
+    padding: 5px;
 }
 
 #gearCompareHolder {
@@ -730,6 +730,7 @@ body {
     border-radius: 5px;
     background-color: var(--cmp-gear-background-color);
     overflow-y: scroll;
+    padding: 5px;
 }
 
 #compareStatScreen {
@@ -751,6 +752,10 @@ body {
 
 .cmpScreenItem .cmpItemImg {
     width: 100%;
+}
+
+.cmpItemActive{
+    color: yellow;
 }
 
 #cmpTypeHolder {
@@ -779,7 +784,7 @@ body {
 
 #switchCmpMode {
     position: absolute;
-    top: 35px;
+    top: 20px;
 }
 
 #switchCmpMode button {
