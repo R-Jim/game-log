@@ -23,9 +23,9 @@ import java.util.List;
 @Service
 public class GearService {
 
-    private final GearCategoryRepository gearCategoryRepository;
-    private final GearRepository gearRepository;
-    private final GearHasCategoryRepository gearHasCategoryRepository;
+    public final GearCategoryRepository gearCategoryRepository;
+    public final GearRepository gearRepository;
+    public final GearHasCategoryRepository gearHasCategoryRepository;
 
     public GearService(GearCategoryRepository gearCategoryRepository, GearRepository gearRepository, GearHasCategoryRepository gearHasCategoryRepository) {
         this.gearCategoryRepository = gearCategoryRepository;
@@ -84,53 +84,79 @@ public class GearService {
     }
 
 
-    public int crawlGear() {
-        int count = 0;
-
-        WebEnum webEnum = WebEnum.Gear;
-        System.out.println("Finding Gear Source");
-        List<Categories.GearCategory> categories = this.gearCategoryRepository.findAll();
-        if (categories != null) {
-            for (Categories.GearCategory category : categories) {
-                try {
-                    webEnum.setUrl("https://fptshop.com.vn" + category.getHref());
-                    StreamSource streamResult =
-                            getGearsData(webEnum);
-                    System.out.println("Found Source");
-                    if (streamResult != null) {
-
-                        JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
-                        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-                        Gears gears = (Gears) unmarshaller.unmarshal(streamResult.getInputStream());
-                        List<Gears.Gear> list = gears.getGear();
-                        for (Gears.Gear gear : list) {
-                            Gears.Gear existed = this.gearRepository.findByName(gear.getName());
-                            if (existed != null) {
-                                gear.setId(existed.getId());
-                            }
-                            gear.setUpSpec();
-                            this.gearRepository.save(gear);
-                            GearHasCategory gearHasCategory = new GearHasCategory();
-                            gearHasCategory.setGearId(gear.getId());
-                            gearHasCategory.setCategoryId(category.getId());
-                            this.gearHasCategoryRepository.save(gearHasCategory);
-                            count++;
-                        }
-                        System.out.println("Added Source");
-                    }
-                } catch (TransformerException e) {
-                    System.err.println("Error Transformer at page:"+ category.getHref());
-                } catch (JAXBException e) {
-                    System.err.println("Error JAXB at page:"+ category.getHref());
+    public String crawlGear(String name) {
+//        int count = 0;
+//
+//        WebEnum webEnum = WebEnum.Gear;
+//        System.out.println("Finding Gear Source");
+//        List<Categories.GearCategory> categories = this.gearCategoryRepository.findAll();
+//        if (categories != null) {
+//            for (Categories.GearCategory category : categories) {
+//                try {
+//                    webEnum.setUrl("https://fptshop.com.vn" + category.getHref());
+//                    StreamSource streamResult =
+//                            getGearsData(webEnum);
+//                    System.out.println("Found Source");
+//                    if (streamResult != null) {
+//
+//                        JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
+//                        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+//
+//                        Gears gears = (Gears) unmarshaller.unmarshal(streamResult.getInputStream());
+//                        List<Gears.Gear> list = gears.getGear();
+//                        for (Gears.Gear gear : list) {
+//                            Gears.Gear existed = this.gearRepository.findByName(gear.getName());
+//                            if (existed != null) {
+//                                gear.setId(existed.getId());
+//                            }
+//                            gear.setUpSpec();
+//                            this.gearRepository.save(gear);
+//                            GearHasCategory gearHasCategory = new GearHasCategory();
+//                            gearHasCategory.setGearId(gear.getId());
+//                            gearHasCategory.setCategoryId(category.getId());
+//                            this.gearHasCategoryRepository.save(gearHasCategory);
+//                            count++;
+//                        }
+//                        System.out.println("Added Source");
+//                    }
+//                } catch (TransformerException e) {
+//                    System.err.println("Error Transformer at page:"+ category.getHref());
+//                } catch (JAXBException e) {
+//                    System.err.println("Error JAXB at page:"+ category.getHref());
+//                }
+//            }
+//        }
+//        System.out.println("Finish Crawling Gear");
+//        return count;
+        ThreadService.GearCrawlingThread gameCrawlingThread = new ThreadService.GearCrawlingThread(this);
+        boolean existed;
+        do {
+            existed = false;
+            for (Thread t : Thread.getAllStackTraces().keySet()) {
+                if (t.getName().equals(name)) {
+                    name += "1";
+                    existed = true;
+                    break;
                 }
             }
-        }
-        System.out.println("Finish Crawling Gear");
-        return count;
+        }while (existed);
+        gameCrawlingThread.setName(name);
+        gameCrawlingThread.start();
+        return name;
     }
 
-    private StreamSource getGearsData(WebEnum webEnum) throws TransformerException {
+    public int stopCrawling(String name){
+        for (Thread t : Thread.getAllStackTraces().keySet()) {
+            if (t.getName().equals(name)) {
+                t.interrupt();
+                ThreadService.GearCrawlingThread gameCrawlingThread = (ThreadService.GearCrawlingThread) t;
+                return gameCrawlingThread.getGearCrawled();
+            }
+        }
+        return -1;
+    }
+
+    public StreamSource getGearsData(WebEnum webEnum) throws TransformerException {
         GearCrawler crawler = new GearCrawler();
 
         return crawler.crawlingFromWeb(webEnum);

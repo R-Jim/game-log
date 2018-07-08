@@ -54,12 +54,25 @@ public class GearController {
     public Gears.Gear getGearDetail(@RequestParam(value = "id") Integer gearId) {
         return this.gearService.getGearDetail(gearId);
     }
+//
+//    @GetMapping(value = "/load")
+//    @ResponseBody
+//    public void loadGames() {
+//        this.gearService.crawlGear();
+//    }
 
     @GetMapping(value = "/load")
     @ResponseBody
-    public void loadGames() {
-        this.gearService.crawlGear();
+    public String loadGames() {
+        return this.gearService.crawlGear("gearCrawler");
     }
+
+    @GetMapping(value = "/stop")
+    @ResponseBody
+    public int stopThread(@RequestParam(value = "name") String threadName) {
+        return this.gearService.stopCrawling(threadName);
+    }
+
 
     @GetMapping(value = "/category", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
