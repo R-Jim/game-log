@@ -669,10 +669,16 @@ function runScoreBar(typeScoreId, score) {
     var typeScoreHolder = document.getElementById(typeScoreId);
     if (score > 0) {
         var scorebar = typeScoreHolder.getElementsByClassName("meterGame")[0].getElementsByClassName("scoreBar")[0];
+        var scoreRegister = typeScoreHolder.getElementsByClassName("meterGame")[0].getElementsByClassName("score")[0];
         scorebar.style.width = 20 * score + "px";
+        scoreRegister.style.width = 20 * score + "px";
+        scoreRegister.textContent = score;
     } else {
         var scorebar = typeScoreHolder.getElementsByClassName("meterGear")[0].getElementsByClassName("scoreBar")[0];
+        var scoreRegister = typeScoreHolder.getElementsByClassName("meterGear")[0].getElementsByClassName("score")[0];
         scorebar.style.width = -1 * 20 * score + "px";
+        scoreRegister.style.width = -1 * 20 * score + "px";
+        scoreRegister.textContent = -1 * score;
     }
 }
 
@@ -680,6 +686,11 @@ function clearCmpData() {
     var scorebars = document.getElementById("cmpResult").getElementsByClassName("scoreBar");
     for (var i = 0; i < scorebars.length; i++) {
         scorebars[i].style.width = "0px";
+    }
+    var scores = document.getElementById("cmpResult").getElementsByClassName("score");
+    for (var i = 0; i < scorebars.length; i++) {
+        scores[i].style.width = "0px";
+        scores[i].textContent = "";
     }
 
     document.getElementById("osGameResult").textContent = "";
