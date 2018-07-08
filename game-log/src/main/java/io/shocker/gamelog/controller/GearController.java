@@ -54,12 +54,6 @@ public class GearController {
     public Gears.Gear getGearDetail(@RequestParam(value = "id") Integer gearId) {
         return this.gearService.getGearDetail(gearId);
     }
-//
-//    @GetMapping(value = "/load")
-//    @ResponseBody
-//    public void loadGames() {
-//        this.gearService.crawlGear();
-//    }
 
     @GetMapping(value = "/load")
     @ResponseBody
