@@ -5,7 +5,7 @@
     --main-gear-deactive-color: #084C61;
 
     --main-game-indicator: linear-gradient(105deg, var(--main-game-deactive-color) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-game-color) 85%, rgb(94, 40, 39) 15%);
-    --main-game-indicator-active: linear-gradient(105deg, rgb(255, 229, 224) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-game-color) 85%, rgb(255, 229, 224) 15%);
+    --main-game-indicator-active: linear-gradient(105deg, rgb(255, 249, 251) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-game-color) 85%, rgb(255, 251, 245) 15%);
 
     --main-gear-indicator: linear-gradient(105deg, var(--main-gear-deactive-color) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-gear-color) 85%, #243548 15%);
     --main-gear-indicator-active: linear-gradient(105deg, #f2f8ff 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-gear-color) 85%, #f2f8ff 15%);
@@ -701,9 +701,9 @@ body {
     height: 100%;
     box-sizing: border-box;
     float: left;
-    /*border: 2px solid black;*/
     border-radius: 5px;
     background-color: var(--cmp-game-background-color);
+    overflow-y: scroll;
 }
 
 #gearCompareHolder {
@@ -711,9 +711,9 @@ body {
     height: 100%;
     box-sizing: border-box;
     float: right;
-    /*border: 2px solid black;*/
     border-radius: 5px;
     background-color: var(--cmp-gear-background-color);
+    overflow-y: scroll;
 }
 
 #compareStatScreen {
@@ -721,7 +721,6 @@ body {
     height: 100%;
     box-sizing: border-box;
     float: left;
-    /*border: 2px solid black;*/
     margin-left: 1.5%;
     padding: 10px;
     padding-top: 50px;
@@ -764,17 +763,25 @@ body {
 
 #switchCmpMode {
     position: absolute;
-    top: 10px;
+    top: 35px;
 }
 
 #switchCmpMode button {
     border: none;
     outline: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 2px;
     color: white;
     font-size: large;
-    /*box-shadow: 2px 2px gray;*/
+    height: 30px;
+    width: 100px;
+    background-color: var(--main-game-color);
+}
+
+#switchCmpMode button:disabled,
+#switchCmpMode button[disabled]{
+    background-color: #cccccc;
+    color: gray;
 }
 
 .meterGame {

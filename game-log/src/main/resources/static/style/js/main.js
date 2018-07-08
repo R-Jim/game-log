@@ -186,7 +186,7 @@ function btnCompareEvent(element) {
     cmpItem.addEventListener('animationend', function (evt) {
         this.style.minWidth = "100px";
         this.parentElement.scrollLeft = this.parentElement.scrollWidth - this.parentElement.clientWidth;
-        checkScrollBtn(this.parentElement);
+        // checkScrollBtn(this.parentElement);
     });
     cmpItem.appendChild(removeButton);
     cmpItem.appendChild(image);
@@ -229,9 +229,9 @@ function sortByCategory(element, urlParam, type) {
     }
     itemList.appendChild(btnLoadMore);
 
-    for(var i = 0; i< element.childNodes.length;i++) {
+    for (var i = 0; i < element.childNodes.length; i++) {
         if (categoryId == element.childNodes[i].value) {
-            document.getElementById(id + "TabDescription").textContent = " - " +  element.childNodes[i].label;
+            document.getElementById(id + "TabDescription").textContent = " - " + element.childNodes[i].label;
         }
     }
 
@@ -630,14 +630,14 @@ function comparingGameAndGear(isMinimum) {
         runScoreBar("ramResult", compareRamStat(gameSpec.memory, gear[1][0].memory));
         runScoreBar("graphicResult", compareGpuStat(gameSpec.graphic, gear[1][0].graphic));
 
-        document.getElementById("osGameResult").textContent = gameSpec.os;
-        document.getElementById("cpuGameResult").textContent += gameSpec.processor;
-        document.getElementById("ramGameResult").textContent += gameSpec.memory;
-        document.getElementById("graphicGameResult").textContent += gameSpec.graphic;
-        document.getElementById("osGearResult").textContent = gear[1][0].os;
-        document.getElementById("cpuGearResult").textContent += gear[1][0].processor;
-        document.getElementById("ramGearResult").textContent += gear[1][0].memory;
-        document.getElementById("graphicGearResult").textContent += gear[1][0].graphic;
+        document.getElementById("osGameResult").textContent = (gameSpec.os != "null") ? gameSpec.os : "No Content";
+        document.getElementById("cpuGameResult").textContent = (gameSpec.processor != "null") ? gameSpec.processor : "No Content";
+        document.getElementById("ramGameResult").textContent = (gameSpec.memory != "null") ? gameSpec.memory : "No Content";
+        document.getElementById("graphicGameResult").textContent = (gameSpec.graphic != "null") ? gameSpec.graphic : "No Content";
+        document.getElementById("osGearResult").textContent = (gear[1][0].os != "null") ? gear[1][0].os : "No Content";
+        document.getElementById("cpuGearResult").textContent = (gear[1][0].processor != "null") ? gear[1][0].processor : "No Content";
+        document.getElementById("ramGearResult").textContent = (gear[1][0].memory != "null") ? gear[1][0].memory : "No Content";
+        document.getElementById("graphicGearResult").textContent = (gear[1][0].graphic != "null") ? gear[1][0].graphic : "No Content";
     } else {
         document.getElementById("errorResult").textContent = "Are you missing something ?";
     }
