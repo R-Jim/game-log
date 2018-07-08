@@ -488,6 +488,7 @@ function compareScreenComparing() {
             }
         }
         game.innerHTML = games[i].innerHTML;
+        game.getElementsByClassName("removeCmpItemButton")[0].remove();
         game.onclick = function (ev) {
             setIdForCmp(true, this.id);
             comparingGameAndGear(true);
@@ -530,6 +531,7 @@ function compareScreenComparing() {
             setIdForCmp(false, this.id);
             comparingGameAndGear(true);
         }
+        gear.getElementsByClassName("removeCmpItemButton")[0].remove();
         gearHolder.appendChild(gear);
     }
     document.getElementById("switchCmpModeMinimum").disabled = true;
