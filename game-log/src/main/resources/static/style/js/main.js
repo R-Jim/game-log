@@ -319,11 +319,11 @@ function addTabContent(tabId, type) {
 
     tabUtility.appendChild(tabName);
 
-    var text = document.createElement("span");
-    text.textContent = "Tìm Kiếm ";
-    tabUtility.appendChild(text);
-    var txtSearch = document.createElement("input");
-    tabUtility.appendChild(txtSearch);
+    // var text = document.createElement("span");
+    // text.textContent = "Tìm Kiếm ";
+    // tabUtility.appendChild(text);
+    // var txtSearch = document.createElement("input");
+    // tabUtility.appendChild(txtSearch);
     tabUtitlites.appendChild(tabUtility);
 
     tabUtility = createElementWithClassName("span", "tabUtility");
@@ -436,34 +436,6 @@ function setUpCompareTabEvent() {
         compareTab.style.transitionDuration = "0.5s";
         cmpUp = !cmpUp;
     }
-}
-
-function moveIt(id, moveLeft) {
-    var holder = document.getElementById(id);
-    var moveTo = (moveLeft) ? -110 : 110;
-    holder.scrollLeft = holder.scrollLeft + moveTo;
-    checkScrollBtn(holder);
-}
-
-function checkScrollBtn(holder) {
-    setTimeout(function () {
-        var maxLeft = 0;
-        var maxRight = holder.scrollWidth - holder.clientWidth;
-
-        var cmpDirection = holder.parentElement;
-        var btnMovLeft = cmpDirection.getElementsByClassName("left")[0];
-        var btnMovRight = cmpDirection.getElementsByClassName("right")[0];
-        btnMovLeft.style.visibility = "visible";
-        btnMovRight.style.visibility = "visible";
-
-        if (holder.scrollLeft == maxLeft) {
-            btnMovLeft.style.visibility = "hidden";
-        }
-        if ((holder.scrollLeft > maxRight - 1 && holder.scrollLeft < maxRight)
-            || holder.scrollLeft == maxRight) {
-            btnMovRight.style.visibility = "hidden";
-        }
-    }, 100);
 }
 
 function compareScreenPopUp() {
