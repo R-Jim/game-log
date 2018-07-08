@@ -362,6 +362,11 @@ function addTabContent(tabId, type) {
 }
 
 var cmpUp = false;
+function changeUserTheme(type) {
+    var userHolder = document.getElementById("userIndicator");
+    userHolder.style.background = (type == 0) ? "var(--main-login-background-game)" : "var(--main-login-background-gear)";
+    userHolder.style.color = (type == 0) ? "var(--main-game-deactive-color)" : "var(--main-gear-deactive-color)";
+}
 
 function changeTab(tabId) {
 
@@ -384,7 +389,8 @@ function changeTab(tabId) {
 
 
     var tabIndicator = document.getElementById(tabId + "Indicator");
-    var tabClass = tabIndicator.className.includes(("gameTabIndicator")) ? "gameTabIndicator" : "gearTabIndicator";
+    var type = tabIndicator.className.includes(("gameTabIndicator")) ? 0 : 1;
+    var tabClass = (type == 0) ? "gameTabIndicator" : "gearTabIndicator";
     tabIndicator.classList.remove(tabClass);
     tabIndicator.classList.add(tabClass + "-active");
 
@@ -394,6 +400,7 @@ function changeTab(tabId) {
         tabContent.style.display = "block";
     }
     lastTab = tabId;
+    changeUserTheme(type);
 }
 
 function closeTab(ev, tabId) {
@@ -553,7 +560,7 @@ function compareScreenComparing() {
 
     if (gameHolder.childNodes[0] == null || gearHolder.childNodes[0] == null) {
         clearCmpData();
-        document.getElementById("errorResult").textContent = "Are you missing something ?";
+        document.getElementById("errorResult").textContent = "Chọn game và gear trước khi so sánh";
         return;
     }
     if (gameHolder.childNodes[0] != null) {
@@ -661,7 +668,7 @@ function comparingGameAndGear(isMinimum) {
         document.getElementById("ramGearResult").textContent = (gear[1][0].memory != "null") ? gear[1][0].memory : "No Content";
         document.getElementById("graphicGearResult").textContent = (gear[1][0].graphic != "null") ? gear[1][0].graphic : "No Content";
     } else {
-        document.getElementById("errorResult").textContent = "Are you missing something ?";
+        document.getElementById("errorResult").textContent = "Chọn game và gear trước khi so sánh";
     }
 }
 
