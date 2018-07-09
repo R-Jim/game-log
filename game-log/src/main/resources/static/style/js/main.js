@@ -1143,6 +1143,12 @@ function clearLogin() {
     document.getElementById("txtPassword").value = "";
 }
 
+var onLoadLastIdKey = sessionStorage.getItem("gamaUserIdKey");
+if (onLoadLastIdKey != null && onLoadLastIdKey != "") {
+    login();
+    hideLoginPanel();
+}
+
 function login() {
     var params = "";
     var username = document.getElementById("txtUsername");
