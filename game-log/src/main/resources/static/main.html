@@ -43,11 +43,39 @@
 
     </div>
     <div id="userIndicator">
-        <ion-icon class="indicatorIndicator" name="person"></ion-icon> Khách
-        <button>
+        <ion-icon class="indicatorIndicator" name="person"></ion-icon>
+        Khách
+        <button onclick="hideLoginPanel()">
             Đăng nhập
         </button>
     </div>
+    <div id="loginPanel">
+        <table>
+            <tr>
+                <td>
+                    <div class="iconHolder">
+                        <ion-icon name="person"></ion-icon>
+                    </div>
+                </td>
+                <td><input id="txtUsername" placeholder="Tên Đăng nhặp"></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="iconHolder">
+                        <ion-icon name="lock"></ion-icon>
+                    </div>
+                </td>
+                <td><input id="txtPassword" type="password" placeholder="Mật khẩu"><br/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button onclick="login()">Đăng nhập</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
 </div>
 <div id="compareTab">
     <div id="btnHideCompareTab">
@@ -163,6 +191,8 @@
         </div>
     </div>
     <div id="gearCompareHolder"></div>
+</div>
+<div id="loginBackground" onclick="hideLoginPanel()">
 </div>
 </body>
 <script src="style/js/main.js"></script>

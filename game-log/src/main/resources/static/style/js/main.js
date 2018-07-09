@@ -366,6 +366,9 @@ function changeUserTheme(type) {
     var userHolder = document.getElementById("userIndicator");
     userHolder.style.background = (type == 0) ? "var(--main-login-background-game)" : "var(--main-login-background-gear)";
     userHolder.style.color = (type == 0) ? "var(--main-game-deactive-color)" : "var(--main-gear-deactive-color)";
+    var loginPane = document.getElementById("loginPanel");
+    loginPane.style.background = (type == 0) ? "var(--main-login-panel-game)" : "var(--main-login-panel-gear)";
+    loginPane.style.color = (type == 0) ? "var(--main-game-deactive-color)" : "var(--main-gear-deactive-color)";
 }
 
 function changeTab(tabId) {
@@ -1115,4 +1118,29 @@ function compareGpuStat(gpu1, gpu2) {
     }
     console.log("Result: " + score1 + "," + score2);
     return score1 - score2;
+}
+
+function hideLoginPanel() {
+    var loginPanel = document.getElementById("loginPanel");
+    var loginBackground = document.getElementById("loginBackground");
+    var visible = loginPanel.style.visibility;
+    if (visible == "hidden" || visible == "") {
+        loginPanel.style.visibility = "visible";
+        loginPanel.style.opacity = 1;
+        loginBackground.style.visibility = "visible";
+        loginBackground.style.opacity = 1;
+        compareScreenComparing();
+    } else {
+        loginPanel.style.visibility = "hidden";
+        loginPanel.style.opacity = 0;
+        loginBackground.style.visibility = "hidden";
+        loginBackground.style.opacity = 0;
+    }
+}
+
+function login() {
+    var username = document.getElementById("txtUsername");
+    var password = document.getElementById("txtPassword");
+    alert(username.value+","+password.value);
+    password.value = "";
 }
