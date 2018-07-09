@@ -17,21 +17,25 @@ function traversalDOMTree(method, url, parseFunction, tabId) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var doc = this.responseXML;
-            parseFunction(doc, tabId);
+            var magicArray = [];
+            for (var i = 0; i < doc.childNodes[0].childNodes.length; i++) {
+                magicArray.push(doc.childNodes[0].childNodes[i]);
+            }
+            parseFunction(magicArray, tabId);
         }
     };
     xhttp.open(method, url, false);
     xhttp.send();
 }
 
-function printCategoryData(doc, tabId) {
-    var result = doc.getElementsByTagName("category");
+function printCategoryData(magicArray, tabId) {
 
     var tabContent = document.getElementById(tabId + "DropSrch");
 
-    for (var i = 0; i < result.length; i++) {
-        var id = result[i].getAttribute("id");
-        var name = result[i].childNodes[0].nodeValue;
+    for (var i = 0; i < magicArray.length; i++) {
+        var category = magicArray[i];
+        var id = category.getAttribute("id");
+        var name = category.childNodes[0].nodeValue;
 
         var option = document.createElement("option");
         option.value = id;
@@ -40,19 +44,27 @@ function printCategoryData(doc, tabId) {
     }
 }
 
-var gameDoc = [];
+var gameArray = [];
+var gearArray = [];
 
 function filteringdata(name, tabId, type) {
-    var doc = null;
-    for (var j = 0; j < gameDoc.length; j++) {
-        if (gameDoc[j][0].trim() === tabId.trim()) {
-            doc = gameDoc[j][1];
+    if (type == 0) {
+        filteringGamedata(name, tabId, type);
+    } else {
+        filteringGeardata(name, tabId, type);
+    }
+}
+
+
+function filteringGamedata(name, tabId, type) {
+    var magicArray = null;
+    for (var j = 0; j < gameArray.length; j++) {
+        if (gameArray[j][0].trim() === tabId.trim()) {
+            magicArray = gameArray[j][1];
             break;
         }
     }
-    if (doc != null) {
-        var result = doc.getElementsByTagName("game");
-        console.log(result.length);
+    if (magicArray != null) {
         var tabContent = document.getElementById(tabId + "Content");
         var itemList = tabContent.getElementsByClassName("itemList")[0];
         itemList.innerHTML = "";
@@ -60,21 +72,22 @@ function filteringdata(name, tabId, type) {
         btnLoadMore.id = tabId + "LoadMore";
         btnLoadMore.textContent = "Tải thêm";
         btnLoadMore.onclick = function () {
-            filteringdata("", tabId, type);
+            filteringGamedata("", tabId, type);
             loadMore(this, url[type], type);
         };
         itemList.appendChild(btnLoadMore);
-        for (var i = 0; i < result.length; i++) {
-            var itemName = result[i].getAttribute("name");
+        for (var i = 0; i < magicArray.length; i++) {
+            var game = magicArray[i];
+            var itemName = game.getAttribute("name");
             if (itemName.toLowerCase().includes(name.toLowerCase())) {
-                var itemId = result[i].getAttribute("id");
-                var imgSrc = result[i].getAttribute("img");
-                var x = result[i].getElementsByTagName("price")[0].childNodes[0];
+                var itemId = game.getAttribute("id");
+                var imgSrc = game.getAttribute("img");
+                var x = game.getElementsByTagName("price")[0].childNodes[0];
                 var itemPrice = "";
                 if (x != null) {
                     itemPrice = x.nodeValue;
                 }
-                var tags = result[i].getElementsByTagName("tags")[0];
+                var tags = game.getElementsByTagName("tags")[0];
 
                 newItem(itemList, "A" + itemId, imgSrc, itemName, null, itemPrice, tags);
             }
@@ -82,52 +95,98 @@ function filteringdata(name, tabId, type) {
     }
 }
 
+function filteringGeardata(name, tabId, type) {
+    var magicArray = null;
+    for (var j = 0; j < gearArray.length; j++) {
+        if (gearArray[j][0].trim() === tabId.trim()) {
+            magicArray = gearArray[j][1];
+            break;
+        }
+    }
+    if (magicArray != null) {
+        var tabContent = document.getElementById(tabId + "Content");
+        var itemList = tabContent.getElementsByClassName("itemList")[0];
+        itemList.innerHTML = "";
+        var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
+        btnLoadMore.id = tabId + "LoadMore";
+        btnLoadMore.textContent = "Tải thêm";
+        btnLoadMore.onclick = function () {
+            filteringGamedata("", tabId, type);
+            loadMore(this, url[type], type);
+        };
+        itemList.appendChild(btnLoadMore);
+        for (var i = 0; i < magicArray.length; i++) {
+            var gear = magicArray[i];
+            var itemName = gear.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+            if (itemName.toLowerCase().includes(name.toLowerCase())) {
 
-function printGameData(doc, tabId) {
-    var existed = false;
-    for (var j = 0; j < gameDoc.length; j++) {
-        if (gameDoc[j][0] === tabId) {
-            for (var z = 0; z < doc.childNodes[0].childNodes.length; z++) {
-                gameDoc[j][1].childNodes[0].appendChild(doc.childNodes[0].childNodes[z]);
+                var itemId = gear.getAttribute("id");
+                var imgSrc = gear.getAttribute("img");
+                var x = gear.getElementsByTagName("price")[0].childNodes[0];
+                var itemPrice = "";
+                if (x != null) {
+                    itemPrice = x.nodeValue;
+                }
+                newItem(itemList, "B" + itemId, imgSrc, itemName, null, itemPrice);
             }
+        }
+    }
+}
+
+
+function printGameData(magicArray, tabId) {
+    var existed = false;
+    for (var j = 0; j < gameArray.length; j++) {
+        if (gameArray[j][0] === tabId) {
+            gameArray[j][1] = gameArray[j][1].concat(magicArray);
             existed = true;
             break;
         }
     }
     if (!existed) {
-        gameDoc.push([tabId, doc]);
+        gameArray.push([tabId, magicArray]);
     }
-    var result = doc.getElementsByTagName("game");
-
     var tabContent = document.getElementById(tabId + "Content");
     var itemList = tabContent.getElementsByClassName("itemList")[0];
 
-    for (var i = 0; i < result.length; i++) {
-        var itemId = result[i].getAttribute("id");
-        var imgSrc = result[i].getAttribute("img");
-        var itemName = result[i].getAttribute("name");
-        var x = result[i].getElementsByTagName("price")[0].childNodes[0];
+    for (var i = 0; i < magicArray.length; i++) {
+        var game = magicArray[i];
+        var itemId = game.getAttribute("id");
+        var imgSrc = game.getAttribute("img");
+        var itemName = game.getAttribute("name");
+        var x = game.getElementsByTagName("price")[0].childNodes[0];
         var itemPrice = "";
         if (x != null) {
             itemPrice = x.nodeValue;
         }
-        var tags = result[i].getElementsByTagName("tags")[0];
+        var tags = game.getElementsByTagName("tags")[0];
 
         newItem(itemList, "A" + itemId, imgSrc, itemName, null, itemPrice, tags);
     }
 }
 
-function printGearData(doc, tabId) {
-    var result = doc.getElementsByTagName("gear");
+function printGearData(magicArray, tabId) {
+    var existed = false;
+    for (var j = 0; j < gearArray.length; j++) {
+        if (gearArray[j][0] === tabId) {
+            gearArray[j][1] = gearArray[j][1].concat(magicArray);
+            existed = true;
+            break;
+        }
+    }
+    if (!existed) {
+        gearArray.push([tabId, magicArray]);
+    }
 
     var tabContent = document.getElementById(tabId + "Content");
     var itemList = tabContent.getElementsByClassName("itemList")[0];
 
-    for (var i = 0; i < result.length; i++) {
-        var itemId = result[i].getAttribute("id");
-        var imgSrc = result[i].getAttribute("img");
-        var itemName = result[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
-        var x = result[i].getElementsByTagName("price")[0].childNodes[0];
+    for (var i = 0; i < magicArray.length; i++) {
+        var gear = magicArray[i];
+        var itemId = gear.getAttribute("id");
+        var imgSrc = gear.getAttribute("img");
+        var itemName = gear.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+        var x = gear.getElementsByTagName("price")[0].childNodes[0];
         var itemPrice = "";
         if (x != null) {
             itemPrice = x.nodeValue;
@@ -265,7 +324,7 @@ function sortByCategory(element, urlParam, type) {
     var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
     btnLoadMore.id = id + "LoadMore";
     btnLoadMore.textContent = "Tải thêm";
-    btnLoadMore.onclick = function (ev) {
+    btnLoadMore.onclick = function () {
         loadMore(this, url[type], type);
     };
     itemList.appendChild(btnLoadMore);
@@ -276,9 +335,14 @@ function sortByCategory(element, urlParam, type) {
         }
     }
 
-    for (var j = 0; j < gameDoc.length; j++) {
-        if (gameDoc[j][0] === id) {
-            gameDoc.splice(j, 1);
+    for (var j = 0; j < gameArray.length; j++) {
+        if (gameArray[j][0] === id) {
+            gameArray.splice(j, 1);
+        }
+    }
+    for (var j = 0; j < gearArray.length; j++) {
+        if (gearArray[j][0] === id) {
+            gearArray.splice(j, 1);
         }
     }
 
