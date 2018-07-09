@@ -319,15 +319,13 @@ function addTabContent(tabId, type) {
 
     tabUtility.appendChild(tabName);
 
-    // var text = document.createElement("span");
-    // text.textContent = "Tìm Kiếm ";
-    // tabUtility.appendChild(text);
-    // var txtSearch = document.createElement("input");
-    // tabUtility.appendChild(txtSearch);
+    var txtSearch = document.createElement("input");
+    txtSearch.placeholder = "Tìm kiếm";
+    tabUtility.appendChild(txtSearch);
     tabUtitlites.appendChild(tabUtility);
 
     tabUtility = createElementWithClassName("span", "tabUtility");
-    text = document.createElement("span");
+    var text = document.createElement("span");
     text.textContent = "Lọc ";
     tabUtility.appendChild(text);
     var dropbox = document.createElement("select");
@@ -1251,7 +1249,7 @@ function crawlCategory(url, thisButton, type) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             thisButton.disabled = false;
-            result.textContent ="Item crawled: " + this.responseText;
+            result.textContent = "Item crawled: " + this.responseText;
         }
     };
     xhttp.open("GET", url, true);
@@ -1267,7 +1265,7 @@ function startCrawlItem(url, type) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             btnStop.disabled = false;
-            result.textContent =this.responseText + " is running";
+            result.textContent = this.responseText + " is running";
             var threadName = (type == 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
             threadName.value = this.responseText;
         }
@@ -1286,7 +1284,7 @@ function stopCrawlItem(url, type) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             btnStart.disabled = false;
-            result.textContent ="Item crawled: " + this.responseText;
+            result.textContent = "Item crawled: " + this.responseText;
         }
     };
     xhttp.open("GET", url + "?name=" + threadName.value, true);
