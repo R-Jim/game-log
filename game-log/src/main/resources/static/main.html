@@ -55,9 +55,11 @@
             </tr>
             <tr id="admin">
                 <td>
-                    <ion-icon class="indicatorIndicator setting" name="settings"></ion-icon>
+                    <div onclick="admistrationTabHide()">
+                        <ion-icon class="indicatorIndicator setting" name="settings"></ion-icon>
+                    </div>
                     <span id="adminName">Some Name</span>
-                    <button onclick="hideLoginPanel()" style="top: 8px;">
+                    <button onclick="adminIsHere(false)" style="top: 8px;">
                         Đăng xuất
                     </button>
                 </td>
@@ -214,6 +216,9 @@
 <div id="loginBackground" onclick="hideLoginPanel()">
 </div>
 <div id="administrationTab">
+    <button id="btnAdministrationTabHide" onclick="admistrationTabHide()">x</button>
+    <div id="administrationTabContent">
+    </div>
 </div>
 </body>
 <script src="style/js/main.js"></script>

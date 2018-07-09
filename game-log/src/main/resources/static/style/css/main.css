@@ -1032,4 +1032,7 @@ body {
     background: wheat;
     left: 15%;
     top: 80px;
+    transition: visibility 0.3s ease, opacity 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
 }

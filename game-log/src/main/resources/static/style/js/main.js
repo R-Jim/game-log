@@ -1130,7 +1130,6 @@ function hideLoginPanel() {
         loginPanel.style.opacity = 1;
         loginBackground.style.visibility = "visible";
         loginBackground.style.opacity = 1;
-        compareScreenComparing();
     } else {
         loginPanel.style.visibility = "hidden";
         loginPanel.style.opacity = 0;
@@ -1178,6 +1177,8 @@ function adminIsHere(isIt) {
     } else {
         document.getElementById("guest").style.visibility = "visible";
         document.getElementById("admin").style.visibility = "collapse";
+        document.getElementById("adminName").textContent = "";
+        document.getElementById("administrationTabContent").innerHTML = "";
     }
 }
 
@@ -1185,7 +1186,7 @@ function loadAdministrationTab() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var mainContentHolder = document.getElementById("administrationTab");
+            var mainContentHolder = document.getElementById("administrationTabContent");
             mainContentHolder.innerHTML = this.responseText;
             // alert(this.responseText);
         }
@@ -1195,7 +1196,15 @@ function loadAdministrationTab() {
 }
 
 function admistrationTabHide() {
-
+    var administrationTab = document.getElementById("administrationTab");
+    var visible = administrationTab.style.visibility;
+    if (visible == "hidden" || visible == "") {
+        administrationTab.style.visibility = "visible";
+        administrationTab.style.opacity = 1;
+    } else {
+        administrationTab.style.visibility = "hidden";
+        administrationTab.style.opacity = 0;
+    }
 }
 
 function crawlCategory(url, thisButton) {
