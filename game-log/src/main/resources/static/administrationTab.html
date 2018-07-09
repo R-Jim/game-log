@@ -1,24 +1,24 @@
 <table style="width: 100%;height: 100%">
     <tr>
-        <td>
-            <table style="color: var(--main-game-color)">
+        <td style="width: 50%;">
+            <table style="color: var(--main-game-color);">
                 <tr>
                     <th>Game</th>
                 </tr>
                 <tr>
-                    <td>Crawl Categories</td>
-                    <td>
+                    <td style="width: 40%;">Crawl Categories</td>
+                    <td style="width: 40%;">
                         <button onclick="crawlCategory('http://localhost:8080/game/category/load',this,0)">Start
                         </button>
                         <button disabled>Stop</button>
                     </td>
-                    <td>
+                    <td style="width: 20%;">
                         <span id="txtGameCategoryCrawlResult"></span>
                     </td>
                 </tr>
                 <tr>
-                    <td>Crawl Games</td>
-                    <td>
+                    <td style="width: 40%;">Crawl Games</td>
+                    <td style="width: 40%;">
                         <button id="btnGameCrawlStart" onclick="startCrawlItem('http://localhost:8080/game/load', 0)">
                             Start
                         </button>
@@ -27,31 +27,31 @@
                                 disabled>Stop
                         </button>
                     </td>
-                    <td>
+                    <td style="width: 20%;">
                         <span id="txtGameCrawlResult"></span>
                     </td>
                 </tr>
             </table>
         </td>
-        <td>
-            <table style="color: var(--main-gear-color)">
+        <td style="width: 50%;">
+            <table style="color: var(--main-gear-color);">
                 <tr>
                     <th>Gear</th>
                 </tr>
                 <tr>
-                    <td>Crawl Categories</td>
-                    <td>
+                    <td style="width: 40%;">Crawl Categories</td>
+                    <td style="width: 40%;">
                         <button onclick="crawlCategory('http://localhost:8080/gear/category/load',this,1)">Start
                         </button>
                         <button disabled>Stop</button>
                     </td>
-                    <td>
+                    <td style="width: 20%;">
                         <span id="txtGearCategoryCrawlResult"></span>
                     </td>
                 </tr>
                 <tr>
-                    <td>Crawl Gears</td>
-                    <td>
+                    <td style="width: 40%;">Crawl Gears</td>
+                    <td style="width: 40%;">
                         <button id="btnGearCrawlStart" onclick="startCrawlItem('http://localhost:8080/gear/load', 1)">
                             Start
                         </button>
@@ -60,7 +60,7 @@
                                 disabled>Stop
                         </button>
                     </td>
-                    <td>
+                    <td style="width: 20%;">
                         <span id="txtGearCrawlResult"></span>
                     </td>
                 </tr>
