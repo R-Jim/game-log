@@ -10,8 +10,8 @@
     --main-gear-indicator: linear-gradient(105deg, var(--main-gear-deactive-color) 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-gear-color) 85%, #243548 15%);
     --main-gear-indicator-active: linear-gradient(105deg, #f2f8ff 60%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-gear-color) 85%, #f2f8ff 15%);
 
-    --main-game-title: linear-gradient(105deg, var(--main-game-deactive-color) 40%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-game-color) 43%, rgb(94, 40, 39) 43%);
-    --main-gear-title: linear-gradient(105deg, var(--main-gear-deactive-color) 40%, rgba(0, 0, 0, 0) 40%), linear-gradient(105deg, var(--main-gear-color) 43%, #243548 43%);
+    --main-game-title: linear-gradient(105deg, var(--main-game-deactive-color) 38%, rgba(0, 0, 0, 0) 38%), linear-gradient(105deg, var(--main-game-color) 40%, rgb(94, 40, 39) 40%);
+    --main-gear-title: linear-gradient(105deg, var(--main-gear-deactive-color) 38%, rgba(0, 0, 0, 0) 38%), linear-gradient(105deg, var(--main-gear-color) 40%, #243548 40%);
 
     --main-background-color: rgba(147, 150, 149, 0.81);
     --main-banner-color: rgba(38, 37, 37, 0.82);
@@ -191,6 +191,7 @@ body {
     border: 1px solid gray;
     height: 25px;
     background-color: white;
+    padding-left: 5px;
 }
 
 .tabNameContent {

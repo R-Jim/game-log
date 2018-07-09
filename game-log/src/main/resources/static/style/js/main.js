@@ -15,7 +15,7 @@ function traversalDOMTree(method, url, parseFunction, tabId) {
     var xhttp = new XMLHttpRequest();
     console.log(url);
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             var doc = this.responseXML;
             parseFunction(doc, tabId);
         }
@@ -38,9 +38,9 @@ function printCategoryData(doc, tabId) {
         option.label = name;
         tabContent.appendChild(option);
     }
-};
+}
 
-
+// var gameDoc;
 function printGameData(doc, tabId) {
     var result = doc.getElementsByTagName("game");
 
@@ -83,19 +83,6 @@ function printGearData(doc, tabId) {
 
 
 function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) {
-// <div class="item" id="10">
-//         <div class="btnCompare">
-//         <div class="tri"></div>
-//         <div class="icon"> So sánh</div>
-//     </div>
-//     <div class="itemImg">
-//         <span class="imgHelper"></span>
-//         <img src="D:\Memes\21768216_364241094010983_1496368460535907350_n.jpg" />
-//         </div>
-//         <div class="itemName">Gunbound</div>
-//         <div class="itemType">Turn-based</div>
-//         <div class="itemPrice">20.00 $</div>
-//     </div>
     var item = createElementWithClassName("div", "item");
     item.id = itemId;
 
@@ -107,7 +94,7 @@ function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) 
     btnCompare.appendChild(icon);
     btnCompare.onclick = function () {
         btnCompareEvent(this);
-    }
+    };
 
     item.appendChild(btnCompare);
 
@@ -150,7 +137,7 @@ function btnCompareEvent(element) {
     var itemInCmpList = list.childNodes;
 
     for (var i = 0; i < itemInCmpList.length; i++) {
-        if (item.id == itemInCmpList[i].id) {
+        if (item.id === itemInCmpList[i].id) {
             return;
         }
     }
@@ -178,12 +165,12 @@ function btnCompareEvent(element) {
         this.parentElement.removeEventListener('animationend', null);
         this.parentElement.style.minWidth = "0";
         var node = this.parentElement.parentElement.children[0];
-        this.parentElement.classList.add((this.parentElement.id == node.id) ? "cmpItem-remove-first" : "cmpItem-remove");
-        this.parentElement.addEventListener('animationend', function (evt) {
+        this.parentElement.classList.add((this.parentElement.id === node.id) ? "cmpItem-remove-first" : "cmpItem-remove");
+        this.parentElement.addEventListener('animationend', function () {
             this.remove();
         });
-    }
-    cmpItem.addEventListener('animationend', function (evt) {
+    };
+    cmpItem.addEventListener('animationend', function () {
         this.style.minWidth = "100px";
         this.parentElement.scrollLeft = this.parentElement.scrollWidth - this.parentElement.clientWidth;
         // checkScrollBtn(this.parentElement);
@@ -208,8 +195,8 @@ function loadMore(element, url, type) {
     currentPage.value = +currentPage.value + 1;
 
     var categoryId = document.getElementById(id + "DropSrch").value;
-    var categoryUrl = (categoryId == "null") ? "" : "&categoryId=" + categoryId;
-    var functionName = (type == 0) ? printGameData : printGearData;
+    var categoryUrl = (categoryId === "null") ? "" : "&categoryId=" + categoryId;
+    var functionName = (type === 0) ? printGameData : printGearData;
     traversalDOMTree("GET", url + "?currentPage=" + currentPage.value + categoryUrl, functionName, id);
 }
 
@@ -226,16 +213,16 @@ function sortByCategory(element, urlParam, type) {
     btnLoadMore.textContent = "Tải thêm";
     btnLoadMore.onclick = function () {
         loadMore(this, url[type], type)
-    }
+    };
     itemList.appendChild(btnLoadMore);
 
     for (var i = 0; i < element.childNodes.length; i++) {
-        if (categoryId == element.childNodes[i].value) {
+        if (categoryId === element.childNodes[i].value) {
             document.getElementById(id + "TabDescription").textContent = " - " + element.childNodes[i].label;
         }
     }
 
-    var functionName = (type == 0) ? printGameData : printGearData;
+    var functionName = (type === 0) ? printGameData : printGearData;
     traversalDOMTree("GET", urlParam + "?categoryId=" + categoryId, functionName, id);
 }
 
@@ -248,18 +235,18 @@ addTab(0, "tabIndicatorHolder", false);
 addTab(1, "tabIndicatorHolder", false);
 changeTab("tab" + 1);
 
-function addTab(type, tabIndicatorHolder, isChangeTab) {
-    var tabIndicatorHolder = document.getElementById(tabIndicatorHolder);
+function addTab(type, tabIndicatorHolderId, isChangeTab) {
+    var tabIndicatorHolder = document.getElementById(tabIndicatorHolderId);
     var tabIndicator = document.createElement("div");
-    tabIndicator.className = (type == 0) ? "gameTabIndicator tabIndicator" : "gearTabIndicator tabIndicator";
+    tabIndicator.className = (type === 0) ? "gameTabIndicator tabIndicator" : "gearTabIndicator tabIndicator";
 
     var indicator = createElementWithClassName("ion-icon", "indicatorIndicator");
-    indicator.name = (type == 0) ? "logo-game-controller-a" : "tv";
+    indicator.name = (type === 0) ? "logo-game-controller-a" : "tv";
 
     tabIndicator.appendChild(indicator);
 
     var span = document.createElement("span");
-    span.textContent = (type == 0) ? "Game" : "Gear";
+    span.textContent = (type === 0) ? "Game" : "Gear";
     tabIndicator.appendChild(span);
 
     var a = document.createElement("a");
@@ -269,14 +256,14 @@ function addTab(type, tabIndicatorHolder, isChangeTab) {
     a.id = "tab" + tabCount;
     a.onclick = function (ev) {
         closeTab(ev, this.id);
-    }
+    };
     var id = "tab" + tabCount;
     tabIndicator.id = id + "Indicator";
     tabIndicator.appendChild(a);
     tabIndicator.onclick = function () {
         var id = this.id.substring(0, this.id.length - 9);
         changeTab(id);
-    }
+    };
 
     tabIndicatorHolder.insertBefore(tabIndicator, tabIndicatorHolder.childNodes[tabIndicatorHolder.childNodes.length - 2]);
     if (lastTab == null && isChangeTab) {
@@ -286,8 +273,8 @@ function addTab(type, tabIndicatorHolder, isChangeTab) {
 
     var currentPage = document.getElementById(id + "CurrentPage");
     currentPage.value = 1;
-    var url = (type == 0) ? "http://localhost:8080/game" : "http://localhost:8080/gear";
-    var functionName = (type == 0) ? printGameData : printGearData;
+    var url = (type === 0) ? "http://localhost:8080/game" : "http://localhost:8080/gear";
+    var functionName = (type === 0) ? printGameData : printGearData;
     traversalDOMTree("GET", url, functionName, id);
     traversalDOMTree("GET", url + "/category", printCategoryData, id);
 
@@ -298,7 +285,7 @@ function addTabContent(tabId, type) {
     var tabContent = createElementWithClassName("div", "tab");
     tabContent.id = tabId + "Content";
 
-    var tabUtitlites = createElementWithClassName("div", (type == 0) ? "tabUtilities gameUti" : "tabUtilities gearUti");
+    var tabUtitlites = createElementWithClassName("div", (type === 0) ? "tabUtilities gameUti" : "tabUtilities gearUti");
 
     var inputCurrentPage = document.createElement("input");
     inputCurrentPage.id = tabId + "CurrentPage";
@@ -308,10 +295,10 @@ function addTabContent(tabId, type) {
     var tabUtility = createElementWithClassName("span", "tabUtility");
     var tabName = createElementWithClassName("div", "tabNameContent");
     var indicator = createElementWithClassName("ion-icon", "tabTxtNameIcon");
-    indicator.name = (type == 0) ? "logo-game-controller-a" : "tv";
+    indicator.name = (type === 0) ? "logo-game-controller-a" : "tv";
     tabName.appendChild(indicator);
     var tabTxtName = createElementWithClassName("span", "tabTxtName");
-    tabTxtName.textContent = (type == 0) ? "Game" : "Gear";
+    tabTxtName.textContent = (type === 0) ? "Game" : "Gear";
     var tabTxtDescription = createElementWithClassName("span", "");
     tabTxtDescription.id = tabId + "TabDescription";
     tabTxtName.appendChild(tabTxtDescription);
@@ -321,6 +308,11 @@ function addTabContent(tabId, type) {
 
     var txtSearch = document.createElement("input");
     txtSearch.placeholder = "Tìm kiếm";
+    txtSearch.onkeypress = function () {
+        if (this.value.trim().length > 2) {
+            alert("searching");
+        }
+    };
     tabUtility.appendChild(txtSearch);
     tabUtitlites.appendChild(tabUtility);
 
@@ -332,7 +324,7 @@ function addTabContent(tabId, type) {
     dropbox.id = tabId + "DropSrch";
     dropbox.onchange = function () {
         sortByCategory(this, url[type], type);
-    }
+    };
     var defaultDB = document.createElement("option");
     defaultDB.label = "Tất cả";
     defaultDB.value = null;
@@ -341,7 +333,7 @@ function addTabContent(tabId, type) {
     tabUtitlites.appendChild(tabUtility);
     tabContent.appendChild(tabUtitlites);
 
-    var className = (type == 0) ? "gameList" : "gearList";
+    var className = (type === 0) ? "gameList" : "gearList";
     var itemListHolder = createElementWithClassName("div", "itemListHolder " + className);
     var itemList = createElementWithClassName("div", "itemList");
     itemListHolder.appendChild(itemList);
@@ -350,7 +342,7 @@ function addTabContent(tabId, type) {
     btnLoadMore.textContent = "Tải thêm";
     btnLoadMore.onclick = function () {
         loadMore(this, url[type], type)
-    }
+    };
     itemList.appendChild(btnLoadMore);
     tabContent.appendChild(itemListHolder);
 
@@ -363,16 +355,16 @@ var cmpUp = false;
 
 function changeUserTheme(type) {
     var userHolder = document.getElementById("userIndicator");
-    userHolder.style.background = (type == 0) ? "var(--main-login-background-game)" : "var(--main-login-background-gear)";
-    userHolder.style.color = (type == 0) ? "var(--main-game-deactive-color)" : "var(--main-gear-deactive-color)";
+    userHolder.style.background = (type === 0) ? "var(--main-login-background-game)" : "var(--main-login-background-gear)";
+    userHolder.style.color = (type === 0) ? "var(--main-game-deactive-color)" : "var(--main-gear-deactive-color)";
     var loginPane = document.getElementById("loginPanel");
-    loginPane.style.background = (type == 0) ? "var(--main-login-panel-game)" : "var(--main-login-panel-gear)";
-    loginPane.style.color = (type == 0) ? "var(--main-game-deactive-color)" : "var(--main-gear-deactive-color)";
+    loginPane.style.background = (type === 0) ? "var(--main-login-panel-game)" : "var(--main-login-panel-gear)";
+    loginPane.style.color = (type === 0) ? "var(--main-game-deactive-color)" : "var(--main-gear-deactive-color)";
 }
 
 function changeTab(tabId) {
 
-    if (lastTab == tabId) {
+    if (lastTab === tabId) {
         return;
     }
     if (lastTab != null) {
@@ -392,7 +384,7 @@ function changeTab(tabId) {
 
     var tabIndicator = document.getElementById(tabId + "Indicator");
     var type = tabIndicator.className.includes(("gameTabIndicator")) ? 0 : 1;
-    var tabClass = (type == 0) ? "gameTabIndicator" : "gearTabIndicator";
+    var tabClass = (type === 0) ? "gameTabIndicator" : "gearTabIndicator";
     tabIndicator.classList.remove(tabClass);
     tabIndicator.classList.add(tabClass + "-active");
 
@@ -414,15 +406,15 @@ function closeTab(ev, tabId) {
         tabContent.remove();
     }
 
-    if (lastTab == tabId) {
+    if (lastTab === tabId) {
         var tabIndicators = document.getElementsByClassName("tabIndicator");
-        var tabIndicator = tabIndicators[0];
+        tabIndicator = tabIndicators[0];
         if (tabIndicator != null) {
             var tabClass = tabIndicator.className.includes(("gameTabIndicator")) ? "gameTabIndicator" : "gearTabIndicator";
             tabIndicator.classList.remove(tabClass);
             tabIndicator.classList.add(tabClass + "-active");
             lastTab = tabIndicator.id.substr(0, tabIndicator.id.length - 9);
-            var tabContent = document.getElementById(lastTab + "Content");
+            tabContent = document.getElementById(lastTab + "Content");
             if (tabContent != null) {
                 tabContent.style.visibility = "visible";
                 tabContent.style.display = "block";
@@ -450,7 +442,7 @@ function setUpCompareTabEvent() {
 function compareScreenPopUp() {
     var cmpScreen = document.getElementById("compareScreen");
     var visible = cmpScreen.style.visibility;
-    if (visible == "hidden" || visible == "") {
+    if (visible === "hidden" || visible === "") {
         cmpScreen.style.visibility = "visible";
         cmpScreen.style.opacity = 1;
         compareScreenComparing();
@@ -501,7 +493,7 @@ function compareScreenComparing() {
         }
         game.innerHTML = games[i].innerHTML;
         game.getElementsByClassName("removeCmpItemButton")[0].remove();
-        game.onclick = function (ev) {
+        game.onclick = function () {
             if (lastCmpGame != null) {
                 document.getElementById(lastCmpGame).className =
                     document.getElementById(lastCmpGame).className.replace(" cmpItemActive", "");
@@ -511,41 +503,41 @@ function compareScreenComparing() {
             setIdForCmp(true, this.id);
             comparingGameAndGear(true);
             var btnMinimum = document.getElementById("switchCmpModeMinimum");
-            btnMinimum.onclick = function (ev2) {
+            btnMinimum.onclick = function () {
                 comparingGameAndGear(true);
-            }
+            };
             btnMinimum.disabled = false;
             var btnRecommend = document.getElementById("switchCmpModeRecommend");
             btnRecommend.disabled = true;
             if (this.className.includes("hasRecommend")) {
                 btnRecommend.disabled = false;
-                btnRecommend.onclick = function (ev2) {
+                btnRecommend.onclick = function () {
                     comparingGameAndGear(false);
                 }
             }
-        }
+        };
         gameHolder.appendChild(game);
     }
 
-    for (var i = 0; i < gears.length; i++) {
+    for (var i2 = 0; i2 < gears.length; i2++) {
         var gear = document.createElement("div");
-        gear.id = gears[i].id + "CmpItem";
+        gear.id = gears[i2].id + "CmpItem";
         gear.className = "cmpScreenItem";
         var gearExist = false;
-        for (var j = 0; j < gearChoosed; j++) {
-            if (gearChoosed[j].includes(gears[i].id)) {
+        for (var j2 = 0; j2 < gearChoosed; j2++) {
+            if (gearChoosed[j2].includes(gears[i2].id)) {
                 gearExist = true;
             }
         }
         if (!gearExist) {
-            var spec = loadSpecForCompare(gears[i].id, 1);
+            var spec2 = loadSpecForCompare(gears[i2].id, 1);
             var gearSpec = [];
-            gearSpec.push(gears[i].id);
-            gearSpec.push(castListToSpec(spec));
+            gearSpec.push(gears[i2].id);
+            gearSpec.push(castListToSpec(spec2));
             gearChoosed.push(gearSpec);
         }
-        gear.innerHTML = gears[i].innerHTML;
-        gear.onclick = function (ev) {
+        gear.innerHTML = gears[i2].innerHTML;
+        gear.onclick = function () {
             if (lastCmpGear != null) {
                 document.getElementById(lastCmpGear).className = "cmpScreenItem";
             }
@@ -553,7 +545,7 @@ function compareScreenComparing() {
             lastCmpGear = this.id;
             setIdForCmp(false, this.id);
             comparingGameAndGear(true);
-        }
+        };
         gear.getElementsByClassName("removeCmpItemButton")[0].remove();
         gearHolder.appendChild(gear);
     }
@@ -576,7 +568,7 @@ function compareScreenComparing() {
 function castListToSpec(array) {
     var normal = array.replace("[", "").replace("]", "").replace(/},{/g, "&and;").replace(/{/g, "").replace(/}/g, "");
     normal = normal.split("&and;");
-    var normalArrayPlease = []
+    var normalArrayPlease = [];
     for (var i = 0; i < normal.length; i++) {
         var properties = normal[i].split(",");
         var spec = {
@@ -643,13 +635,13 @@ function comparingGameAndGear(isMinimum) {
         var gear;
 
         for (var i = 0; i < gameChoosed.length; i++) {
-            if (gameChoosed[i][0] == gameIdCmpChoose) {
+            if (gameChoosed[i][0] === gameIdCmpChoose) {
                 game = gameChoosed[i];
             }
         }
-        for (var i = 0; i < gearChoosed.length; i++) {
-            if (gearChoosed[i][0] == gearIdCmpChoose) {
-                gear = gearChoosed[i];
+        for (var j = 0; j < gearChoosed.length; j++) {
+            if (gearChoosed[j][0] === gearIdCmpChoose) {
+                gear = gearChoosed[j];
             }
         }
         console.log("And so it begin");
@@ -661,14 +653,14 @@ function comparingGameAndGear(isMinimum) {
         runScoreBar("ramResult", compareRamStat(gameSpec.memory, gear[1][0].memory));
         runScoreBar("graphicResult", compareGpuStat(gameSpec.graphic, gear[1][0].graphic));
 
-        document.getElementById("osGameResult").textContent = (gameSpec.os != "null") ? gameSpec.os : "No Content";
-        document.getElementById("cpuGameResult").textContent = (gameSpec.processor != "null") ? gameSpec.processor : "No Content";
-        document.getElementById("ramGameResult").textContent = (gameSpec.memory != "null") ? gameSpec.memory : "No Content";
-        document.getElementById("graphicGameResult").textContent = (gameSpec.graphic != "null") ? gameSpec.graphic : "No Content";
-        document.getElementById("osGearResult").textContent = (gear[1][0].os != "null") ? gear[1][0].os : "No Content";
-        document.getElementById("cpuGearResult").textContent = (gear[1][0].processor != "null") ? gear[1][0].processor : "No Content";
-        document.getElementById("ramGearResult").textContent = (gear[1][0].memory != "null") ? gear[1][0].memory : "No Content";
-        document.getElementById("graphicGearResult").textContent = (gear[1][0].graphic != "null") ? gear[1][0].graphic : "No Content";
+        document.getElementById("osGameResult").textContent = (gameSpec.os !== "null") ? gameSpec.os : "No Content";
+        document.getElementById("cpuGameResult").textContent = (gameSpec.processor !== "null") ? gameSpec.processor : "No Content";
+        document.getElementById("ramGameResult").textContent = (gameSpec.memory !== "null") ? gameSpec.memory : "No Content";
+        document.getElementById("graphicGameResult").textContent = (gameSpec.graphic !== "null") ? gameSpec.graphic : "No Content";
+        document.getElementById("osGearResult").textContent = (gear[1][0].os !== "null") ? gear[1][0].os : "No Content";
+        document.getElementById("cpuGearResult").textContent = (gear[1][0].processor !== "null") ? gear[1][0].processor : "No Content";
+        document.getElementById("ramGearResult").textContent = (gear[1][0].memory !== "null") ? gear[1][0].memory : "No Content";
+        document.getElementById("graphicGearResult").textContent = (gear[1][0].graphic !== "null") ? gear[1][0].graphic : "No Content";
     } else {
         document.getElementById("errorResult").textContent = "Chọn game và gear trước khi so sánh";
     }
@@ -683,11 +675,11 @@ function runScoreBar(typeScoreId, score) {
         scoreRegister.style.width = 20 * score + "px";
         scoreRegister.textContent = score;
     } else {
-        var scorebar = typeScoreHolder.getElementsByClassName("meterGear")[0].getElementsByClassName("scoreBar")[0];
-        var scoreRegister = typeScoreHolder.getElementsByClassName("meterGear")[0].getElementsByClassName("score")[0];
-        scorebar.style.width = -1 * 20 * score + "px";
-        scoreRegister.style.width = -1 * 20 * score + "px";
-        scoreRegister.textContent = -1 * score;
+        var scorebar2 = typeScoreHolder.getElementsByClassName("meterGear")[0].getElementsByClassName("scoreBar")[0];
+        var scoreRegister2 = typeScoreHolder.getElementsByClassName("meterGear")[0].getElementsByClassName("score")[0];
+        scorebar2.style.width = -1 * 20 * score + "px";
+        scoreRegister2.style.width = -1 * 20 * score + "px";
+        scoreRegister2.textContent = -1 * score;
     }
 }
 
@@ -697,9 +689,9 @@ function clearCmpData() {
         scorebars[i].style.width = "0px";
     }
     var scores = document.getElementById("cmpResult").getElementsByClassName("score");
-    for (var i = 0; i < scorebars.length; i++) {
-        scores[i].style.width = "0px";
-        scores[i].textContent = "";
+    for (var j = 0; j < scorebars.length; j++) {
+        scores[j].style.width = "0px";
+        scores[j].textContent = "";
     }
 
     document.getElementById("osGameResult").textContent = "";
@@ -716,17 +708,17 @@ var gamesInCompareTab = false;
 
 function tabToolBarVisible() {
     var element = document.getElementById("tabToolbarOverlay");
-    element.style.visibility = (element.style.visibility == "visible" || element.style.visibility == "") ? "hidden" : "visible";
+    element.style.visibility = (element.style.visibility === "visible" || element.style.visibility === "") ? "hidden" : "visible";
     var tabToolbar = document.getElementById("tabToolbar");
-    tabToolbar.style.visibility = (tabToolbar.style.visibility == "hidden" || tabToolbar.style.visibility == "") ? "visible" : "hidden";
+    tabToolbar.style.visibility = (tabToolbar.style.visibility === "hidden" || tabToolbar.style.visibility === "") ? "visible" : "hidden";
 }
 
 function loadSpec(url) {
     var xhttp = new XMLHttpRequest();
     console.log(url);
-    var entity;
+    var entity = null;
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             entity = this.responseText;
         }
     };
@@ -776,7 +768,7 @@ function loadTypeToList(url) {
     console.log(url);
     var tmpArray = [];
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             var txt = this.responseText;
             txt = txt.replace("[", "").replace("]", "").replace(/"/g, "");
             tmpArray = txt.split(",");
@@ -813,22 +805,22 @@ function processOsTypeList(array) {
 
     processedArray[1] = window7Array;
     var window8Array = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(Windows|Win|Window)( \\w*)*8");
-        if (txt != null) {
-            window8Array.push(array[i]);
-            array.splice(i, 1);
-            i--
+    for (var i1 = 0; i1 < array.length; i1++) {
+        var txt1 = array[i1].match("(Windows|Win|Window)( \\w*)*8");
+        if (txt1 != null) {
+            window8Array.push(array[i1]);
+            array.splice(i1, 1);
+            i1--
         }
     }
     processedArray[2] = window8Array;
     var window10Array = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(Windows|Win|Window)( \\w*)*10");
-        if (txt != null) {
-            window10Array.push(array[i]);
-            array.splice(i, 1);
-            i--
+    for (var i2 = 0; i2 < array.length; i2++) {
+        var txt2 = array[i2].match("(Windows|Win|Window)( \\w*)*10");
+        if (txt2 != null) {
+            window10Array.push(array[i2]);
+            array.splice(i2, 1);
+            i2--
         }
     }
     processedArray[3] = window10Array;
@@ -849,42 +841,42 @@ function processCpuTypeList(array) {
     }
 
     var _3GHzArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(^3|[^\\d.]3)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
-        if (txt != null) {
-            _3GHzArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i1 = 0; i1 < array.length; i1++) {
+        var txt1 = array[i1].match("(^3|[^\\d.]3)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
+        if (txt1 != null) {
+            _3GHzArray.push(array[i1]);
+            array.splice(i1, 1);
+            i1--;
         }
     }
 
     var _2GHzArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(^2|[^\\d.]2)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
-        if (txt != null) {
-            _2GHzArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i2 = 0; i2 < array.length; i2++) {
+        var txt2 = array[i2].match("(^2|[^\\d.]2)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
+        if (txt2 != null) {
+            _2GHzArray.push(array[i2]);
+            array.splice(i2, 1);
+            i2--;
         }
     }
 
     var _1GHzArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(^1|[^\\d.]1)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
-        if (txt != null) {
-            _1GHzArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i3 = 0; i3 < array.length; i3++) {
+        var txt3 = array[i3].match("(^1|[^\\d.]1)\\.?\\d{0,3} ?(GHz|GHZ|Ghz|ghz)");
+        if (txt3 != null) {
+            _1GHzArray.push(array[i3]);
+            array.splice(i3, 1);
+            i3--;
         }
     }
 
     var IntelArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(Intel|Core i|i\\d)");
-        if (txt != null) {
-            IntelArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i4 = 0; i4 < array.length; i4++) {
+        var txt4 = array[i4].match("(Intel|Core i|i\\d)");
+        if (txt4 != null) {
+            IntelArray.push(array[i4]);
+            array.splice(i4, 1);
+            i4--;
         }
     }
     processedArray[0] = sortSpec(_1GHzArray, "\\d.?\\d{0,} ?G", "G", "", true);
@@ -911,58 +903,58 @@ function processGpuTypeList(array) {
     }
 
     var geforceArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(Geforce|GTX|GeForce|GEFORCE|NVIDIA|Nvidia|GT|geforce|gtx|Ge force)");
-        if (txt != null) {
-            geforceArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i1 = 0; i1 < array.length; i1++) {
+        var txt1 = array[i1].match("(Geforce|GTX|GeForce|GEFORCE|NVIDIA|Nvidia|GT|geforce|gtx|Ge force)");
+        if (txt1 != null) {
+            geforceArray.push(array[i1]);
+            array.splice(i1, 1);
+            i1--;
         }
     }
 
     var amdArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(AMD|Radeon)");
-        if (txt != null) {
-            amdArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i2 = 0; i2 < array.length; i2++) {
+        var txt2 = array[i2].match("(AMD|Radeon)");
+        if (txt2 != null) {
+            amdArray.push(array[i2]);
+            array.splice(i2, 1);
+            i2--;
         }
     }
 
     var vramArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(VRAM|RAM|MB|GB|mb|Mb)");
-        if (txt != null) {
-            vramArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i3 = 0; i3 < array.length; i3++) {
+        var txt3 = array[i3].match("(VRAM|RAM|MB|GB|mb|Mb)");
+        if (txt3 != null) {
+            vramArray.push(array[i3]);
+            array.splice(i3, 1);
+            i3--;
         }
     }
 
     var directXArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("(DX|DirectX|Direct)");
-        if (txt != null) {
-            directXArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i4 = 0; i4 < array.length; i4++) {
+        var txt4 = array[i4].match("(DX|DirectX|Direct)");
+        if (txt4 != null) {
+            directXArray.push(array[i4]);
+            array.splice(i4, 1);
+            i4--;
         }
     }
 
     var resolutionArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var txt = array[i].match("\\d ?(x|X) ?\\d");
-        if (txt != null) {
-            resolutionArray.push(array[i]);
-            array.splice(i, 1);
-            i--;
+    for (var i5 = 0; i5 < array.length; i5++) {
+        var txt5 = array[i5].match("\\d ?(x|X) ?\\d");
+        if (txt5 != null) {
+            resolutionArray.push(array[i5]);
+            array.splice(i5, 1);
+            i5--;
         }
     }
     //get other shit
     processedArray[0] = array;
     processedArray[1] = resolutionArray;
-    processedArray[2] = sortSpec(directXArray, "X®? ?\\d{1,}\\.?\\d?", /X|®/g, "", true);
+    processedArray[2] = sortSpec(directXArray, "X®? ?\\d{1,}\\.?\\d?", /[X®]/g, "", true);
     processedArray[3] = sortSpec(intelArray, "\\d{2,}", "", "", true);
     processedArray[4] = sortVram(vramArray);
     processedArray[5] = sortSpec(amdArray, "\\d{3,}", "", "", true);
@@ -987,9 +979,9 @@ function sortSpec(array, regex, replace, to, isFloat) {
                         }
                     } else {
                         if (txt[0].replace(replace, to) > txtJ[0].replace(replace, to)) {
-                            var swamp = array[i];
+                            var swamp1 = array[i];
                             array[i] = array[j];
-                            array[j] = swamp;
+                            array[j] = swamp1;
                         }
                     }
 
@@ -1009,19 +1001,19 @@ function sortVram(array) {
             if (txt != null) {
                 var multi = 1;
                 var index = txt[0].indexOf(txt[1]);
-                if (txt[1].toLowerCase().trim() == "gb") {
+                if (txt[1].toLowerCase().trim() === "gb") {
                     multi = 1024;//convert to MB
                 }
                 ramI = parseInt(txt[0].substring(0, index)) * multi;
             }
             var txtJ = array[j].match("\\d{1,} ?(VRAM|RAM|MB|GB|mb|Mb)");
             if (txtJ != null) {
-                var multi = 1;
-                var index = txtJ[0].indexOf(txtJ[1]);
-                if (txtJ[1].toLowerCase().trim() == "gb") {
+                var multi1 = 1;
+                var index1 = txtJ[0].indexOf(txtJ[1]);
+                if (txtJ[1].toLowerCase().trim() === "gb") {
                     multi = 1024;//convert to MB
                 }
-                ramJ = parseInt(txtJ[0].substring(0, index)) * multi;
+                ramJ = parseInt(txtJ[0].substring(0, index1)) * multi1;
             }
             if (ramI > ramJ) {
                 var swap = array[i];
@@ -1042,7 +1034,7 @@ function compareRamStat(ram1, ram2) {
         if (txt != null) {
             var multi = 1;
             var index = txt[0].indexOf("MB");
-            if (index == -1) {
+            if (index === -1) {
                 index = txt[0].indexOf("GB");
                 multi = 1024;//convert to MB
             }
@@ -1054,7 +1046,7 @@ function compareRamStat(ram1, ram2) {
         if (txtJ != null) {
             multi = 1;
             index = txtJ[0].indexOf("MB");
-            if (index == -1) {
+            if (index === -1) {
                 index = txtJ[0].indexOf("GB");
                 multi = 1024;//convert to MB
             }
@@ -1071,11 +1063,11 @@ function compareOsStat(os1, os2) {
     var os2Score = 0;
     for (var i = 0; i < os.length; i++) {
         for (var j = 0; j < os[i].length; j++) {
-            if (os1 == os[i][j]) {
+            if (os1 === os[i][j]) {
                 console.log("1: " + i + "|" + j);
                 os1Score = i ^ 1.3 * j / os[i].length * 1.5;
             }
-            if (os2 == os[i][j]) {
+            if (os2 === os[i][j]) {
                 console.log("2: " + i + "|" + j);
                 os2Score = i ^ 1.3 * j / os[i].length * 1.5;
             }
@@ -1090,10 +1082,10 @@ function compareCpuStat(cpu1, cpu2) {
     var score2 = 0;
     for (var i = 0; i < cpu.length; i++) {
         for (var j = 0; j < cpu[i].length; j++) {
-            if (cpu1 == cpu[i][j]) {
+            if (cpu1 === cpu[i][j]) {
                 score1 = i ^ 1.5 + j / cpu[i].length * 4;
             }
-            if (cpu2 == cpu[i][j]) {
+            if (cpu2 === cpu[i][j]) {
                 score2 = i ^ 1.5 + j / cpu[i].length * 4;
             }
         }
@@ -1107,10 +1099,10 @@ function compareGpuStat(gpu1, gpu2) {
     var score2 = 0;
     for (var i = 0; i < gpu.length; i++) {
         for (var j = 0; j < gpu[i].length; j++) {
-            if (gpu1 == gpu[i][j]) {
+            if (gpu1 === gpu[i][j]) {
                 score1 = i ^ 1.5 + j / gpu[i].length * 4;
             }
-            if (gpu2 == gpu[i][j]) {
+            if (gpu2 === gpu[i][j]) {
                 score2 = i ^ 1.5 + j / gpu[i].length * 4;
             }
         }
@@ -1123,7 +1115,7 @@ function hideLoginPanel() {
     var loginPanel = document.getElementById("loginPanel");
     var loginBackground = document.getElementById("loginBackground");
     var visible = loginPanel.style.visibility;
-    if (visible == "hidden" || visible == "") {
+    if (visible === "hidden" || visible === "") {
         loginPanel.style.visibility = "visible";
         loginPanel.style.opacity = 1;
         loginBackground.style.visibility = "visible";
@@ -1143,7 +1135,7 @@ function clearLogin() {
 }
 
 var onLoadLastIdKey = sessionStorage.getItem("gamaUserIdKey");
-if (onLoadLastIdKey != null && onLoadLastIdKey != "") {
+if (onLoadLastIdKey != null && onLoadLastIdKey !== "") {
     login(false);
     document.getElementById("loginError").textContent = "";
 }
@@ -1153,7 +1145,7 @@ function login(hideLogin) {
     var username = document.getElementById("txtUsername");
     var password = document.getElementById("txtPassword");
     var lastIdKey = sessionStorage.getItem("gamaUserIdKey");
-    if (lastIdKey != null && lastIdKey != "") {
+    if (lastIdKey != null && lastIdKey !== "") {
         params = "uniqueID=" + lastIdKey + "&username=" + username.value + "&password=" + password.value;
     } else {
         params = "username=" + username.value + "&password=" + password.value;
@@ -1167,9 +1159,9 @@ function login(hideLogin) {
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     http.onreadystatechange = function () {//Call a function when the state changes.
-        if (http.readyState == 4 && http.status == 200) {
-            if (http.responseText != null && http.responseText != "") {
-                document.getElementById("adminName").textContent = (username.value != "") ? username.value : sessionStorage.getItem("gamaUsername");
+        if (http.readyState === 4 && http.status === 200) {
+            if (http.responseText != null && http.responseText !== "") {
+                document.getElementById("adminName").textContent = (username.value !== "") ? username.value : sessionStorage.getItem("gamaUsername");
                 sessionStorage.setItem("gamaUserIdKey", http.responseText);
                 sessionStorage.setItem("gamaUsername", username.value);
                 adminIsHere(true);
@@ -1182,13 +1174,13 @@ function login(hideLogin) {
                 document.getElementById("loginError").textContent = "Tên Đăng nhập hoặc Mật khẩu không đúng";
             }
         }
-    }
+    };
     http.send(params);
 }
 
 function logout() {
     var onLoadLastIdKey = sessionStorage.getItem("gamaUserIdKey");
-    if (onLoadLastIdKey != null || onLoadLastIdKey == "") {
+    if (onLoadLastIdKey != null || onLoadLastIdKey === "") {
         sessionStorage.removeItem("gamaUserIdKey");
         sessionStorage.removeItem("gamaUsername");
 
@@ -1197,9 +1189,9 @@ function logout() {
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
         http.onreadystatechange = function () {//Call a function when the state changes.
-            if (http.readyState == 4 && http.status == 200) {
+            if (http.readyState === 4 && http.status === 200) {
             }
-        }
+        };
         http.send(params);
     }
     adminIsHere(false);
@@ -1220,7 +1212,7 @@ function adminIsHere(isIt) {
 function loadAdministrationTab() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             var mainContentHolder = document.getElementById("administrationTabContent");
             mainContentHolder.innerHTML = this.responseText;
             // alert(this.responseText);
@@ -1233,21 +1225,21 @@ function loadAdministrationTab() {
 function admistrationTabHide() {
     var administrationTab = document.getElementById("administrationTab");
     var visible = administrationTab.style.visibility;
-    if (visible == "hidden" || visible == "") {
+    if (visible === "hidden" || visible === "") {
         administrationTab.style.visibility = "visible";
-        administrationTab.style.opacity = 1;
+        administrationTab.style.opacity = "1";
     } else {
         administrationTab.style.visibility = "hidden";
-        administrationTab.style.opacity = 0;
+        administrationTab.style.opacity = "0";
     }
 }
 
 function crawlCategory(url, thisButton, type) {
-    var result = (type == 0) ? document.getElementById("txtGameCategoryCrawlResult") : document.getElementById("txtGearCategoryCrawlResult");
+    var result = (type === 0) ? document.getElementById("txtGameCategoryCrawlResult") : document.getElementById("txtGearCategoryCrawlResult");
     var xhttp = new XMLHttpRequest();
     thisButton.disabled = true;
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             thisButton.disabled = false;
             result.textContent = "Item crawled: " + this.responseText;
         }
@@ -1257,16 +1249,16 @@ function crawlCategory(url, thisButton, type) {
 }
 
 function startCrawlItem(url, type) {
-    var btnStart = (type == 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
-    var btnStop = (type == 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
-    var result = (type == 0) ? document.getElementById("txtGameCrawlResult") : document.getElementById("txtGearCrawlResult");
+    var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
+    var btnStop = (type === 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
+    var result = (type === 0) ? document.getElementById("txtGameCrawlResult") : document.getElementById("txtGearCrawlResult");
     var xhttp = new XMLHttpRequest();
     btnStart.disabled = true;
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             btnStop.disabled = false;
             result.textContent = this.responseText + " is running";
-            var threadName = (type == 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
+            var threadName = (type === 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
             threadName.value = this.responseText;
         }
     };
@@ -1275,14 +1267,14 @@ function startCrawlItem(url, type) {
 }
 
 function stopCrawlItem(url, type) {
-    var btnStart = (type == 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
-    var btnStop = (type == 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
-    var threadName = (type == 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
-    var result = (type == 0) ? document.getElementById("txtGameCrawlResult") : document.getElementById("txtGearCrawlResult");
+    var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
+    var btnStop = (type === 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
+    var threadName = (type === 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
+    var result = (type === 0) ? document.getElementById("txtGameCrawlResult") : document.getElementById("txtGearCrawlResult");
     var xhttp = new XMLHttpRequest();
     btnStop.disabled = true;
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             btnStart.disabled = false;
             result.textContent = "Item crawled: " + this.responseText;
         }
