@@ -8,7 +8,13 @@ public class User {
     @Id
     @Column(name = "username")
     private String username;
+
+    @Basic
+    @Column(name = "password")
     private String password;
+
+    @Basic
+    @Column(name = "tbl_role_id")
     private int roleId;
 
 
@@ -16,14 +22,6 @@ public class User {
         return username;
     }
 
-    @Basic
-    @Column(name = "password")
-    public String getPassword() {
-        return password;
-    }
-
-    @Basic
-    @Column(name = "tbl_role_id")
     public int getRoleId() {
         return roleId;
     }

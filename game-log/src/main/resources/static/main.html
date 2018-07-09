@@ -43,14 +43,33 @@
 
     </div>
     <div id="userIndicator">
-        <ion-icon class="indicatorIndicator" name="person"></ion-icon>
-        Khách
-        <button onclick="hideLoginPanel()">
-            Đăng nhập
-        </button>
+        <table>
+            <tr id="guest">
+                <td>
+                    <ion-icon class="indicatorIndicator" name="person"></ion-icon>
+                    <span>Khách</span>
+                    <button onclick="hideLoginPanel()">
+                        Đăng nhập
+                    </button>
+                </td>
+            </tr>
+            <tr id="admin">
+                <td>
+                    <ion-icon class="indicatorIndicator" name="settings"></ion-icon>
+                    <span id="adminName">Some Name</span>
+                    <button onclick="hideLoginPanel()" style="top: 8px;">
+                        Đăng xuất
+                    </button>
+                </td>
+            </tr>
+        </table>
     </div>
     <div id="loginPanel">
         <table>
+            <tr>
+                <td></td>
+                <td id="loginError"></td>
+            </tr>
             <tr>
                 <td>
                     <div class="iconHolder">

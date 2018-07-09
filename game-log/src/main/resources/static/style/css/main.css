@@ -916,6 +916,9 @@ body {
     top: -19.5px;
     right: -19px;
 }
+#userIndicator span{
+    padding-top: 5px;
+}
 
 #userIndicator button {
     position: absolute;
@@ -929,6 +932,9 @@ body {
     background: white;
     font-weight: 500;
     z-index: 2;
+}
+#userIndicator td{
+    display: flex;
 }
 
 #userIndicator button:hover {
@@ -944,7 +950,7 @@ body {
     border: 1px solid lightgrey;
     box-shadow: 5px 10px rgba(136, 136, 136, 0.69);
     width: 30%;
-    height: 130px;
+    height: 180px;
     left: 25%;
     top: 15%;
     transition: visibility 0.3s ease, opacity 0.3s ease;
@@ -1004,4 +1010,13 @@ body {
     opacity: 0;
     z-index: 0;
     visibility: hidden;
+}
+
+#loginError{
+    color: white;
+    font-size: smaller;
+}
+
+#admin{
+    visibility: collapse;
 }

@@ -1139,8 +1139,36 @@ function hideLoginPanel() {
 }
 
 function login() {
+    document.getElementById("loginError").textContent = "";
     var username = document.getElementById("txtUsername");
     var password = document.getElementById("txtPassword");
-    alert(username.value+","+password.value);
-    password.value = "";
+    var http = new XMLHttpRequest();
+    var url = "http://localhost:8080/main/login";
+    var params = "username="+username.value+"&password="+password.value;
+    http.open('POST', url, true);
+
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            if(http.responseText!=null && http.responseText != ""){
+                document.getElementById("adminName").textContent = http.responseText;
+                adminIsHere(true);
+                hideLoginPanel();
+            }else{
+                document.getElementById("loginError").textContent = "Tên Đăng nhập hoặc Mật khẩu không đúng";
+            }
+        }
+    }
+    http.send(params);
+}
+
+function adminIsHere(isIt){
+    if (isIt){
+        document.getElementById("guest").style.visibility = "collapse";
+        document.getElementById("admin").style.visibility = "visible";
+    }else{
+        document.getElementById("guest").style.visibility = "visible";
+        document.getElementById("admin").style.visibility = "collapse";
+    }
 }
