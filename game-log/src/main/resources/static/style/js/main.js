@@ -1144,20 +1144,29 @@ function clearLogin() {
 }
 
 function login() {
-    document.getElementById("loginError").textContent = "";
+    var params = "";
     var username = document.getElementById("txtUsername");
     var password = document.getElementById("txtPassword");
+    var lastIdKey = sessionStorage.getItem("gamaUserIdKey");
+    if (lastIdKey != null && lastIdKey != "") {
+        params = "uniqueID=" + lastIdKey + "&username=" + username.value + "&password=" + password.value;
+    } else {
+        params = "username=" + username.value + "&password=" + password.value;
+    }
+    document.getElementById("loginError").textContent = "";
+
     var http = new XMLHttpRequest();
     var url = "http://localhost:8080/main/login";
-    var params = "username=" + username.value + "&password=" + password.value;
-    http.open('POST', url, true);
 
+    http.open('POST', url, true);
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     http.onreadystatechange = function () {//Call a function when the state changes.
         if (http.readyState == 4 && http.status == 200) {
             if (http.responseText != null && http.responseText != "") {
-                document.getElementById("adminName").textContent = http.responseText;
+                document.getElementById("adminName").textContent = (username.value != "") ? username.value : sessionStorage.getItem("gamaUsername");
+                sessionStorage.setItem("gamaUserIdKey", http.responseText);
+                sessionStorage.setItem("gamaUsername", username.value);
                 adminIsHere(true);
                 clearLogin();
                 hideLoginPanel();
@@ -1249,6 +1258,6 @@ function stopCrawlItem(url, type) {
             alert(this.responseText);
         }
     };
-    xhttp.open("GET", url+"?name="+threadName.value, true);
+    xhttp.open("GET", url + "?name=" + threadName.value, true);
     xhttp.send();
 }

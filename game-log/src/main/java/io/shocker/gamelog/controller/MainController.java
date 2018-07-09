@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/main")
 public class MainController {
@@ -18,9 +21,9 @@ public class MainController {
     @GetMapping(value = "")
     @ResponseBody
     public ModelAndView getMainPage(ModelAndView modelAndView, @RequestParam(value = "admin", required = false) String loadAdmin) {
-        if (loadAdmin!=null) {
+        if (loadAdmin != null) {
             modelAndView.setViewName("administrationTab.html");
-        }else {
+        } else {
             modelAndView.setViewName("main.html");
         }
         return modelAndView;
@@ -36,10 +39,16 @@ public class MainController {
     @PostMapping(value = "/login")
     @ResponseBody
     public String login(@RequestParam(value = "username") String username,
-                        @RequestParam(value = "password") String password) {
+                        @RequestParam(value = "password") String password, HttpSession httpSession,
+                        @RequestParam(value = "uniqueID", required = false) String uniqueID) {
+        if (httpSession.getAttribute(uniqueID) != null) {
+            return uniqueID;
+        }
         User user = administrationService.login(username, password);
         if (user != null) {
-            return user.getUsername();
+            String newUniqueID = UUID.randomUUID().toString();
+            httpSession.setAttribute(newUniqueID, user);
+            return newUniqueID;
         }
         return null;
     }
