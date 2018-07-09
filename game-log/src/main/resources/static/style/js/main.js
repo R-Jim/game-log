@@ -40,8 +40,63 @@ function printCategoryData(doc, tabId) {
     }
 }
 
-// var gameDoc;
+var gameDoc = [];
+
+function filteringdata(name, tabId, type) {
+    var doc = null;
+    for (var j = 0; j < gameDoc.length; j++) {
+        if (gameDoc[j][0].trim() === tabId.trim()) {
+            doc = gameDoc[j][1];
+            break;
+        }
+    }
+    if (doc != null) {
+        var result = doc.getElementsByTagName("game");
+        console.log(result.length);
+        var tabContent = document.getElementById(tabId + "Content");
+        var itemList = tabContent.getElementsByClassName("itemList")[0];
+        itemList.innerHTML = "";
+        var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
+        btnLoadMore.id = tabId + "LoadMore";
+        btnLoadMore.textContent = "Tải thêm";
+        btnLoadMore.onclick = function () {
+            filteringdata("", tabId, type);
+            loadMore(this, url[type], type);
+        };
+        itemList.appendChild(btnLoadMore);
+        for (var i = 0; i < result.length; i++) {
+            var itemName = result[i].getAttribute("name");
+            if (itemName.toLowerCase().includes(name.toLowerCase())) {
+                var itemId = result[i].getAttribute("id");
+                var imgSrc = result[i].getAttribute("img");
+                var x = result[i].getElementsByTagName("price")[0].childNodes[0];
+                var itemPrice = "";
+                if (x != null) {
+                    itemPrice = x.nodeValue;
+                }
+                var tags = result[i].getElementsByTagName("tags")[0];
+
+                newItem(itemList, "A" + itemId, imgSrc, itemName, null, itemPrice, tags);
+            }
+        }
+    }
+}
+
+
 function printGameData(doc, tabId) {
+    var existed = false;
+    for (var j = 0; j < gameDoc.length; j++) {
+        if (gameDoc[j][0] === tabId) {
+            for (var z = 0; z < doc.childNodes[0].childNodes.length; z++) {
+                gameDoc[j][1].childNodes[0].appendChild(doc.childNodes[0].childNodes[z]);
+            }
+            existed = true;
+            break;
+        }
+    }
+    if (!existed) {
+        gameDoc.push([tabId, doc]);
+    }
     var result = doc.getElementsByTagName("game");
 
     var tabContent = document.getElementById(tabId + "Content");
@@ -120,7 +175,6 @@ function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) 
         for (var i = 0; i < tagArray.length; i++) {
             var tag = createElementWithClassName("li", "itemTag");
             tag.textContent = tagArray[i].childNodes[0].textContent;
-            console.log(tagArray[i].childNodes[0]);
             tagsUl.appendChild(tag);
         }
         item.appendChild(tagsUl);
@@ -211,14 +265,20 @@ function sortByCategory(element, urlParam, type) {
     var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
     btnLoadMore.id = id + "LoadMore";
     btnLoadMore.textContent = "Tải thêm";
-    btnLoadMore.onclick = function () {
-        loadMore(this, url[type], type)
+    btnLoadMore.onclick = function (ev) {
+        loadMore(this, url[type], type);
     };
     itemList.appendChild(btnLoadMore);
 
     for (var i = 0; i < element.childNodes.length; i++) {
         if (categoryId === element.childNodes[i].value) {
             document.getElementById(id + "TabDescription").textContent = " - " + element.childNodes[i].label;
+        }
+    }
+
+    for (var j = 0; j < gameDoc.length; j++) {
+        if (gameDoc[j][0] === id) {
+            gameDoc.splice(j, 1);
         }
     }
 
@@ -309,8 +369,14 @@ function addTabContent(tabId, type) {
     var txtSearch = document.createElement("input");
     txtSearch.placeholder = "Tìm kiếm";
     txtSearch.onkeypress = function () {
-        if (this.value.trim().length > 2) {
-            alert("searching");
+        var key = event.keyCode || event.charCode;
+        filteringdata(this.value.trim() + String.fromCharCode(key), tabId, type);
+    };
+    txtSearch.onkeydown = function () {
+        var key = event.keyCode || event.charCode;
+
+        if (key === 8 || key === 46) {
+            filteringdata(this.value.substring(0, this.value.length - 1).trim(), tabId, type);
         }
     };
     tabUtility.appendChild(txtSearch);
