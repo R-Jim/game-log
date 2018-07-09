@@ -1145,11 +1145,10 @@ function clearLogin() {
 
 var onLoadLastIdKey = sessionStorage.getItem("gamaUserIdKey");
 if (onLoadLastIdKey != null && onLoadLastIdKey != "") {
-    login();
-    hideLoginPanel();
+    login(false);
 }
 
-function login() {
+function login(hideLogin) {
     var params = "";
     var username = document.getElementById("txtUsername");
     var password = document.getElementById("txtPassword");
@@ -1175,7 +1174,9 @@ function login() {
                 sessionStorage.setItem("gamaUsername", username.value);
                 adminIsHere(true);
                 clearLogin();
-                hideLoginPanel();
+                if (hideLogin) {
+                    hideLoginPanel();
+                }
                 loadAdministrationTab();
             } else {
                 document.getElementById("loginError").textContent = "Tên Đăng nhập hoặc Mật khẩu không đúng";
@@ -1183,6 +1184,25 @@ function login() {
         }
     }
     http.send(params);
+}
+
+function logout() {
+    var onLoadLastIdKey = sessionStorage.getItem("gamaUserIdKey");
+    if (onLoadLastIdKey != null || onLoadLastIdKey == "") {
+        sessionStorage.removeItem("gamaUserIdKey");
+        sessionStorage.removeItem("gamaUsername");
+
+        var params = "uniqueId=" + onLoadLastIdKey;
+        http.open('POST', "http://localhost:8080/main/logout", true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function () {//Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+            }
+        }
+        http.send(params);
+    }
+    adminIsHere(false);
 }
 
 function adminIsHere(isIt) {

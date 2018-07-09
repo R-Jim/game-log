@@ -52,4 +52,13 @@ public class MainController {
         }
         return null;
     }
+
+    @PostMapping(value = "/logout")
+    @ResponseBody
+    public void login(HttpSession httpSession,
+                      @RequestParam(value = "uniqueID") String uniqueID) {
+        if (httpSession.getAttribute(uniqueID) != null) {
+            httpSession.removeAttribute(uniqueID);
+        }
+    }
 }
