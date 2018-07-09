@@ -1130,6 +1130,7 @@ function hideLoginPanel() {
         loginPanel.style.opacity = 1;
         loginBackground.style.visibility = "visible";
         loginBackground.style.opacity = 1;
+        document.getElementById("loginError").textContent = "";
     } else {
         loginPanel.style.visibility = "hidden";
         loginPanel.style.opacity = 0;
@@ -1146,6 +1147,7 @@ function clearLogin() {
 var onLoadLastIdKey = sessionStorage.getItem("gamaUserIdKey");
 if (onLoadLastIdKey != null && onLoadLastIdKey != "") {
     login(false);
+    document.getElementById("loginError").textContent = "";
 }
 
 function login(hideLogin) {
@@ -1242,13 +1244,14 @@ function admistrationTabHide() {
     }
 }
 
-function crawlCategory(url, thisButton) {
+function crawlCategory(url, thisButton, type) {
+    var result = (type == 0) ? document.getElementById("txtGameCategoryCrawlResult") : document.getElementById("txtGearCategoryCrawlResult");
     var xhttp = new XMLHttpRequest();
     thisButton.disabled = true;
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             thisButton.disabled = false;
-            alert(this.responseText);
+            result.textContent ="Item crawled: " + this.responseText;
         }
     };
     xhttp.open("GET", url, true);
@@ -1258,12 +1261,13 @@ function crawlCategory(url, thisButton) {
 function startCrawlItem(url, type) {
     var btnStart = (type == 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
     var btnStop = (type == 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
+    var result = (type == 0) ? document.getElementById("txtGameCrawlResult") : document.getElementById("txtGearCrawlResult");
     var xhttp = new XMLHttpRequest();
     btnStart.disabled = true;
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             btnStop.disabled = false;
-            alert(this.responseText);
+            result.textContent =this.responseText + " is running";
             var threadName = (type == 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
             threadName.value = this.responseText;
         }
@@ -1276,12 +1280,13 @@ function stopCrawlItem(url, type) {
     var btnStart = (type == 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
     var btnStop = (type == 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
     var threadName = (type == 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
+    var result = (type == 0) ? document.getElementById("txtGameCrawlResult") : document.getElementById("txtGearCrawlResult");
     var xhttp = new XMLHttpRequest();
     btnStop.disabled = true;
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             btnStart.disabled = false;
-            alert(this.responseText);
+            result.textContent ="Item crawled: " + this.responseText;
         }
     };
     xhttp.open("GET", url + "?name=" + threadName.value, true);
