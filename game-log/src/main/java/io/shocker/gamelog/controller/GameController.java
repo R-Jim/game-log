@@ -72,8 +72,8 @@ public class GameController {
 
     @GetMapping(value = "/category/load")
     @ResponseBody
-    public void loadGameCategories() {
-        this.gameService.crawlGameCategory();
+    public int loadGameCategories() {
+        return this.gameService.crawlGameCategory();
     }
 
     @GetMapping(value = "/type/os")

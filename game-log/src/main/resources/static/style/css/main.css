@@ -1020,3 +1020,16 @@ body {
 #admin{
     visibility: collapse;
 }
+
+.setting:hover{
+    cursor: pointer;
+}
+
+#administrationTab{
+    position: absolute;
+    width: 70%;
+    height: 300px;
+    background: wheat;
+    left: 15%;
+    top: 80px;
+}

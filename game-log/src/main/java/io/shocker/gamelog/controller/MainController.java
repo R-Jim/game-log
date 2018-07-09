@@ -17,10 +17,21 @@ public class MainController {
 
     @GetMapping(value = "")
     @ResponseBody
-    public ModelAndView getMainPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("main.html");
+    public ModelAndView getMainPage(ModelAndView modelAndView, @RequestParam(value = "admin", required = false) String loadAdmin) {
+        if (loadAdmin!=null) {
+            modelAndView.setViewName("administrationTab.html");
+        }else {
+            modelAndView.setViewName("main.html");
+        }
         return modelAndView;
     }
+
+//    @GetMapping(value = "administration")
+//    @ResponseBody
+//    public ModelAndView getAdministrationTab(ModelAndView modelAndView) {
+//
+//        return modelAndView;
+//    }
 
     @PostMapping(value = "/login")
     @ResponseBody

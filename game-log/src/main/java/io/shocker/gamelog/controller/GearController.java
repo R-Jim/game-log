@@ -77,8 +77,8 @@ public class GearController {
 
     @GetMapping(value = "/category/load")
     @ResponseBody
-    public void loadGameCategories() {
-        this.gearService.crawlGearCategory();
+    public int loadGameCategories() {
+        return this.gearService.crawlGearCategory();
     }
 
 

@@ -1,0 +1,52 @@
+<table>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <th>Game</th>
+                </tr>
+                <tr>
+                    <td>Crawl Categories
+                        <button onclick="crawlCategory('http://localhost:8080/game/category/load',this)">Start</button>
+                        <button disabled>Stop</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Crawl Games
+                        <button id="btnGameCrawlStart" onclick="startCrawlItem('http://localhost:8080/game/load', 0)">
+                            Start
+                        </button>
+                        <input type="hidden" id="txtGameCrawlThreadName">
+                        <button id="btnGameCrawlStop" onclick="stopCrawlItem('http://localhost:8080/game/stop', 0)"
+                                disabled>Stop
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <th>Gear</th>
+                </tr>
+                <tr>
+                    <td>Crawl Categories
+                        <button onclick="crawlCategory('http://localhost:8080/gear/category/load',this)">Start</button>
+                        <button disabled>Stop</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Crawl Gears
+                        <button id="btnGearCrawlStart" onclick="startCrawlItem('http://localhost:8080/gear/load', 1)">
+                            Start
+                        </button>
+                        <input type="hidden" id="txtGearCrawlThreadName">
+                        <button id="btnGearCrawlStop" onclick="stopCrawlItem('http://localhost:8080/gear/stop', 1)"
+                                disabled>Stop
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

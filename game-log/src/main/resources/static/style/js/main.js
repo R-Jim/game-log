@@ -362,6 +362,7 @@ function addTabContent(tabId, type) {
 }
 
 var cmpUp = false;
+
 function changeUserTheme(type) {
     var userHolder = document.getElementById("userIndicator");
     userHolder.style.background = (type == 0) ? "var(--main-login-background-game)" : "var(--main-login-background-gear)";
@@ -1138,24 +1139,31 @@ function hideLoginPanel() {
     }
 }
 
+function clearLogin() {
+    document.getElementById("txtUsername").value = "";
+    document.getElementById("txtPassword").value = "";
+}
+
 function login() {
     document.getElementById("loginError").textContent = "";
     var username = document.getElementById("txtUsername");
     var password = document.getElementById("txtPassword");
     var http = new XMLHttpRequest();
     var url = "http://localhost:8080/main/login";
-    var params = "username="+username.value+"&password="+password.value;
+    var params = "username=" + username.value + "&password=" + password.value;
     http.open('POST', url, true);
 
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
-            if(http.responseText!=null && http.responseText != ""){
+    http.onreadystatechange = function () {//Call a function when the state changes.
+        if (http.readyState == 4 && http.status == 200) {
+            if (http.responseText != null && http.responseText != "") {
                 document.getElementById("adminName").textContent = http.responseText;
                 adminIsHere(true);
+                clearLogin();
                 hideLoginPanel();
-            }else{
+                loadAdministrationTab();
+            } else {
                 document.getElementById("loginError").textContent = "Tên Đăng nhập hoặc Mật khẩu không đúng";
             }
         }
@@ -1163,12 +1171,75 @@ function login() {
     http.send(params);
 }
 
-function adminIsHere(isIt){
-    if (isIt){
+function adminIsHere(isIt) {
+    if (isIt) {
         document.getElementById("guest").style.visibility = "collapse";
         document.getElementById("admin").style.visibility = "visible";
-    }else{
+    } else {
         document.getElementById("guest").style.visibility = "visible";
         document.getElementById("admin").style.visibility = "collapse";
     }
+}
+
+function loadAdministrationTab() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var mainContentHolder = document.getElementById("administrationTab");
+            mainContentHolder.innerHTML = this.responseText;
+            // alert(this.responseText);
+        }
+    };
+    xhttp.open("GET", "http://localhost:8080/main?admin=needed", false);
+    xhttp.send();
+}
+
+function admistrationTabHide() {
+
+}
+
+function crawlCategory(url, thisButton) {
+    var xhttp = new XMLHttpRequest();
+    thisButton.disabled = true;
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            thisButton.disabled = false;
+            alert(this.responseText);
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
+
+function startCrawlItem(url, type) {
+    var btnStart = (type == 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
+    var btnStop = (type == 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
+    var xhttp = new XMLHttpRequest();
+    btnStart.disabled = true;
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            btnStop.disabled = false;
+            alert(this.responseText);
+            var threadName = (type == 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
+            threadName.value = this.responseText;
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
+
+function stopCrawlItem(url, type) {
+    var btnStart = (type == 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
+    var btnStop = (type == 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
+    var threadName = (type == 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
+    var xhttp = new XMLHttpRequest();
+    btnStop.disabled = true;
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            btnStart.disabled = false;
+            alert(this.responseText);
+        }
+    };
+    xhttp.open("GET", url+"?name="+threadName.value, true);
+    xhttp.send();
 }
