@@ -244,7 +244,7 @@ function newItem(tabId, itemList, itemId, imgSrc, itemName, itemType, itemPrice,
     item.appendChild(name);
 
     var price = createElementWithClassName("div", "itemPrice");
-    price.textContent = itemPrice;
+    price.textContent = (itemPrice === "" || itemPrice === "đ") ? "Không thông tin" : itemPrice;
     item.appendChild(price);
 
     var tagsUl = createElementWithClassName("ul", "itemTags");
@@ -802,14 +802,14 @@ function comparingGameAndGear(isMinimum) {
         runScoreBar("ramResult", compareRamStat(gameSpec.memory, gear[1][0].memory));
         runScoreBar("graphicResult", compareGpuStat(gameSpec.graphic, gear[1][0].graphic));
 
-        document.getElementById("osGameResult").textContent = (gameSpec.os !== "null") ? gameSpec.os : "No Content";
-        document.getElementById("cpuGameResult").textContent = (gameSpec.processor !== "null") ? gameSpec.processor : "No Content";
-        document.getElementById("ramGameResult").textContent = (gameSpec.memory !== "null") ? gameSpec.memory : "No Content";
-        document.getElementById("graphicGameResult").textContent = (gameSpec.graphic !== "null") ? gameSpec.graphic : "No Content";
-        document.getElementById("osGearResult").textContent = (gear[1][0].os !== "null") ? gear[1][0].os : "No Content";
-        document.getElementById("cpuGearResult").textContent = (gear[1][0].processor !== "null") ? gear[1][0].processor : "No Content";
-        document.getElementById("ramGearResult").textContent = (gear[1][0].memory !== "null") ? gear[1][0].memory : "No Content";
-        document.getElementById("graphicGearResult").textContent = (gear[1][0].graphic !== "null") ? gear[1][0].graphic : "No Content";
+        document.getElementById("osGameResult").textContent = (gameSpec.os !== "null") ? gameSpec.os : "Không thông tin";
+        document.getElementById("cpuGameResult").textContent = (gameSpec.processor !== "null") ? gameSpec.processor : "Không thông tin";
+        document.getElementById("ramGameResult").textContent = (gameSpec.memory !== "null") ? gameSpec.memory : "Không thông tin";
+        document.getElementById("graphicGameResult").textContent = (gameSpec.graphic !== "null") ? gameSpec.graphic : "Không thông tin";
+        document.getElementById("osGearResult").textContent = (gear[1][0].os !== "null") ? gear[1][0].os : "Không thông tin";
+        document.getElementById("cpuGearResult").textContent = (gear[1][0].processor !== "null") ? gear[1][0].processor : "Không thông tin";
+        document.getElementById("ramGearResult").textContent = (gear[1][0].memory !== "null") ? gear[1][0].memory : "Không thông tin";
+        document.getElementById("graphicGearResult").textContent = (gear[1][0].graphic !== "null") ? gear[1][0].graphic : "Không thông tin";
     } else {
         document.getElementById("errorResult").textContent = "Chọn game và gear trước khi so sánh";
     }
@@ -1457,7 +1457,7 @@ function printGameItemDetail(tabId, gameId) {
         if (x != null) {
             itemPrice = x.nodeValue;
         }
-        document.getElementById("itemDetailPrice").textContent = itemPrice;
+        document.getElementById("itemDetailPrice").textContent = (itemPrice === "" || itemPrice === "đ") ? "Không thông tin" : itemPrice;
         document.getElementById("itemDetailImg").src = game.getAttribute("img");
         var tags = game.getElementsByTagName("tags")[0];
         var tagArray = tags.getElementsByTagName("tag");
@@ -1466,8 +1466,8 @@ function printGameItemDetail(tabId, gameId) {
             tag.textContent = tagArray[z].childNodes[0].textContent;
             document.getElementById("itemDetailTagHolder").appendChild(tag);
         }
-        var origin = createElementWithClassName("a","linkToOrigin");
-        origin.textContent = "> Go to Steam";
+        var origin = createElementWithClassName("a", "linkToOrigin gameOri");
+        origin.innerHTML = "Xem ở <div><ion-icon name=\"logo-steam\"></ion-icon></div>";
         origin.href = game.getAttribute("href");
         origin.target = "_blank";
         document.getElementById("itemDetailToOrigin").appendChild(origin);
@@ -1500,21 +1500,33 @@ function printGameSpecDetail(game) {
         specSwitchHolder.innerHTML = "";
         if (specDetail[0] != null) {
             var switchButton = createElementWithClassName("button", "btnSwitch");
+            switchButton.id = "itemDetailMinimumBtn";
             switchButton.textContent = "Tối thiểu";
             switchButton.onclick = function () {
                 specHolder.style.visibility = "visible";
+                specHolder.style.cssFloat = "left";
                 specHolder1.style.visibility = "hidden";
+                specHolder1.style.cssFloat = "right";
+                this.className = this.className.replace(" de-active", "");
+                if (document.getElementById("itemDetailRecommendBtn") !== null) {
+                    document.getElementById("itemDetailRecommendBtn").className += " de-active";
+                }
                 printSpecDetail(specHolder, specDetail[0]);
             };
             specSwitchHolder.appendChild(switchButton);
             switchButton.click();
         }
         if (specDetail[1] != null) {
-            var switchButton1 = createElementWithClassName("button", "btnSwitch");
+            var switchButton1 = createElementWithClassName("button", "btnSwitch de-active");
+            switchButton1.id = "itemDetailRecommendBtn";
             switchButton1.textContent = "Kiến nghị";
             switchButton1.onclick = function () {
                 specHolder.style.visibility = "hidden";
+                specHolder.style.cssFloat = "right";
                 specHolder1.style.visibility = "visible";
+                specHolder1.style.cssFloat = "left";
+                this.className = this.className.replace(" de-active", "");
+                document.getElementById("itemDetailMinimumBtn").className += " de-active";
                 printSpecDetail(specHolder1, specDetail[1]);
             };
             specSwitchHolder.appendChild(switchButton1);
@@ -1543,9 +1555,19 @@ function printGearItemDetail(tabId, gearId) {
         if (x != null) {
             itemPrice = x.nodeValue;
         }
-        document.getElementById("itemDetailPrice").textContent = itemPrice;
+        document.getElementById("itemDetailPrice").textContent =  (itemPrice === "" || itemPrice === "đ") ? "Không thông tin" : itemPrice;
         document.getElementById("itemDetailImg").src = gear.getAttribute("img");
+        var origin = createElementWithClassName("a", "linkToOrigin gearOri");
+        origin.textContent = "Xem ở Fptshop";
+        origin.href = "https://fptshop.com.vn" + gear.getAttribute("href");
+        origin.target = "_blank";
+        document.getElementById("itemDetailToOrigin").appendChild(origin);
         //print spec
+        var specSwitchHolder = document.getElementById("itemDetailSpecSwitchHolder");
+        var specName = document.createElement("div");
+        specName.textContent = "Cấu hình";
+        specSwitchHolder.appendChild(specName);
+
         var gearExist = false;
         var specDetail = null;
         for (var z = 0; z < gearChoosed.length; z++) {
@@ -1575,25 +1597,43 @@ function printSpecDetail(specHolder, spec) {
     var cpu = createElementWithClassName("div", "specDetail");
     var ram = createElementWithClassName("div", "specDetail");
     var gpu = createElementWithClassName("div", "specDetail");
-    os.textContent = "Hệ điều hành: " + spec.os;
-    cpu.textContent = "Vi xử lý: " + spec.processor;
-    ram.textContent = "Bộ nhớ: " + spec.memory;
-    gpu.textContent = "Đồ họa: " + spec.graphic;
+    // os.textContent =  + ;
+    // cpu.textContent =  + spec.processor;
+    // ram.textContent =  + spec.memory;
+    // gpu.textContent =  + spec.graphic;
+    whatDidIJustDo(os, "Hệ điều hành: ", spec.os);
+    whatDidIJustDo(cpu, "Vi xử lý: ", spec.processor);
+    whatDidIJustDo(ram, "Bộ nhớ: ", spec.memory);
+    whatDidIJustDo(gpu, "Đồ họa: ", spec.graphic);
     specHolder.appendChild(os);
     specHolder.appendChild(cpu);
     specHolder.appendChild(ram);
     specHolder.appendChild(gpu);
 }
 
+function whatDidIJustDo(parent, name, value) {
+    var aSpan = createElementWithClassName("span", "specDetailName");
+    aSpan.textContent = name;
+    parent.appendChild(aSpan);
+    var vSpan = createElementWithClassName("span", "specDetailValue");
+    vSpan.textContent = (value !== "null") ? value : "Không thông tin";
+    parent.appendChild(vSpan);
+}
+
 function showItemDetail(position) {
     var screen = document.getElementById("itemDetailScreen");
     var screenBack = document.getElementById("itemDetailScreenBackScreen");
+    var closeBtn = document.getElementById("btnItemDetailScreenHide");
     if (position === 0) {
         screen.style.left = 25 + "px";
         screen.style.right = "unset";
+        closeBtn.style.right = 10 + "px";
+        closeBtn.style.left = "unset";
     } else if (position === 1) {
         screen.style.right = 25 + "px";
         screen.style.left = "unset";
+        closeBtn.style.left = 10 + "px";
+        closeBtn.style.right = "unset";
     }
     screen.style.opacity = 1 + "";
     screen.style.visibility = "visible";
@@ -1624,4 +1664,6 @@ function hideItemTab() {
     var screenBack = document.getElementById("itemDetailScreenBackScreen");
     screenBack.style.opacity = 0 + "";
     screenBack.style.visibility = "hidden";
+    document.getElementById("itemDetailSpecMinimum").style.visibility = "hidden";
+    document.getElementById("itemDetailSpecRecommend").style.visibility = "hidden";
 }
