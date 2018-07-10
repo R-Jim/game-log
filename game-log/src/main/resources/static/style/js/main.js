@@ -53,7 +53,7 @@ var gameArray = [];
 var gearArray = [];
 
 function filteringdata(name, tabId, type) {
-    if (type == 0) {
+    if (type === 0) {
         filteringGamedata(name, tabId, type);
     } else {
         filteringGeardata(name, tabId, type);
@@ -94,7 +94,7 @@ function filteringGamedata(name, tabId, type) {
                 }
                 var tags = game.getElementsByTagName("tags")[0];
 
-                newItem(itemList, "A" + itemId, imgSrc, itemName, null, itemPrice, tags);
+                newItem(tabId, itemList, "A" + itemId, imgSrc, itemName, null, itemPrice, tags);
             }
         }
     }
@@ -132,7 +132,7 @@ function filteringGeardata(name, tabId, type) {
                 if (x != null) {
                     itemPrice = x.nodeValue;
                 }
-                newItem(itemList, "B" + itemId, imgSrc, itemName, null, itemPrice);
+                newItem(tabId, itemList, "B" + itemId, imgSrc, itemName, null, itemPrice);
             }
         }
     }
@@ -166,7 +166,7 @@ function printGameData(magicArray, tabId) {
         }
         var tags = game.getElementsByTagName("tags")[0];
 
-        newItem(itemList, "A" + itemId, imgSrc, itemName, null, itemPrice, tags);
+        newItem(tabId, itemList, "A" + itemId, imgSrc, itemName, 0, itemPrice, tags);
     }
 }
 
@@ -196,12 +196,12 @@ function printGearData(magicArray, tabId) {
         if (x != null) {
             itemPrice = x.nodeValue;
         }
-        newItem(itemList, "B" + itemId, imgSrc, itemName, null, itemPrice);
+        newItem(tabId, itemList, "B" + itemId, imgSrc, itemName, 1, itemPrice);
     }
 }
 
 
-function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) {
+function newItem(tabId, itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) {
     var item = createElementWithClassName("div", "item");
     item.id = itemId;
 
@@ -216,6 +216,20 @@ function newItem(itemList, itemId, imgSrc, itemName, itemType, itemPrice, tags) 
     };
 
     item.appendChild(btnCompare);
+
+    var btnDetail = createElementWithClassName("div", "btnDetail");
+    btnDetail.id = itemId + "BtnDetail";
+
+    var btnDetailIcon = createElementWithClassName("ion-icon", "btnDetailIcon");
+    btnDetailIcon.name = "search";
+
+    btnDetail.appendChild(btnDetailIcon);
+    btnDetail.onclick = function (ev) {
+        var position = (ev.pageX > 800) ? 0 : 1;
+        showItemDetail(position, tabId);
+        printItemDetail(itemType, tabId, item.id);
+    };
+    item.appendChild(btnDetail);
 
     var itemImg = createElementWithClassName("div", "itemImg");
     var imgHelper = createElementWithClassName("span", "imgHelper");
@@ -345,9 +359,9 @@ function sortByCategory(element, urlParam, type) {
             gameArray.splice(j, 1);
         }
     }
-    for (var j = 0; j < gearArray.length; j++) {
-        if (gearArray[j][0] === id) {
-            gearArray.splice(j, 1);
+    for (var j1 = 0; j1 < gearArray.length; j1++) {
+        if (gearArray[j1][0] === id) {
+            gearArray.splice(j1, 1);
         }
     }
 
@@ -1411,4 +1425,116 @@ function stopCrawlItem(url, type) {
     };
     xhttp.open("GET", url + "?name=" + threadName.value, true);
     xhttp.send();
+}
+
+function printItemDetail(type, tabId, id) {
+    if (type === 0) {
+        printGameItemDetail(tabId, id);
+    } else {
+        printGearItemDetail(tabId, id);
+    }
+}
+
+function printGameItemDetail(tabId, gameId) {
+    var game = null;
+    for (var i = 0; i < gameArray.length; i++) {
+        if (gameArray[i][0] === tabId) {
+            for (var j = 0; j < gameArray[i][1].length; j++) {
+                var tmpGame = gameArray[i][1][j];
+                if (tmpGame.getAttribute("id") === gameId.substring(1)) {
+                    game = tmpGame;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    if (game != null) {
+        //print basic info
+        document.getElementById("itemDetailName").textContent = game.getAttribute("name");
+        var x = game.getElementsByTagName("price")[0].childNodes[0];
+        var itemPrice = "";
+        if (x != null) {
+            itemPrice = x.nodeValue;
+        }
+        document.getElementById("itemDetailPrice").textContent = itemPrice;
+        document.getElementById("itemDetailImg").src = game.getAttribute("img");
+        document.getElementById("itemDetailName").textContent = game.getAttribute("name");
+        var tags = game.getElementsByTagName("tags")[0];
+        var tagArray = tags.getElementsByTagName("tag");
+        for (var z = 0; z < tagArray.length; z++) {
+            var tag = createElementWithClassName("li", "itemTag");
+            tag.textContent = tagArray[z].childNodes[0].textContent;
+            document.getElementById("itemDetailTagHolder").appendChild(tag);
+        }
+        //Getting into deep shit
+        printGameSpecDetail(game);
+    }
+}
+
+function printGameSpecDetail(game) {
+    var gameExist = false;
+    var specDetail = null;
+    for (var j = 0; j < gameChoosed.length; j++) {
+        if (gameChoosed[j][0].includes("A" + game.id)) {
+            gameExist = true;
+            // if (gameChoosed[j][1][1] != null) {
+            //     game.className += " hasRecommend";
+            // }
+        }
+    }
+    if (!gameExist) {
+        var spec = loadSpecForCompare("A" + game.id, 0);
+        var gameSpec = [];
+        gameSpec.push("A" + game.id);
+        specDetail = castListToSpec(spec);
+        gameSpec.push(specDetail);
+        gameChoosed.push(gameSpec);
+        // if (gameSpec[1][1] != null) {
+        //     game.className += " hasRecommend";
+        // }
+    }
+    if (specDetail !== null) {
+        var specSwitchHolder = document.getElementById("itemDetailSpecSwitchHolder");
+        specSwitchHolder.innerHTML = "";
+        if (specDetail[0] != null) {
+            var switchButton = createElementWithClassName("button", "btnSwitch");
+            switchButton.textContent = "Tối thiểu";
+            specSwitchHolder.appendChild(switchButton);
+        }
+        if (specDetail[1] != null) {
+            var switchButton1 = createElementWithClassName("button", "btnSwitch");
+            switchButton1.textContent = "Kiến nghị";
+            specSwitchHolder.appendChild(switchButton1);
+        }
+    }
+}
+
+function printGearItemDetail(tabId, gearId) {
+
+}
+
+function showItemDetail(position) {
+    var screen = document.getElementById("itemDetailScreen");
+    var screenBack = document.getElementById("itemDetailScreenBackScreen");
+    if (position === 0) {
+        screen.style.left = 25 + "px";
+        screen.style.right = "unset";
+    } else if (position === 1) {
+        screen.style.right = 25 + "px";
+        screen.style.left = "unset";
+    }
+    screen.style.opacity = 1 + "";
+    screen.style.visibility = "visible";
+    screenBack.style.opacity = 1 + "";
+    screenBack.style.visibility = "visible";
+}
+
+function hideItemTab() {
+    var screen = document.getElementById("itemDetailScreen");
+    screen.style.opacity = 0 + "";
+    screen.style.visibility = "hidden";
+    var screenBack = document.getElementById("itemDetailScreenBackScreen");
+    screenBack.style.opacity = 0 + "";
+    screenBack.style.visibility = "hidden";
 }
