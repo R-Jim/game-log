@@ -1227,7 +1227,9 @@ img {
     text-decoration: none;
     display: block;
     color: white;
-    padding: 10px 15px 7px 15px;
+    padding: 9px 15px 9px 15px;
+    float: left;
+    margin-right: 10px;
 }
 
 .gameOri {
@@ -1240,9 +1242,27 @@ img {
     margin-left: 5px;
     position: relative;
     top: -15px;
-    height: 20px;
+    height: 18px;
 }
 
 .gearOri {
     background: var(--main-gear-color);
+}
+
+#itemDetailToOrigin {
+    height: fit-content;
+}
+
+#itemDetailToOrigin button {
+    width: 90px;
+    height: 36px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+#itemDetailToOrigin button:hover {
+    cursor: pointer;
 }

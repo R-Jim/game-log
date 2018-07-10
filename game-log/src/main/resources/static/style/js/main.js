@@ -212,7 +212,7 @@ function newItem(tabId, itemList, itemId, imgSrc, itemName, itemType, itemPrice,
     btnCompare.appendChild(tri);
     btnCompare.appendChild(icon);
     btnCompare.onclick = function () {
-        btnCompareEvent(this);
+        btnCompareEvent(this.parentElement);
     };
 
     item.appendChild(btnCompare);
@@ -262,14 +262,13 @@ function newItem(tabId, itemList, itemId, imgSrc, itemName, itemType, itemPrice,
 }
 
 function btnCompareEvent(element) {
-    var item = element.parentElement;
-    var isGame = element.parentElement.parentElement.parentElement.className.includes("gameList");
+    var isGame = element.parentElement.parentElement.className.includes("gameList");
 
     var list = (isGame) ? document.getElementById("games") : document.getElementById("gears");
     var itemInCmpList = list.childNodes;
 
     for (var i = 0; i < itemInCmpList.length; i++) {
-        if (item.id === itemInCmpList[i].id) {
+        if (element.id === itemInCmpList[i].id) {
             return;
         }
     }
@@ -277,18 +276,18 @@ function btnCompareEvent(element) {
 
     var cmpItem = document.createElement("div");
     cmpItem.className = "cmpItem";
-    cmpItem.id = item.id;
+    cmpItem.id = element.id;
     cmpItem.className = (isGame) ? "cmpGame cmpItem" : "cmpGear cmpItem";
 
     var cmpListType = (isGame) ? document.getElementById("games") : document.getElementById("gears");
 
     var image = document.createElement("div");
-    image.innerHTML = item.getElementsByClassName("itemImg")[0].innerHTML;
+    image.innerHTML = element.getElementsByClassName("itemImg")[0].innerHTML;
     image.className = "cmpItemImg";
 
     var cmpItemName = document.createElement("div");
     cmpItemName.className = "itemName";
-    cmpItemName.textContent = item.getElementsByClassName("itemName")[0].textContent;
+    cmpItemName.textContent = element.getElementsByClassName("itemName")[0].textContent;
 
     var removeButton = document.createElement("button");
     removeButton.className = "removeCmpItemButton";
@@ -1467,10 +1466,28 @@ function printGameItemDetail(tabId, gameId) {
             document.getElementById("itemDetailTagHolder").appendChild(tag);
         }
         var origin = createElementWithClassName("a", "linkToOrigin gameOri");
-        origin.innerHTML = "Xem ở <div><ion-icon name=\"logo-steam\"></ion-icon></div>";
+        origin.innerHTML = "Tới <div><ion-icon name=\"logo-steam\"></ion-icon></div>";
         origin.href = game.getAttribute("href");
         origin.target = "_blank";
         document.getElementById("itemDetailToOrigin").appendChild(origin);
+        //Get that compare button
+        var tab = document.getElementById(tabId + "Content");
+        var items = tab.getElementsByClassName("item");
+        var itemBaseOn = null;
+        for (var k = 0; k < items.length; k++) {
+            if (items[k].getAttribute("id") === gameId) {
+                itemBaseOn = items[k];
+                break;
+            }
+        }
+        if (itemBaseOn!=null){
+            var button = createElementWithClassName("button","itemDetailCompareBtn gameOri");
+            button.textContent = "So sánh";
+            button.onclick = function () {
+                btnCompareEvent(itemBaseOn);
+            };
+            document.getElementById("itemDetailToOrigin").appendChild(button);
+        }
         //Getting into deep shit
         printGameSpecDetail(game);
     }
@@ -1555,13 +1572,31 @@ function printGearItemDetail(tabId, gearId) {
         if (x != null) {
             itemPrice = x.nodeValue;
         }
-        document.getElementById("itemDetailPrice").textContent =  (itemPrice === "" || itemPrice === "đ") ? "Không thông tin" : itemPrice;
+        document.getElementById("itemDetailPrice").textContent = (itemPrice === "" || itemPrice === "đ") ? "Không thông tin" : itemPrice;
         document.getElementById("itemDetailImg").src = gear.getAttribute("img");
         var origin = createElementWithClassName("a", "linkToOrigin gearOri");
-        origin.textContent = "Xem ở Fptshop";
+        origin.textContent = "Tới Fptshop";
         origin.href = "https://fptshop.com.vn" + gear.getAttribute("href");
         origin.target = "_blank";
         document.getElementById("itemDetailToOrigin").appendChild(origin);
+        //Get that compare button
+        var tab = document.getElementById(tabId + "Content");
+        var items = tab.getElementsByClassName("item");
+        var itemBaseOn = null;
+        for (var k = 0; k < items.length; k++) {
+            if (items[k].getAttribute("id") === gearId) {
+                itemBaseOn = items[k];
+                break;
+            }
+        }
+        if (itemBaseOn!=null){
+            var button = createElementWithClassName("button","itemDetailCompareBtn gearOri");
+            button.textContent = "So sánh";
+            button.onclick = function () {
+                btnCompareEvent(itemBaseOn);
+            };
+            document.getElementById("itemDetailToOrigin").appendChild(button);
+        }
         //print spec
         var specSwitchHolder = document.getElementById("itemDetailSpecSwitchHolder");
         var specName = document.createElement("div");
@@ -1597,10 +1632,6 @@ function printSpecDetail(specHolder, spec) {
     var cpu = createElementWithClassName("div", "specDetail");
     var ram = createElementWithClassName("div", "specDetail");
     var gpu = createElementWithClassName("div", "specDetail");
-    // os.textContent =  + ;
-    // cpu.textContent =  + spec.processor;
-    // ram.textContent =  + spec.memory;
-    // gpu.textContent =  + spec.graphic;
     whatDidIJustDo(os, "Hệ điều hành: ", spec.os);
     whatDidIJustDo(cpu, "Vi xử lý: ", spec.processor);
     whatDidIJustDo(ram, "Bộ nhớ: ", spec.memory);
