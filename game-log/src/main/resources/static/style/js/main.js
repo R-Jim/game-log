@@ -16,15 +16,20 @@ function traversalDOMTree(method, url, parseFunction, tabId) {
     console.log(url);
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
+            //Because of this shit always losing data
             var doc = this.responseXML;
+            //That is why
+            //Magic need to happen
             var magicArray = [];
             for (var i = 0; i < doc.childNodes[0].childNodes.length; i++) {
+                //dont know why but it works
+                //Please work
                 magicArray.push(doc.childNodes[0].childNodes[i]);
             }
             parseFunction(magicArray, tabId);
         }
     };
-    xhttp.open(method, url, false);
+    xhttp.open(method, url, true);
     xhttp.send();
 }
 
@@ -887,10 +892,6 @@ function setUpDataType() {
     //To matrix
     gpu = processGpuTypeList(gpu);
 
-    // console.log(compareOsStat(os[1][2], os[2][3]));
-    // console.log(cpu.toString());
-    // compareCpuStat("Intel Core i7-4790 4.0GHz or equivalent", "Intel Celeron 1.10 GHz");
-    // compareGpuStat("NVIDIA GeForce 940MX 4 GB","Intel HD Graphics 3000 or equivalent");
 }
 
 function loadTypeToList(url) {
@@ -1101,7 +1102,6 @@ function sortSpec(array, regex, replace, to, isFloat) {
                 var txtJ = array[j].match(regex);
                 if (txtJ != null) {
                     if (isFloat) {
-                        // console.log(parseFloat(txt[0].replace(replace, to)));
                         if (parseFloat(txt[0].replace(replace, to)) > parseFloat(txtJ[0].replace(replace, to))) {
                             var swamp = array[i];
                             array[i] = array[j];
@@ -1348,7 +1348,7 @@ function loadAdministrationTab() {
             // alert(this.responseText);
         }
     };
-    xhttp.open("GET", "http://localhost:8080/main?admin=needed", false);
+    xhttp.open("GET", "http://localhost:8080/main?admin=needed", true);
     xhttp.send();
 }
 
