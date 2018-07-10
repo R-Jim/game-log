@@ -75,7 +75,7 @@ function filteringGamedata(name, tabId, type) {
         itemList.innerHTML = "";
         var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
         btnLoadMore.id = tabId + "LoadMore";
-        btnLoadMore.textContent = "Tải thêm";
+        btnLoadMore.textContent = "Xem thêm";
         btnLoadMore.onclick = function () {
             filteringGamedata("", tabId, type);
             loadMore(this, url[type], type);
@@ -114,7 +114,7 @@ function filteringGeardata(name, tabId, type) {
         itemList.innerHTML = "";
         var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
         btnLoadMore.id = tabId + "LoadMore";
-        btnLoadMore.textContent = "Tải thêm";
+        btnLoadMore.textContent = "Xem thêm";
         btnLoadMore.onclick = function () {
             filteringGamedata("", tabId, type);
             loadMore(this, url[type], type);
@@ -342,7 +342,7 @@ function sortByCategory(element, urlParam, type) {
     itemList.innerHTML = "";
     var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
     btnLoadMore.id = id + "LoadMore";
-    btnLoadMore.textContent = "Tải thêm";
+    btnLoadMore.textContent = "Xem thêm";
     btnLoadMore.onclick = function () {
         loadMore(this, url[type], type);
     };
@@ -488,7 +488,7 @@ function addTabContent(tabId, type) {
     itemListHolder.appendChild(itemList);
     var btnLoadMore = createElementWithClassName("button", "btnLoadMore item");
     btnLoadMore.id = tabId + "LoadMore";
-    btnLoadMore.textContent = "Tải thêm";
+    btnLoadMore.textContent = "Xem thêm";
     btnLoadMore.onclick = function () {
         loadMore(this, url[type], type)
     };
@@ -1459,7 +1459,6 @@ function printGameItemDetail(tabId, gameId) {
         }
         document.getElementById("itemDetailPrice").textContent = itemPrice;
         document.getElementById("itemDetailImg").src = game.getAttribute("img");
-        document.getElementById("itemDetailName").textContent = game.getAttribute("name");
         var tags = game.getElementsByTagName("tags")[0];
         var tagArray = tags.getElementsByTagName("tag");
         for (var z = 0; z < tagArray.length; z++) {
@@ -1477,10 +1476,8 @@ function printGameSpecDetail(game) {
     var specDetail = null;
     for (var j = 0; j < gameChoosed.length; j++) {
         if (gameChoosed[j][0].includes("A" + game.id)) {
+            specDetail = gameChoosed[j][1];
             gameExist = true;
-            // if (gameChoosed[j][1][1] != null) {
-            //     game.className += " hasRecommend";
-            // }
         }
     }
     if (!gameExist) {
@@ -1490,28 +1487,97 @@ function printGameSpecDetail(game) {
         specDetail = castListToSpec(spec);
         gameSpec.push(specDetail);
         gameChoosed.push(gameSpec);
-        // if (gameSpec[1][1] != null) {
-        //     game.className += " hasRecommend";
-        // }
     }
     if (specDetail !== null) {
+        var specHolder = document.getElementById("itemDetailSpecMinimum");
+        var specHolder1 = document.getElementById("itemDetailSpecRecommend");
         var specSwitchHolder = document.getElementById("itemDetailSpecSwitchHolder");
         specSwitchHolder.innerHTML = "";
         if (specDetail[0] != null) {
             var switchButton = createElementWithClassName("button", "btnSwitch");
             switchButton.textContent = "Tối thiểu";
+            switchButton.onclick = function () {
+                specHolder.style.visibility = "visible";
+                specHolder1.style.visibility = "hidden";
+                printSpecDetail(specHolder, specDetail[0]);
+            };
             specSwitchHolder.appendChild(switchButton);
+            switchButton.click();
         }
         if (specDetail[1] != null) {
             var switchButton1 = createElementWithClassName("button", "btnSwitch");
             switchButton1.textContent = "Kiến nghị";
+            switchButton1.onclick = function () {
+                specHolder.style.visibility = "hidden";
+                specHolder1.style.visibility = "visible";
+                printSpecDetail(specHolder1, specDetail[1]);
+            };
             specSwitchHolder.appendChild(switchButton1);
         }
     }
 }
 
 function printGearItemDetail(tabId, gearId) {
+    var gear = null;
+    for (var i = 0; i < gearArray.length; i++) {
+        if (gearArray[i][0] === tabId) {
+            for (var j = 0; j < gearArray[i][1].length; j++) {
+                var tmpGear = gearArray[i][1][j];
+                if (tmpGear.getAttribute("id") === gearId.substring(1)) {
+                    gear = tmpGear;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    if (gear != null) {
+        document.getElementById("itemDetailName").textContent = gear.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+        var x = gear.getElementsByTagName("price")[0].childNodes[0];
+        var itemPrice = "";
+        if (x != null) {
+            itemPrice = x.nodeValue;
+        }
+        document.getElementById("itemDetailPrice").textContent = itemPrice;
+        document.getElementById("itemDetailImg").src = gear.getAttribute("img");
+        //print spec
+        var gearExist = false;
+        var specDetail = null;
+        for (var z = 0; z < gearChoosed.length; z++) {
+            if (gearChoosed[z][0].includes("B" + gear.id)) {
+                specDetail = gearChoosed[j][1];
+                gearExist = true;
+            }
+        }
+        if (!gearExist) {
+            var spec = loadSpecForCompare("B" + gear.id, 1);
+            var gearSpec = [];
+            gearSpec.push("B" + gear.id);
+            specDetail = castListToSpec(spec);
+            gearSpec.push(specDetail);
+            gearChoosed.push(gearSpec);
+        }
+        if (specDetail !== null) {
+            var specHolder = document.getElementById("itemDetailSpecMinimum");
+            printSpecDetail(specHolder,specDetail[0]);
+        }
+    }
+}
 
+function printSpecDetail(specHolder, spec) {
+    specHolder.innerHTML = "";
+    var os = createElementWithClassName("div", "specDetail");
+    var cpu = createElementWithClassName("div", "specDetail");
+    var ram = createElementWithClassName("div", "specDetail");
+    var gpu = createElementWithClassName("div", "specDetail");
+    os.textContent = "Hệ điều hành: " + spec.os;
+    cpu.textContent = "Vi xử lý: " + spec.processor;
+    ram.textContent = "Bộ nhớ: " + spec.memory;
+    gpu.textContent = "Đồ họa: " + spec.graphic;
+    specHolder.appendChild(os);
+    specHolder.appendChild(cpu);
+    specHolder.appendChild(ram);
+    specHolder.appendChild(gpu);
 }
 
 function showItemDetail(position) {
@@ -1528,6 +1594,19 @@ function showItemDetail(position) {
     screen.style.visibility = "visible";
     screenBack.style.opacity = 1 + "";
     screenBack.style.visibility = "visible";
+    wipeDataDetail();
+}
+
+function wipeDataDetail() {
+
+    document.getElementById("itemDetailName").textContent = "";
+    document.getElementById("itemDetailPrice").textContent = "";
+    document.getElementById("itemDetailImg").src = "";
+    document.getElementById("itemDetailTagHolder").innerText = "";
+
+    var specHolder = document.getElementById("itemDetailSpecMinimum").innerHTML = "";
+    var specHolder1 = document.getElementById("itemDetailSpecRecommend").innerHTML = "";
+    var specSwitchHolder = document.getElementById("itemDetailSpecSwitchHolder").innerHTML = "";
 }
 
 function hideItemTab() {

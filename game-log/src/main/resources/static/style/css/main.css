@@ -1102,3 +1102,12 @@ body {
     opacity: 0;
     z-index: 10;
 }
+
+#itemDetailSpecMinimum{
+    position: absolute;
+}
+
+#itemDetailSpecRecommend{
+    position: absolute;
+    visibility: hidden;
+}
