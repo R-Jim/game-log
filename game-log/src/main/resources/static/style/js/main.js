@@ -1466,6 +1466,11 @@ function printGameItemDetail(tabId, gameId) {
             tag.textContent = tagArray[z].childNodes[0].textContent;
             document.getElementById("itemDetailTagHolder").appendChild(tag);
         }
+        var origin = createElementWithClassName("a","linkToOrigin");
+        origin.textContent = "> Go to Steam";
+        origin.href = game.getAttribute("href");
+        origin.target = "_blank";
+        document.getElementById("itemDetailToOrigin").appendChild(origin);
         //Getting into deep shit
         printGameSpecDetail(game);
     }
@@ -1545,7 +1550,7 @@ function printGearItemDetail(tabId, gearId) {
         var specDetail = null;
         for (var z = 0; z < gearChoosed.length; z++) {
             if (gearChoosed[z][0].includes("B" + gear.id)) {
-                specDetail = gearChoosed[j][1];
+                specDetail = gearChoosed[z][1];
                 gearExist = true;
             }
         }
@@ -1559,7 +1564,7 @@ function printGearItemDetail(tabId, gearId) {
         }
         if (specDetail !== null) {
             var specHolder = document.getElementById("itemDetailSpecMinimum");
-            printSpecDetail(specHolder,specDetail[0]);
+            printSpecDetail(specHolder, specDetail[0]);
         }
     }
 }
@@ -1598,15 +1603,18 @@ function showItemDetail(position) {
 }
 
 function wipeDataDetail() {
-
     document.getElementById("itemDetailName").textContent = "";
     document.getElementById("itemDetailPrice").textContent = "";
     document.getElementById("itemDetailImg").src = "";
     document.getElementById("itemDetailTagHolder").innerText = "";
+    document.getElementById("itemDetailToOrigin").innerHTML = "";
 
-    var specHolder = document.getElementById("itemDetailSpecMinimum").innerHTML = "";
-    var specHolder1 = document.getElementById("itemDetailSpecRecommend").innerHTML = "";
-    var specSwitchHolder = document.getElementById("itemDetailSpecSwitchHolder").innerHTML = "";
+    document.getElementById("itemDetailSpecMinimum").innerHTML = "";
+    document.getElementById("itemDetailSpecRecommend").innerHTML = "";
+    document.getElementById("itemDetailSpecSwitchHolder").innerHTML = "";
+
+    document.getElementById("itemDetailSpecMinimum").style.visibility = "visible";
+    document.getElementById("itemDetailSpecRecommend").style.visibility = "hidden";
 }
 
 function hideItemTab() {

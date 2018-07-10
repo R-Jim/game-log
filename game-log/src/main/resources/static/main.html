@@ -220,21 +220,20 @@
     </div>
 </div>
 <div id="itemDetailScreen">
-    <button onclick="hideItemTab()">X</button>
-    <h1>item Detail</h1>
+    <button onclick="hideItemTab()" id="btnItemDetailScreenHide">X</button>
     <div id="itemDetailImgHolder">
         <span class="imgHelper"></span>
         <img id="itemDetailImg"/>
     </div>
-    <div id="itemDetailName"></div>
-    <div id="itemDetailPrice"></div>
-    <div id="itemDetailToOrigin"></div>
+    <div id="itemDetailName" class="itemDetailBasic"></div>
+    <div id="itemDetailPrice" class="itemDetailBasic"></div>
+    <div id="itemDetailToOrigin" class="itemDetailBasic"></div>
     <div id="itemDetailSpecSwitchHolder"></div>
     <div id="itemDetailSpecHolder">
         <div id="itemDetailSpecMinimum"></div>
         <div id="itemDetailSpecRecommend"></div>
     </div>
-    <div id="itemDetailTagHolder"></div>
+    <ul id="itemDetailTagHolder"></ul>
 </div>
 <div id="itemDetailScreenBackScreen" onclick="hideItemTab()">
 
