@@ -27,6 +27,7 @@ function traversalDOMTree(method, url, parseFunction, tabId) {
                 magicArray.push(doc.childNodes[0].childNodes[i]);
             }
             parseFunction(magicArray, tabId);
+
         }
     };
     xhttp.open(method, url, true);
@@ -153,6 +154,12 @@ function printGameData(magicArray, tabId) {
     }
     var tabContent = document.getElementById(tabId + "Content");
     var itemList = tabContent.getElementsByClassName("itemList")[0];
+    if (magicArray.length === 0) {
+        document.getElementById(tabId + "LoadMore").remove();
+        var noMoreContent = createElementWithClassName("div", "noMoreContent");
+        noMoreContent.innerHTML = "<span>Không còn</span><br/><span>kết quả</span>";
+        itemList.appendChild(noMoreContent);
+    }
 
     for (var i = 0; i < magicArray.length; i++) {
         var game = magicArray[i];
@@ -185,7 +192,12 @@ function printGearData(magicArray, tabId) {
 
     var tabContent = document.getElementById(tabId + "Content");
     var itemList = tabContent.getElementsByClassName("itemList")[0];
-
+    if (magicArray.length === 0) {
+        document.getElementById(tabId + "LoadMore").remove();
+        var noMoreContent = createElementWithClassName("div", "noMoreContent");
+        noMoreContent.innerHTML = "<span>Không còn</span><br/><span>kết quả</span>";
+        itemList.appendChild(noMoreContent);
+    }
     for (var i = 0; i < magicArray.length; i++) {
         var gear = magicArray[i];
         var itemId = gear.getAttribute("id");
@@ -1483,7 +1495,7 @@ function printGameItemDetail(tabId, gameId) {
     }
     if (game != null) {
         //print basic info
-        document.getElementById("itemDetailName").textContent = game.getAttribute("name");
+        document.getElementById("itemDetailName").innerHTML = "<span class='gameTxt'>" + game.getAttribute("name") + "</span>";
         var x = game.getElementsByTagName("price")[0].childNodes[0];
         var itemPrice = "";
         if (x != null) {
@@ -1599,7 +1611,7 @@ function printGearItemDetail(tabId, gearId) {
         }
     }
     if (gear != null) {
-        document.getElementById("itemDetailName").textContent = gear.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+        document.getElementById("itemDetailName").innerHTML = "<span class='gearTxt'>" + gear.getElementsByTagName("name")[0].childNodes[0].nodeValue + "</span>";
         var x = gear.getElementsByTagName("price")[0].childNodes[0];
         var itemPrice = "";
         if (x != null) {
@@ -1707,7 +1719,7 @@ function showItemDetail(position) {
 }
 
 function wipeDataDetail() {
-    document.getElementById("itemDetailName").textContent = "";
+    document.getElementById("itemDetailName").innerHTML = "";
     document.getElementById("itemDetailPrice").textContent = "";
     document.getElementById("itemDetailImg").src = "";
     document.getElementById("itemDetailTagHolder").innerText = "";

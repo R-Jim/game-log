@@ -36,6 +36,14 @@
 
 }
 
+.gameTxt {
+    color: var(--main-game-color);
+}
+
+.gearTxt {
+    color: var(--main-gear-color);
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -356,6 +364,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 600;
 }
 
 .item .itemTags {
@@ -376,6 +385,7 @@ body {
     margin-bottom: 5px;
     padding: 5px;
     border-radius: 3px;
+    font-size: smaller;
 }
 
 .gameList .item:hover {
@@ -384,6 +394,14 @@ body {
 
 .gearList .item:hover {
     border: 1.5px solid var(--main-gear-color);
+}
+
+.gameList .itemName {
+    color: var(--main-game-color);
+}
+
+.gearList .itemName {
+    color: var(--main-gear-color);
 }
 
 .gameList .btnDetail {
@@ -661,6 +679,7 @@ img {
     border-radius: 5px;
     color: white;
     font-size: large;
+    max-width: 160px;
     /*box-shadow: 2px 2px gray;*/
 }
 
@@ -1133,6 +1152,10 @@ img {
     cursor: pointer;
 }
 
+#itemDetailName{
+    font-weight: bold;
+}
+
 .itemDetailBasic {
     float: right;
     width: 60%;
@@ -1199,6 +1222,7 @@ img {
     margin-bottom: 5px;
     padding: 5px;
     border-radius: 3px;
+    font-size: smaller;
 }
 
 .specDetailName {
@@ -1265,4 +1289,19 @@ img {
 
 #itemDetailToOrigin button:hover {
     cursor: pointer;
+}
+
+.noMoreContent {
+    margin: 8px;
+    width: 160px;
+    height: 200px;
+    box-sizing: border-box;
+    border: 1.5px solid lightgray;
+    padding: 5px;
+    box-shadow: 3px 2px rgba(128, 128, 128, 0.51);
+    border-radius: 5px;
+    font-size: large;
+    background: #555555;
+    color: white;
+    padding-top: 6%;
 }
