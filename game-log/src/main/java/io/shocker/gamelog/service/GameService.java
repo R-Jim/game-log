@@ -100,16 +100,18 @@ public class GameService {
                     break;
                 }
             }
-        }while (existed);
+        } while (existed);
         gameCrawlingThread.setName(name);
         gameCrawlingThread.start();
         return name;
     }
 
-    public int stopCrawling(String name){
+    public int crawlingStatus(String name, boolean neededToStop) {
         for (Thread t : Thread.getAllStackTraces().keySet()) {
             if (t.getName().equals(name)) {
-                t.interrupt();
+                if (neededToStop) {
+                    t.interrupt();
+                }
                 ThreadService.GameCrawlingThread gameCrawlingThread = (ThreadService.GameCrawlingThread) t;
                 return gameCrawlingThread.getGameCrawled();
             }

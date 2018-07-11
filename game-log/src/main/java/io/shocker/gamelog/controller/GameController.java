@@ -60,7 +60,13 @@ public class GameController {
     @GetMapping(value = "/stop")
     @ResponseBody
     public int stopThread(@RequestParam(value = "name") String threadName) {
-        return this.gameService.stopCrawling(threadName);
+        return this.gameService.crawlingStatus(threadName, true);
+    }
+
+    @GetMapping(value = "/status")
+    @ResponseBody
+    public int threadStatus(@RequestParam(value = "name") String threadName) {
+        return this.gameService.crawlingStatus(threadName, false);
     }
 
     @GetMapping(value = "/category", produces = MediaType.APPLICATION_XML_VALUE)

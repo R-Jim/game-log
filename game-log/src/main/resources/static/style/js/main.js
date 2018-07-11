@@ -1330,17 +1330,18 @@ function logout() {
         sessionStorage.removeItem("gamaUserIdKey");
         sessionStorage.removeItem("gamaUsername");
 
-        var params = "uniqueId=" + onLoadLastIdKey;
+        var http = new XMLHttpRequest();
+        var params = "uniqueID=" + onLoadLastIdKey;
         http.open('POST', "http://localhost:8080/main/logout", true);
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
         http.onreadystatechange = function () {//Call a function when the state changes.
             if (http.readyState === 4 && http.status === 200) {
+                adminIsHere(false);
             }
         };
         http.send(params);
     }
-    adminIsHere(false);
 }
 
 function adminIsHere(isIt) {
@@ -1403,13 +1404,47 @@ function startCrawlItem(url, type) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             btnStop.disabled = false;
-            result.textContent = this.responseText + " is running";
+            result.textContent = this.responseText + " is started";
             var threadName = (type === 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
             threadName.value = this.responseText;
+            theWaitingGame('http://localhost:8080/game/status', threadName.value, result);
         }
     };
     xhttp.open("GET", url, true);
     xhttp.send();
+}
+
+var w;
+
+function theWaitingGame(url, threadName, resultBanner) {
+    // var stopped = false;
+    // var xhttp = new XMLHttpRequest();
+    // xhttp.onreadystatechange = function () {
+    //     if (this.readyState === 4 && this.status === 200) {
+    //         if (this.responseText !== "-1") {
+    //             resultBanner.textContent = threadName + " is Running,Item crawled: " + this.responseText;
+    //         } else {
+    //             resultBanner.textContent = threadName + "Stopped, Item crawled: " + this.responseText;
+    //             stopped = true;
+    //         }
+    //     }
+    // };
+    // xhttp.open("GET", url + "/?name=" + threadName, true);
+    // while (!stopped) {
+    //     window.setTimeout(function () {
+    //         xhttp.send();
+    //     }, 2000);
+    // }
+
+    if (typeof(Worker) !== "undefined") {
+        if (typeof(w) === "undefined") {
+            w = new Worker("style/js/webworker.js");
+            w.postMessage(url + "/?name=" + threadName);
+        }
+        w.onmessage = function (event) {
+            resultBanner.innerHTML = event.data;
+        };
+    }
 }
 
 function stopCrawlItem(url, type) {
@@ -1422,7 +1457,7 @@ function stopCrawlItem(url, type) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             btnStart.disabled = false;
-            result.textContent = "Item crawled: " + this.responseText;
+            result.textContent = threadName.value + "Stopped, Item crawled: " + this.responseText;
         }
     };
     xhttp.open("GET", url + "?name=" + threadName.value, true);
