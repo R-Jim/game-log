@@ -14,7 +14,7 @@ function checkStatus() {
         };
         xhttp.open("GET", url, true);
         xhttp.send();
-        setTimeout("checkStatus()", 2000);
+        setTimeout("checkStatus()", 500);
     }
 }
 

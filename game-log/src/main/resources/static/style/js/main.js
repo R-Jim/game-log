@@ -1381,21 +1381,21 @@ function admistrationTabHide() {
     }
 }
 
-function crawlCategory(url, thisButton, type) {
+function crawlCategory(thisButton, type) {
     var result = (type === 0) ? document.getElementById("txtGameCategoryCrawlResult") : document.getElementById("txtGearCategoryCrawlResult");
     var xhttp = new XMLHttpRequest();
     thisButton.disabled = true;
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             thisButton.disabled = false;
-            result.textContent = "Item crawled: " + this.responseText;
+            result.textContent = "Item lấy được: " + this.responseText;
         }
     };
-    xhttp.open("GET", url, true);
+    xhttp.open("GET", url[type] + "/category/load", true);
     xhttp.send();
 }
 
-function startCrawlItem(url, type) {
+function startCrawlItem(type) {
     var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
     var btnStop = (type === 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
     var result = (type === 0) ? document.getElementById("txtGameCrawlResult") : document.getElementById("txtGearCrawlResult");
@@ -1404,50 +1404,48 @@ function startCrawlItem(url, type) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             btnStop.disabled = false;
-            result.textContent = this.responseText + " is started";
+            result.textContent = this.responseText + " bắt đầu";
             var threadName = (type === 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
             threadName.value = this.responseText;
-            theWaitingGame('http://localhost:8080/game/status', threadName.value, result);
+            theWaitingGame(url[type] + '/status', threadName.value, result, type);
         }
     };
-    xhttp.open("GET", url, true);
+    xhttp.open("GET", url[type] + '/load', true);
     xhttp.send();
 }
 
-var w;
+var gameWorker;
+var gearWorker;
 
-function theWaitingGame(url, threadName, resultBanner) {
-    // var stopped = false;
-    // var xhttp = new XMLHttpRequest();
-    // xhttp.onreadystatechange = function () {
-    //     if (this.readyState === 4 && this.status === 200) {
-    //         if (this.responseText !== "-1") {
-    //             resultBanner.textContent = threadName + " is Running,Item crawled: " + this.responseText;
-    //         } else {
-    //             resultBanner.textContent = threadName + "Stopped, Item crawled: " + this.responseText;
-    //             stopped = true;
-    //         }
-    //     }
-    // };
-    // xhttp.open("GET", url + "/?name=" + threadName, true);
-    // while (!stopped) {
-    //     window.setTimeout(function () {
-    //         xhttp.send();
-    //     }, 2000);
-    // }
-
-    if (typeof(Worker) !== "undefined") {
-        if (typeof(w) === "undefined") {
-            w = new Worker("style/js/webworker.js");
-            w.postMessage(url + "/?name=" + threadName);
+function theWaitingGame(url, threadName, resultBanner, type) {
+    var w = (type === 0) ? gameWorker : gearWorker;
+    window.setTimeout(function () {
+        if (typeof(Worker) !== "undefined") {
+            if (typeof(w) === "undefined") {
+                w = new Worker("style/js/webworker.js");
+                w.postMessage(url + "/?name=" + threadName);
+            }
+            var count = 0;
+            w.onmessage = function (event) {
+                if (event.data !== "-1") {
+                    count += (parseInt(event.data) - count);
+                    resultBanner.textContent = threadName + " đang chạy\r\n Item lấy được: " + count;
+                } else {
+                    resultBanner.textContent = threadName + " hoàn thành\r\n Item lấy được: " + count;
+                    w.terminate();
+                    w = undefined;
+                    var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
+                    var btnStop = (type === 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
+                    btnStart.disabled = false;
+                    btnStop.disabled = true;
+                }
+            };
         }
-        w.onmessage = function (event) {
-            resultBanner.innerHTML = event.data;
-        };
-    }
+    }, 500);
 }
 
-function stopCrawlItem(url, type) {
+function stopCrawlItem(type) {
+    var w = (type === 0) ? gameWorker : gearWorker;
     var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
     var btnStop = (type === 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
     var threadName = (type === 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
@@ -1456,11 +1454,13 @@ function stopCrawlItem(url, type) {
     btnStop.disabled = true;
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
+            w.terminate();
+            w = undefined;
+            result.textContent = threadName.value + " dừng\r\n Item lấy được: " + this.responseText;
             btnStart.disabled = false;
-            result.textContent = threadName.value + "Stopped, Item crawled: " + this.responseText;
         }
     };
-    xhttp.open("GET", url + "?name=" + threadName.value, true);
+    xhttp.open("GET", url[type] + "/stop?name=" + threadName.value, true);
     xhttp.send();
 }
 

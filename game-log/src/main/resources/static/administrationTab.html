@@ -8,26 +8,26 @@
                 <tr style="height: 100px;">
                     <td style="width: 30%;">Crawl Categories</td>
                     <td style="width: 30%;">
-                        <button onclick="crawlCategory('http://localhost:8080/game/category/load',this,0)">Bắt đầu
+                        <button onclick="crawlCategory(this,0)">Bắt đầu
                         </button>
                         <button disabled>Dừng</button>
                     </td>
-                    <td style="width: 40%;font-size: smaller;">
+                    <td style="width: 40%;font-size: smaller;white-space: pre-line;">
                         <span id="txtGameCategoryCrawlResult"></span>
                     </td>
                 </tr>
                 <tr style="height: 100px;">
                     <td style="width: 30%;">Crawl Games</td>
                     <td style="width: 30%;">
-                        <button id="btnGameCrawlStart" onclick="startCrawlItem('http://localhost:8080/game/load', 0)">
+                        <button id="btnGameCrawlStart" onclick="startCrawlItem(0)">
                             Bắt đầu
                         </button>
                         <input type="hidden" id="txtGameCrawlThreadName">
-                        <button id="btnGameCrawlStop" onclick="stopCrawlItem('http://localhost:8080/game/stop', 0)"
+                        <button id="btnGameCrawlStop" onclick="stopCrawlItem(0)"
                                 disabled>Dừng
                         </button>
                     </td>
-                    <td style="width: 40%;font-size: smaller;">
+                    <td style="width: 40%;font-size: smaller; white-space: pre-line;">
                         <span id="txtGameCrawlResult"></span>
                     </td>
                 </tr>
@@ -41,26 +41,26 @@
                 <tr style="height: 100px;">
                     <td style="width: 30%;">Crawl Categories</td>
                     <td style="width: 30%;">
-                        <button onclick="crawlCategory('http://localhost:8080/gear/category/load',this,1)">Bắt đầu
+                        <button onclick="crawlCategory(this,1)">Bắt đầu
                         </button>
                         <button disabled>Dừng</button>
                     </td>
-                    <td style="width: 40%;">
+                    <td style="width: 40%;font-size: smaller; white-space: pre-line;">
                         <span id="txtGearCategoryCrawlResult"></span>
                     </td>
                 </tr>
                 <tr style="height: 100px;">
                     <td style="width: 30%;">Crawl Gears</td>
                     <td style="width: 30%;">
-                        <button id="btnGearCrawlStart" onclick="startCrawlItem('http://localhost:8080/gear/load', 1)">
+                        <button id="btnGearCrawlStart" onclick="startCrawlItem(1)">
                             Bắt đầu
                         </button>
                         <input type="hidden" id="txtGearCrawlThreadName">
-                        <button id="btnGearCrawlStop" onclick="stopCrawlItem('http://localhost:8080/gear/stop', 1)"
+                        <button id="btnGearCrawlStop" onclick="stopCrawlItem(1)"
                                 disabled>Dừng
                         </button>
                     </td>
-                    <td style="width: 40%;">
+                    <td style="width: 40%;font-size: smaller; white-space: pre-line;">
                         <span id="txtGearCrawlResult"></span>
                     </td>
                 </tr>

@@ -96,18 +96,20 @@ public class GearService {
                     break;
                 }
             }
-        }while (existed);
+        } while (existed);
         gameCrawlingThread.setName(name);
         gameCrawlingThread.start();
         return name;
     }
 
-    public int stopCrawling(String name){
+    public int crawlingStatus(String name, boolean neededToStop) {
         for (Thread t : Thread.getAllStackTraces().keySet()) {
             if (t.getName().equals(name)) {
-                t.interrupt();
-                ThreadService.GearCrawlingThread gameCrawlingThread = (ThreadService.GearCrawlingThread) t;
-                return gameCrawlingThread.getGearCrawled();
+                if (neededToStop) {
+                    t.interrupt();
+                }
+                ThreadService.GearCrawlingThread gearCrawlingThread = (ThreadService.GearCrawlingThread) t;
+                return gearCrawlingThread.getGearCrawled();
             }
         }
         return -1;
@@ -122,27 +124,27 @@ public class GearService {
 
     public Gears getAllGears(Integer currentPage, Integer categoryId) {
         Gears gears = new Gears();
-        if (currentPage==null){
+        if (currentPage == null) {
             currentPage = 1;
         }
         int offset = 10 * (currentPage - 1);
         String cateId = "%";
-        if (categoryId!=null){
+        if (categoryId != null) {
             cateId = String.valueOf(categoryId);
         }
-        System.out.println(offset+","+cateId);
-        gears.setGear(this.gearRepository.getAllGears(10,offset,cateId));
+        System.out.println(offset + "," + cateId);
+        gears.setGear(this.gearRepository.getAllGears(10, offset, cateId));
         return gears;
     }
 
-    public Gears.Gear getGearDetail(Integer gearId){
+    public Gears.Gear getGearDetail(Integer gearId) {
         return this.gearRepository.getById(gearId);
     }
 
 
-    public List<String> getSpecTypeData(int type){
-        List<String> specList=null;
-        switch (type){
+    public List<String> getSpecTypeData(int type) {
+        List<String> specList = null;
+        switch (type) {
             case SpecEnum.OS:
                 specList = this.gearRepository.getOsType();
                 break;
@@ -156,7 +158,7 @@ public class GearService {
                 specList = this.gearRepository.getGraphicType();
                 break;
         }
-        if (specList!=null) {
+        if (specList != null) {
             specList.removeAll(Collections.singleton(null));
         }
         return specList;

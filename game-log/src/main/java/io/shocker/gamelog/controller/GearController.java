@@ -44,7 +44,8 @@ public class GearController {
         Integer parsedCategoryId = null;
         try {
             parsedCategoryId = Integer.parseInt(categoryId);
-        } catch (NumberFormatException ex) {}
+        } catch (NumberFormatException ex) {
+        }
         Gears gears = this.gearService.getAllGears(currentPage, parsedCategoryId);
         return gears;
     }
@@ -64,9 +65,15 @@ public class GearController {
     @GetMapping(value = "/stop")
     @ResponseBody
     public int stopThread(@RequestParam(value = "name") String threadName) {
-        return this.gearService.stopCrawling(threadName);
+        return this.gearService.crawlingStatus(threadName, true);
     }
 
+
+    @GetMapping(value = "/status")
+    @ResponseBody
+    public int threadStatus(@RequestParam(value = "name") String threadName) {
+        return this.gearService.crawlingStatus(threadName, false);
+    }
 
     @GetMapping(value = "/category", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
