@@ -2,6 +2,8 @@ package io.shocker.gamelog.service;
 
 import io.shocker.gamelog.config.WebEnum;
 import io.shocker.gamelog.model.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -28,6 +30,8 @@ public class ThreadService extends Thread {
     }
 
     public static class GameCrawlingThread extends Thread {
+        private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
+
         private int gameCrawled = 0;
         private final GameService gameService;
 
@@ -86,10 +90,8 @@ public class ThreadService extends Thread {
                 }
                 System.out.println("Added Source");
 
-            } catch (TransformerException e) {
-                e.printStackTrace();
-            } catch (JAXBException e) {
-                e.printStackTrace();
+            } catch (TransformerException |JAXBException e) {
+                logger.log(Level.WARN,e);
             }
             System.out.println("Finish Crawling Game");
         }
@@ -101,6 +103,8 @@ public class ThreadService extends Thread {
     }
 
     public static class GearCrawlingThread extends Thread{
+        private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
+
         private final GearService gearService;
 
         public GearCrawlingThread(GearService gearService) {
@@ -164,9 +168,11 @@ public class ThreadService extends Thread {
                             System.out.println("Added Source");
                         }
                     } catch (TransformerException e) {
-                        System.err.println("Error Transformer at page:"+ category.getHref());
+                        logger.log(Level.WARN,e);
+//                        System.err.println("Error Transformer at page:"+ category.getHref());
                     } catch (JAXBException e) {
-                        System.err.println("Error JAXB at page:"+ category.getHref());
+                        logger.log(Level.WARN,e);
+//                        System.err.println("Error JAXB at page:"+ category.getHref());
                     }
                 }
             }

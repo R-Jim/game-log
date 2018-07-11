@@ -450,17 +450,16 @@ function addTabContent(tabId, type) {
 
     var txtSearch = document.createElement("input");
     txtSearch.placeholder = "Tìm kiếm";
-    txtSearch.onkeypress = function () {
-        var key = event.keyCode || event.charCode;
-        filteringdata(this.value.trim() + String.fromCharCode(key), tabId, type);
+    txtSearch.oninput = function () {
+        filteringdata(this.value, tabId, type);
     };
-    txtSearch.onkeydown = function () {
-        var key = event.keyCode || event.charCode;
-
-        if (key === 8 || key === 46) {
-            filteringdata(this.value.substring(0, this.value.length - 1).trim(), tabId, type);
-        }
-    };
+    // txtSearch.onkeydown = function () {
+    //     var key = event.keyCode || event.charCode;
+    //
+    //     if (key === 8 || key === 46) {
+    //         filteringdata(this.value.substring(0, this.value.length - 1), tabId, type);
+    //     }
+    // };
     tabUtility.appendChild(txtSearch);
     tabUtitlites.appendChild(tabUtility);
 
@@ -1733,8 +1732,10 @@ function hideItemTab() {
     var screenBack = document.getElementById("itemDetailScreenBackScreen");
     screenBack.style.opacity = 0 + "";
     screenBack.style.visibility = "hidden";
-    document.getElementById("itemDetailSpecMinimum").style.visibility = "hidden";
     document.getElementById("itemDetailSpecRecommend").style.visibility = "hidden";
+    document.getElementById("itemDetailSpecRecommend").style.cssFloat = "right";
+    document.getElementById("itemDetailSpecMinimum").style.visibility = "hidden";
+    document.getElementById("itemDetailSpecMinimum").style.cssFloat= "left";
 }
 
 function loginInByPressingEnter(e) {

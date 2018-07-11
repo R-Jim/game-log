@@ -29,13 +29,6 @@ public class MainController {
         return modelAndView;
     }
 
-//    @GetMapping(value = "administration")
-//    @ResponseBody
-//    public ModelAndView getAdministrationTab(ModelAndView modelAndView) {
-//
-//        return modelAndView;
-//    }
-
     @PostMapping(value = "/login")
     @ResponseBody
     public String login(@RequestParam(value = "username") String username,

@@ -9,6 +9,9 @@ package io.shocker.gamelog.crawler;
 import com.sun.xml.internal.stream.events.XMLEventAllocatorImpl;
 import io.shocker.gamelog.config.WebEnum;
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.URL;
@@ -36,6 +39,7 @@ import javax.xml.transform.stream.StreamSource;
  * @author Swomfire
  */
 public class BasicCrawler {
+    private static final Logger logger = LogManager.getLogger(BasicCrawler.class);
 
     public StreamSource crawlingFromWeb(WebEnum entity) throws TransformerException {
         if (entity != null) {
@@ -106,7 +110,7 @@ public class BasicCrawler {
             sb.add("</" + root + ">" + "\n");
             result = sb.toString().replace(",", "").replace("[", "").replace("]", "");
         } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.log(Level.WARN,ex);
         }
         InputStream inputStream = new ByteArrayInputStream(result.getBytes());
         return new StreamSource(inputStream);
@@ -151,10 +155,12 @@ public class BasicCrawler {
                         }
                     } catch (XMLStreamException exception) {
                         if (lastExp.equals(exception.toString())) {
+                            logger.log(Level.WARN, exception);
                             break;
                         }
                         lastExp = exception.toString();
                     } catch (NullPointerException | ArrayIndexOutOfBoundsException exception1) {
+                        logger.log(Level.WARN, exception1);
                         break;
                     }
                 }
@@ -165,7 +171,7 @@ public class BasicCrawler {
             InputStream inputStream = new ByteArrayInputStream(sb.toString().getBytes());
             return new StreamSource(inputStream);
         } catch (XMLStreamException ex) {
-            ex.printStackTrace();
+            logger.log(Level.WARN, ex);
         }
         return null;
     }
@@ -207,15 +213,17 @@ public class BasicCrawler {
                 if (event.isCharacters()) {
                     Characters chars = (Characters) event;
                     if (!chars.isWhiteSpace()) {
-                        sb.append(chars.getData().replace("&", "&#38;").trim() );
+                        sb.append(chars.getData().replace("&", "&#38;").trim());
                     }
                 }
             } catch (XMLStreamException exception) {
                 if (!stName.equals("")) {
                     sb.append("</" + stName + ">");
                 }
+                logger.log(Level.WARN, exception);
                 endTagMarker--;
             } catch (NullPointerException exception1) {
+                logger.log(Level.WARN, exception1);
                 break;
             }
         }
@@ -240,16 +248,6 @@ public class BasicCrawler {
 
         InputStream is = new ByteArrayInputStream(outputStream.toByteArray());
 
-
-//                List<String> lines;
-//        try {
-//            lines = IOUtils.readLines(is, "UTF-8");
-//            for (String line : lines) {
-//                System.out.println(line);
-//            }
-//        } catch (IOException ex) {
-////            Logger.getLogger(BasicCrawler.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         return new StreamSource(is);
     }
 }

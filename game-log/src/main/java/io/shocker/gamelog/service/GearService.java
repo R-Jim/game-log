@@ -7,6 +7,8 @@ import io.shocker.gamelog.crawler.GameCrawler;
 import io.shocker.gamelog.crawler.GearCrawler;
 import io.shocker.gamelog.model.*;
 import io.shocker.gamelog.repository.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +24,7 @@ import java.util.List;
 
 @Service
 public class GearService {
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
 
     public final GearCategoryRepository gearCategoryRepository;
     public final GearRepository gearRepository;
@@ -68,10 +71,8 @@ public class GearService {
                 System.out.println("Added Source");
 
             }
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
+        } catch (TransformerException | JAXBException e) {
+            logger.log(Level.WARN,e);
         }
 
         return count;

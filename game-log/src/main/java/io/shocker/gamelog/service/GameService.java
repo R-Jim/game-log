@@ -6,6 +6,8 @@ import io.shocker.gamelog.crawler.BasicCrawler;
 import io.shocker.gamelog.crawler.GameCrawler;
 import io.shocker.gamelog.model.*;
 import io.shocker.gamelog.repository.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +24,8 @@ import java.util.List;
 
 @Service
 public class GameService {
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
+
     private final GameCategoryRepository gameCategoryRepository;
     private final GameRepository gameRepository;
     private final TagRepository tagRepository;
@@ -72,10 +76,8 @@ public class GameService {
                 System.out.println("Added Source");
 
             }
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
+        } catch (TransformerException | JAXBException e) {
+            logger.log(Level.WARN, e);
         }
 
         return count;
@@ -196,7 +198,7 @@ public class GameService {
                 method.invoke(specDetail, spec.getValue());
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+            logger.log(Level.WARN, e);
         }
     }
 

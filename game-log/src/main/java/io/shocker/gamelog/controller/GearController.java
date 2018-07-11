@@ -5,6 +5,9 @@ import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.model.Gears;
 import io.shocker.gamelog.service.GameService;
 import io.shocker.gamelog.service.GearService;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ import static org.springframework.http.ResponseEntity.status;
 @Controller
 @RequestMapping(value = "/gear")
 public class GearController {
+    private static final Logger logger = LogManager.getLogger(GearController.class);
 
     private final GearService gearService;
 
@@ -38,6 +42,7 @@ public class GearController {
         try {
             parsedCategoryId = Integer.parseInt(categoryId);
         } catch (NumberFormatException ex) {
+            logger.log(Level.WARN,ex);
         }
         Gears gears = this.gearService.getAllGears(currentPage, parsedCategoryId);
         return gears;

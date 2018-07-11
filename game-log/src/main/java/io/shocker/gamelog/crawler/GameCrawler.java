@@ -1,6 +1,7 @@
 package io.shocker.gamelog.crawler;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
@@ -15,8 +16,11 @@ import java.util.logging.Logger;
 
 public class GameCrawler extends BasicCrawler {
 
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameCrawler.class);
+
+
     @Override
-    public void appendTagContentToBuffer(StringBuffer sb, XMLEventReader reader,  StartElement element) {
+    public void appendTagContentToBuffer(StringBuffer sb, XMLEventReader reader, StartElement element) {
         sb.append("<" + element.getName().toString());
 
         List<String> details = null;
@@ -31,7 +35,7 @@ public class GameCrawler extends BasicCrawler {
                     details = gameDetail(attr.getValue());
                     tags = gameTags(attr.getValue());
                 } catch (IOException ex) {
-                    Logger.getLogger(GameCrawler.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.log(org.apache.logging.log4j.Level.WARN, ex);
                 }
             }
         }
