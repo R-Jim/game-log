@@ -1264,6 +1264,9 @@ function hideLoginPanel() {
         loginBackground.style.visibility = "visible";
         loginBackground.style.opacity = 1;
         document.getElementById("loginError").textContent = "";
+        window.setTimeout(function () {
+            document.getElementById("txtUsername").focus();
+        }, 300);
     } else {
         loginPanel.style.visibility = "hidden";
         loginPanel.style.opacity = 0;
@@ -1480,8 +1483,8 @@ function printGameItemDetail(tabId, gameId) {
                 break;
             }
         }
-        if (itemBaseOn!=null){
-            var button = createElementWithClassName("button","itemDetailCompareBtn gameOri");
+        if (itemBaseOn != null) {
+            var button = createElementWithClassName("button", "itemDetailCompareBtn gameOri");
             button.textContent = "So sánh";
             button.onclick = function () {
                 btnCompareEvent(itemBaseOn);
@@ -1589,8 +1592,8 @@ function printGearItemDetail(tabId, gearId) {
                 break;
             }
         }
-        if (itemBaseOn!=null){
-            var button = createElementWithClassName("button","itemDetailCompareBtn gearOri");
+        if (itemBaseOn != null) {
+            var button = createElementWithClassName("button", "itemDetailCompareBtn gearOri");
             button.textContent = "So sánh";
             button.onclick = function () {
                 btnCompareEvent(itemBaseOn);
@@ -1697,4 +1700,10 @@ function hideItemTab() {
     screenBack.style.visibility = "hidden";
     document.getElementById("itemDetailSpecMinimum").style.visibility = "hidden";
     document.getElementById("itemDetailSpecRecommend").style.visibility = "hidden";
+}
+
+function loginInByPressingEnter(e) {
+    if (e.keyCode === 13) {
+        document.getElementById("btnLogin").click();
+    }
 }

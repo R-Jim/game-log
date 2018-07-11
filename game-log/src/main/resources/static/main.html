@@ -77,7 +77,7 @@
                         <ion-icon name="person"></ion-icon>
                     </div>
                 </td>
-                <td><input id="txtUsername" placeholder="Tên Đăng nhặp"></td>
+                <td><input id="txtUsername" placeholder="Tên Đăng nhặp" tabindex="2"></td>
             </tr>
             <tr>
                 <td>
@@ -85,12 +85,12 @@
                         <ion-icon name="lock"></ion-icon>
                     </div>
                 </td>
-                <td><input id="txtPassword" type="password" placeholder="Mật khẩu"><br/></td>
+                <td><input id="txtPassword" type="password" placeholder="Mật khẩu" tabindex="3" onkeydown="loginInByPressingEnter(event)"><br/></td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <button onclick="login(true)">Đăng nhập</button>
+                    <button id="btnLogin" onclick="login(true)">Đăng nhập</button>
                 </td>
             </tr>
         </table>
