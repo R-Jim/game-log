@@ -1,24 +1,24 @@
 <table style="width: 100%;height: 100%">
     <tr>
         <td style="width: 50%;">
-            <table style="color: var(--main-game-color);">
+            <table style="color: var(--main-game-color);width: 100%;">
                 <tr>
                     <th>Game</th>
                 </tr>
-                <tr>
-                    <td style="width: 40%;">Crawl Categories</td>
-                    <td style="width: 40%;">
+                <tr style="height: 100px;">
+                    <td style="width: 30%;">Crawl Categories</td>
+                    <td style="width: 30%;">
                         <button onclick="crawlCategory('http://localhost:8080/game/category/load',this,0)">Bắt đầu
                         </button>
                         <button disabled>Dừng</button>
                     </td>
-                    <td style="width: 20%;">
+                    <td style="width: 40%;font-size: smaller;">
                         <span id="txtGameCategoryCrawlResult"></span>
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 40%;">Crawl Games</td>
-                    <td style="width: 40%;">
+                <tr style="height: 100px;">
+                    <td style="width: 30%;">Crawl Games</td>
+                    <td style="width: 30%;">
                         <button id="btnGameCrawlStart" onclick="startCrawlItem('http://localhost:8080/game/load', 0)">
                             Bắt đầu
                         </button>
@@ -27,31 +27,31 @@
                                 disabled>Dừng
                         </button>
                     </td>
-                    <td style="width: 20%;">
+                    <td style="width: 40%;font-size: smaller;">
                         <span id="txtGameCrawlResult"></span>
                     </td>
                 </tr>
             </table>
         </td>
         <td style="width: 50%;">
-            <table style="color: var(--main-gear-color);">
+            <table style="color: var(--main-gear-color);width: 100%;">
                 <tr>
                     <th>Gear</th>
                 </tr>
-                <tr>
-                    <td style="width: 40%;">Crawl Categories</td>
-                    <td style="width: 40%;">
+                <tr style="height: 100px;">
+                    <td style="width: 30%;">Crawl Categories</td>
+                    <td style="width: 30%;">
                         <button onclick="crawlCategory('http://localhost:8080/gear/category/load',this,1)">Bắt đầu
                         </button>
                         <button disabled>Dừng</button>
                     </td>
-                    <td style="width: 20%;">
+                    <td style="width: 40%;">
                         <span id="txtGearCategoryCrawlResult"></span>
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 40%;">Crawl Gears</td>
-                    <td style="width: 40%;">
+                <tr style="height: 100px;">
+                    <td style="width: 30%;">Crawl Gears</td>
+                    <td style="width: 30%;">
                         <button id="btnGearCrawlStart" onclick="startCrawlItem('http://localhost:8080/gear/load', 1)">
                             Bắt đầu
                         </button>
@@ -60,7 +60,7 @@
                                 disabled>Dừng
                         </button>
                     </td>
-                    <td style="width: 20%;">
+                    <td style="width: 40%;">
                         <span id="txtGearCrawlResult"></span>
                     </td>
                 </tr>
