@@ -72,7 +72,7 @@ public class GearService {
 
             }
         } catch (TransformerException | JAXBException e) {
-            logger.log(Level.WARN,e);
+            logger.log(Level.WARN, e);
         }
 
         return count;
@@ -123,18 +123,24 @@ public class GearService {
     }
 
 
-    public Gears getAllGears(Integer currentPage, Integer categoryId) {
+    public Gears getAllGears(String nameLike, Integer currentPage, Integer categoryId) {
         Gears gears = new Gears();
         if (currentPage == null) {
             currentPage = 1;
         }
         int offset = 10 * (currentPage - 1);
+
+        String name = "%";
+        if (nameLike != null) {
+            name = "%" + nameLike + "%";
+        }
+
         String cateId = "%";
         if (categoryId != null) {
             cateId = String.valueOf(categoryId);
         }
         System.out.println(offset + "," + cateId);
-        gears.setGear(this.gearRepository.getAllGears(10, offset, cateId));
+        gears.setGear(this.gearRepository.getAllGears(name, 10, offset, cateId));
         return gears;
     }
 

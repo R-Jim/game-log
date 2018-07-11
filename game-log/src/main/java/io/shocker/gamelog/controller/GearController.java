@@ -36,15 +36,17 @@ public class GearController {
 
     @GetMapping(value = {""}, produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
-    public Gears getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
+    public Gears getGearList(
+            @RequestParam(value = "nameLike", required = false) String nameLike
+            , @RequestParam(value = "currentPage", required = false) Integer currentPage
             , @RequestParam(value = "categoryId", required = false) String categoryId) {
         Integer parsedCategoryId = null;
         try {
             parsedCategoryId = Integer.parseInt(categoryId);
         } catch (NumberFormatException ex) {
-            logger.log(Level.WARN,ex);
+            logger.log(Level.WARN, "getGearList no value for categoryId");
         }
-        Gears gears = this.gearService.getAllGears(currentPage, parsedCategoryId);
+        Gears gears = this.gearService.getAllGears(nameLike, currentPage, parsedCategoryId);
         return gears;
     }
 

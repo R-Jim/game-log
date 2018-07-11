@@ -77,7 +77,7 @@ function filteringGamedata(name, tabId, type) {
         btnLoadMore.id = tabId + "LoadMore";
         btnLoadMore.textContent = "Xem thêm";
         btnLoadMore.onclick = function () {
-            filteringGamedata("", tabId, type);
+            filteringGamedata(name, tabId, type);
             loadMore(this, url[type], type);
         };
         itemList.appendChild(btnLoadMore);
@@ -325,10 +325,12 @@ function loadMore(element, url, type) {
     var currentPage = document.getElementById(id + "CurrentPage");
     currentPage.value = +currentPage.value + 1;
 
+    var nameLike = document.getElementById(id + "SearchLikeName").value;
+    var nameUrl = (nameLike === "null") ? "" : "&nameLike=" + nameLike;
     var categoryId = document.getElementById(id + "DropSrch").value;
     var categoryUrl = (categoryId === "null") ? "" : "&categoryId=" + categoryId;
     var functionName = (type === 0) ? printGameData : printGearData;
-    traversalDOMTree("GET", url + "?currentPage=" + currentPage.value + categoryUrl, functionName, id);
+    traversalDOMTree("GET", url + "?currentPage=" + currentPage.value + categoryUrl + nameUrl, functionName, id);
 }
 
 function sortByCategory(element, urlParam, type) {
@@ -449,17 +451,11 @@ function addTabContent(tabId, type) {
     tabUtility.appendChild(tabName);
 
     var txtSearch = document.createElement("input");
+    txtSearch.id = tabId + "SearchLikeName";
     txtSearch.placeholder = "Tìm kiếm";
     txtSearch.oninput = function () {
         filteringdata(this.value, tabId, type);
     };
-    // txtSearch.onkeydown = function () {
-    //     var key = event.keyCode || event.charCode;
-    //
-    //     if (key === 8 || key === 46) {
-    //         filteringdata(this.value.substring(0, this.value.length - 1), tabId, type);
-    //     }
-    // };
     tabUtility.appendChild(txtSearch);
     tabUtitlites.appendChild(tabUtility);
 
@@ -1735,7 +1731,7 @@ function hideItemTab() {
     document.getElementById("itemDetailSpecRecommend").style.visibility = "hidden";
     document.getElementById("itemDetailSpecRecommend").style.cssFloat = "right";
     document.getElementById("itemDetailSpecMinimum").style.visibility = "hidden";
-    document.getElementById("itemDetailSpecMinimum").style.cssFloat= "left";
+    document.getElementById("itemDetailSpecMinimum").style.cssFloat = "left";
 }
 
 function loginInByPressingEnter(e) {

@@ -169,10 +169,8 @@ public class ThreadService extends Thread {
                         }
                     } catch (TransformerException e) {
                         logger.log(Level.WARN,e);
-//                        System.err.println("Error Transformer at page:"+ category.getHref());
                     } catch (JAXBException e) {
                         logger.log(Level.WARN,e);
-//                        System.err.println("Error JAXB at page:"+ category.getHref());
                     }
                 }
             }

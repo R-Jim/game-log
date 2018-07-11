@@ -28,15 +28,16 @@ public class GameController {
 
     @GetMapping(value = {""}, produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
-    public Games getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
+    public Games getGameList(@RequestParam(value = "nameLike", required = false) String nameLike
+            , @RequestParam(value = "currentPage", required = false) Integer currentPage
             , @RequestParam(value = "categoryId", required = false) String categoryId) {
         Integer parsedCategoryId = null;
         try {
             parsedCategoryId = Integer.parseInt(categoryId);
         } catch (NumberFormatException ex) {
-            logger.log(Level.WARN, "NumberFormatException: getGameList\n" + ex);
+            logger.log(Level.WARN, "getGameList No value for categoryId");
         }
-        return this.gameService.getAllGames(currentPage, parsedCategoryId);
+        return this.gameService.getAllGames(nameLike, currentPage, parsedCategoryId);
     }
 
 

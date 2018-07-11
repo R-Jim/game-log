@@ -202,7 +202,7 @@ public class GameService {
         }
     }
 
-    public Games getAllGames(Integer currentPage, Integer categoryId) {
+    public Games getAllGames(String nameLike, Integer currentPage, Integer categoryId) {
         Games games = new Games();
         if (currentPage == null) {
             currentPage = 1;
@@ -212,7 +212,11 @@ public class GameService {
         if (categoryId != null) {
             cateId = String.valueOf(categoryId);
         }
-        List<Game> gameList = this.gameRepository.getAllGames(10, offset, cateId);
+        String name = "%";
+        if (nameLike != null) {
+            name = "%" + nameLike + "%";
+        }
+        List<Game> gameList = this.gameRepository.getAllGames(name, 10, offset, cateId);
         for (Game game : gameList) {
             //Get all tags
             List<GameHasTag> tagList = this.gameHasTagRepository.findAllByGameId(game.getId());

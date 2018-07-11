@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface GearRepository extends JpaRepository<Gears.Gear,Integer> {
-    @Query(value = "CALL get_all_gears(:pageSize,:currentPage,:categoryId)",nativeQuery = true)
-    List<Gears.Gear> getAllGears(@Param("pageSize") int pageSize,
+    @Query(value = "CALL get_all_gears(:nameLike,:pageSize,:currentPage,:categoryId)",nativeQuery = true)
+    List<Gears.Gear> getAllGears(@Param("nameLike") String nameLike,@Param("pageSize") int pageSize,
                                  @Param("currentPage") int currentPage, @Param("categoryId") String categoryId);
 
 
