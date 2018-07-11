@@ -1,0 +1,17 @@
+2018-07-11 11:02:24.391  WARN 15232 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-11 11:02:24.394  WARN 15232 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-11 11:02:24.394  WARN 15232 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GameHasTagId
+2018-07-11 11:02:24.394  WARN 15232 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GameHasTagId
+2018-07-11 11:02:25.410  WARN 15232 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-07-11 11:02:30.502  WARN 15232 --- [http-nio-8080-exec-1] i.s.gamelog.controller.GameController    : NumberFormatException: getGameList
+java.lang.NumberFormatException: For input string: "sadsad"
+2018-07-11 11:02:42.829  WARN 14492 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-11 11:02:42.832  WARN 14492 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-11 11:02:42.833  WARN 14492 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GameHasTagId
+2018-07-11 11:02:42.833  WARN 14492 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GameHasTagId
+2018-07-11 11:02:43.803  WARN 14492 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-07-11 11:03:52.650  WARN 11856 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-11 11:03:52.653  WARN 11856 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-11 11:03:52.654  WARN 11856 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GameHasTagId
+2018-07-11 11:03:52.654  WARN 11856 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GameHasTagId
+2018-07-11 11:03:53.654  WARN 11856 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning

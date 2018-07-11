@@ -16,9 +16,10 @@
 <div id="banner">
     <p style="font-size: 12pt" class="logo">
             <span style="font-weight: bolder; font-size: x-large">
-                GAMA</span>
+                GAMA.2 </span>
+        <span style="float: right;padding-top: 7px;padding-right: 20px;">
         <span style="color: var(--main-game-color);">Game</span> -
-        <span style="color: var(--main-gear-color)">Gear</span> - match
+        <span style="color: var(--main-gear-color)">Gear</span> - match</span>
     </p>
     <span class="description"></span>
 </div>
@@ -85,7 +86,8 @@
                         <ion-icon name="lock"></ion-icon>
                     </div>
                 </td>
-                <td><input id="txtPassword" type="password" placeholder="Mật khẩu" tabindex="3" onkeydown="loginInByPressingEnter(event)"><br/></td>
+                <td><input id="txtPassword" type="password" placeholder="Mật khẩu" tabindex="3"
+                           onkeydown="loginInByPressingEnter(event)"><br/></td>
             </tr>
             <tr>
                 <td></td>
@@ -220,7 +222,9 @@
     </div>
 </div>
 <div id="itemDetailScreen">
-    <div onclick="hideItemTab()" id="btnItemDetailScreenHide"><ion-icon name="close"></ion-icon></div>
+    <div onclick="hideItemTab()" id="btnItemDetailScreenHide">
+        <ion-icon name="close"></ion-icon>
+    </div>
     <div id="itemDetailImgHolder">
         <span class="imgHelper"></span>
         <img id="itemDetailImg"/>

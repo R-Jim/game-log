@@ -5,11 +5,12 @@ import io.shocker.gamelog.model.Categories;
 import io.shocker.gamelog.model.Games;
 import io.shocker.gamelog.model.Spec;
 import io.shocker.gamelog.service.GameService;
-import io.shocker.gamelog.service.ThreadService;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -17,18 +18,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/game")
 public class GameController {
+    private static final Logger logger = LogManager.getLogger(GameController.class);
 
     private final GameService gameService;
 
     public GameController(GameService gameService) {
         this.gameService = gameService;
-    }
-
-    @GetMapping(value = "/main")
-    @ResponseBody
-    public ModelAndView getMainPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("main.html");
-        return modelAndView;
     }
 
     @GetMapping(value = {""}, produces = MediaType.APPLICATION_XML_VALUE)
@@ -39,9 +34,9 @@ public class GameController {
         try {
             parsedCategoryId = Integer.parseInt(categoryId);
         } catch (NumberFormatException ex) {
+            logger.log(Level.WARN, "NumberFormatException: getGameList\n" + ex);
         }
-        Games games = this.gameService.getAllGames(currentPage, parsedCategoryId);
-        return games;
+        return this.gameService.getAllGames(currentPage, parsedCategoryId);
     }
 
 

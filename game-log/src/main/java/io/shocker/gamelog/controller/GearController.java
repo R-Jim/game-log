@@ -30,13 +30,6 @@ public class GearController {
         this.gearService = gearService;
     }
 
-    @GetMapping(value = "/main")
-    @ResponseBody
-    public ModelAndView getMainPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("main.html");
-        return modelAndView;
-    }
-
     @GetMapping(value = {""}, produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
     public Gears getGameList(@RequestParam(value = "currentPage", required = false) Integer currentPage
