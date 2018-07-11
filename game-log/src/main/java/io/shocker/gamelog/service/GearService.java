@@ -1,24 +1,19 @@
 package io.shocker.gamelog.service;
 
 import io.shocker.gamelog.config.SpecEnum;
-import io.shocker.gamelog.config.WebEnum;
 import io.shocker.gamelog.crawler.BasicCrawler;
-import io.shocker.gamelog.crawler.GameCrawler;
 import io.shocker.gamelog.crawler.GearCrawler;
 import io.shocker.gamelog.model.*;
 import io.shocker.gamelog.repository.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
@@ -80,8 +75,9 @@ public class GearService {
 
     private StreamSource getGearCategoryData() throws TransformerException {
         BasicCrawler crawler = new BasicCrawler();
-
-        return crawler.crawlingFromWeb(WebEnum.GearCategory);
+        WebEntityService webEntityService = new WebEntityService();
+        WebEntity.Web webEntity = webEntityService.getWebEntity("gearCategory");
+        return crawler.crawlingFromWeb(webEntity);
     }
 
 
@@ -116,10 +112,9 @@ public class GearService {
         return -1;
     }
 
-    public StreamSource getGearsData(WebEnum webEnum) throws TransformerException {
+    public StreamSource getGearsData(WebEntity.Web webEntity) throws TransformerException {
         GearCrawler crawler = new GearCrawler();
-
-        return crawler.crawlingFromWeb(webEnum);
+        return crawler.crawlingFromWeb(webEntity);
     }
 
 

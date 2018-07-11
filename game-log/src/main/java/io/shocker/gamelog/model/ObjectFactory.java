@@ -121,4 +121,20 @@ public class ObjectFactory {
         return new Gears.Gear.Specs.Spec();
     }
 
+    /**
+     * Create an instance of {@link WebEntity }
+     *
+     */
+    public WebEntity createWebEntity() {
+        return new WebEntity();
+    }
+
+    /**
+     * Create an instance of {@link WebEntity.Web }
+     *
+     */
+    public WebEntity.Web createWebEntityWeb() {
+        return new WebEntity.Web();
+    }
+
 }

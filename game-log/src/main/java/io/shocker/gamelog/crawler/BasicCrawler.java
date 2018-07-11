@@ -7,8 +7,7 @@ package io.shocker.gamelog.crawler;
 
 
 import com.sun.xml.internal.stream.events.XMLEventAllocatorImpl;
-import io.shocker.gamelog.config.WebEnum;
-import org.apache.commons.io.IOUtils;
+import io.shocker.gamelog.model.WebEntity;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,7 +40,7 @@ import javax.xml.transform.stream.StreamSource;
 public class BasicCrawler {
     private static final Logger logger = LogManager.getLogger(BasicCrawler.class);
 
-    public StreamSource crawlingFromWeb(WebEnum entity) throws TransformerException {
+    public StreamSource crawlingFromWeb(WebEntity.Web entity) throws TransformerException {
         if (entity != null) {
 
             StreamSource source = getDataFromWeb(entity.getUrl(), entity.getRoot(), entity.getStart(), entity.getEnd());
@@ -110,7 +109,7 @@ public class BasicCrawler {
             sb.add("</" + root + ">" + "\n");
             result = sb.toString().replace(",", "").replace("[", "").replace("]", "");
         } catch (IOException ex) {
-            logger.log(Level.WARN,ex);
+            logger.log(Level.WARN,"Malformed");
         }
         InputStream inputStream = new ByteArrayInputStream(result.getBytes());
         return new StreamSource(inputStream);
@@ -155,12 +154,12 @@ public class BasicCrawler {
                         }
                     } catch (XMLStreamException exception) {
                         if (lastExp.equals(exception.toString())) {
-                            logger.log(Level.WARN, exception);
+//                            logger.log(Level.WARN, exception);
                             break;
                         }
                         lastExp = exception.toString();
                     } catch (NullPointerException | ArrayIndexOutOfBoundsException exception1) {
-                        logger.log(Level.WARN, exception1);
+//                        logger.log(Level.WARN, exception1);
                         break;
                     }
                 }

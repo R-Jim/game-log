@@ -808,17 +808,24 @@ function comparingGameAndGear(isMinimum) {
         runScoreBar("ramResult", compareRamStat(gameSpec.memory, gear[1][0].memory));
         runScoreBar("graphicResult", compareGpuStat(gameSpec.graphic, gear[1][0].graphic));
 
-        document.getElementById("osGameResult").textContent = (gameSpec.os !== "null") ? gameSpec.os : "Không thông tin";
-        document.getElementById("cpuGameResult").textContent = (gameSpec.processor !== "null") ? gameSpec.processor : "Không thông tin";
-        document.getElementById("ramGameResult").textContent = (gameSpec.memory !== "null") ? gameSpec.memory : "Không thông tin";
-        document.getElementById("graphicGameResult").textContent = (gameSpec.graphic !== "null") ? gameSpec.graphic : "Không thông tin";
-        document.getElementById("osGearResult").textContent = (gear[1][0].os !== "null") ? gear[1][0].os : "Không thông tin";
-        document.getElementById("cpuGearResult").textContent = (gear[1][0].processor !== "null") ? gear[1][0].processor : "Không thông tin";
-        document.getElementById("ramGearResult").textContent = (gear[1][0].memory !== "null") ? gear[1][0].memory : "Không thông tin";
-        document.getElementById("graphicGearResult").textContent = (gear[1][0].graphic !== "null") ? gear[1][0].graphic : "Không thông tin";
+
+        cmpResultSpecDetail("osGameResult", gameSpec.os);
+        cmpResultSpecDetail("cpuGameResult", gameSpec.processor);
+        cmpResultSpecDetail("ramGameResult", gameSpec.memory);
+        cmpResultSpecDetail("graphicGameResult", gameSpec.graphic);
+
+        cmpResultSpecDetail("osGearResult", gear[1][0].os);
+        cmpResultSpecDetail("cpuGearResult", gear[1][0].processor);
+        cmpResultSpecDetail("ramGearResult", gear[1][0].memory);
+        cmpResultSpecDetail("graphicGearResult", gear[1][0].graphic);
     } else {
         document.getElementById("errorResult").textContent = "Chọn game và gear trước khi so sánh";
     }
+}
+
+function cmpResultSpecDetail(parentId, value) {
+    var parent = document.getElementById(parentId);
+    parent.textContent = (value !== "null" && value !== "" && value != null) ? value : "không thông tin";
 }
 
 function runScoreBar(typeScoreId, score) {
@@ -1692,7 +1699,7 @@ function whatDidIJustDo(parent, name, value) {
     aSpan.textContent = name;
     parent.appendChild(aSpan);
     var vSpan = createElementWithClassName("span", "specDetailValue");
-    vSpan.textContent = (value !== "null") ? value : "Không thông tin";
+    vSpan.textContent = (value !== "null" && value !== "" && value != null) ? value : "Không thông tin";
     parent.appendChild(vSpan);
 }
 

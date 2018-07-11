@@ -1,0 +1,38 @@
+<webEntity xmlns="https://www.w3schools.com">
+    <web id="game" url="https://store.steampowered.com/search/?sort_by=Released_DESC&#38;page="
+         xslFilePath="src\main\resources\static\gameCleaned.xsl">
+        <root>games</root>
+        <start>&#60;div id = &#34;search_result_container&#34;&#62;</start>
+        <end>&#60;div class=&#34;rightcol small responsive_local_menu&#34; id=&#34;additional_search_options&#34;&#62;</end>
+        <desElement>a</desElement>
+        <desAttribute>class</desAttribute>
+        <desAttributeValue>search_result_row</desAttributeValue>
+    </web>
+    <web id="gear" url="https://fptshop.com.vn"
+         xslFilePath="src\main\resources\static\gearCleaned.xsl">
+        <root>gears</root>
+        <start>&#60;div class=&#34;mf-pri&#34;&#62;</start>
+        <end>&#60;div class=&#34;mf-ctkeys&#34;&#62;</end>
+        <desElement>div</desElement>
+        <desAttribute>class</desAttribute>
+        <desAttributeValue>mf-plti</desAttributeValue>
+    </web>
+    <web id="gameCategory" url="https://store.steampowered.com/"
+         xslFilePath="src\main\resources\static\gameCategoryCleaned.xsl">
+        <root>categories</root>
+        <start>&#60;div class=&#34;popup_menu_subheader&#34;&#62;Browse by genre:&#60;/div&#62;</start>
+        <end>&#60;div class=&#34;hr&#34;&#62;&#60;/div&#62;</end>
+        <desElement>a</desElement>
+        <desAttribute>class</desAttribute>
+        <desAttributeValue>popup_menu_item</desAttributeValue>
+    </web>
+    <web id="gearCategory" url="https://fptshop.com.vn/may-tinh-xach-tay"
+         xslFilePath="src\main\resources\static\gearCategoryCleaned.xsl">
+        <root>categories</root>
+        <start>&#60;div class=&#34;mf-body&#34;&#62;</start>
+        <end>&#60;div class=&#34;mf-banner&#34;&#62;</end>
+        <desElement>a</desElement>
+        <desAttribute>class</desAttribute>
+        <desAttributeValue>m_filter_demand m_filter_price m_filter_brand</desAttributeValue>
+    </web>
+</webEntity>

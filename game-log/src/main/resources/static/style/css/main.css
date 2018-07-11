@@ -147,6 +147,14 @@ body {
     color: var(--main-game-color);
 }
 
+.gameTabIndicator-active:hover {
+    color: #555555 !important;
+}
+
+.gearTabIndicator-active:hover {
+    color: #555555 !important;
+}
+
 .gearTabIndicator {
     background: var(--main-gear-indicator);
     color: white;
@@ -167,7 +175,6 @@ body {
 }
 
 .tabIndicatorHolder > div:hover {
-    color: yellow;
     transition: 0.2s;
     cursor: pointer;
     box-shadow: none;
@@ -359,12 +366,19 @@ body {
     cursor: pointer;
 }
 
-.itemName {
+.item .itemName {
     max-height: 18.4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 600;
+}
+
+.itemName {
+    max-height: 18.4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .item .itemTags {
@@ -1152,7 +1166,7 @@ img {
     cursor: pointer;
 }
 
-#itemDetailName{
+#itemDetailName {
     font-weight: bold;
 }
 

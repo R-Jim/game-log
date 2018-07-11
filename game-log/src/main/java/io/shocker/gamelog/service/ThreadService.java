@@ -1,6 +1,5 @@
 package io.shocker.gamelog.service;
 
-import io.shocker.gamelog.config.WebEnum;
 import io.shocker.gamelog.model.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -42,9 +41,10 @@ public class ThreadService extends Thread {
         @Override
         public void run() {
             try {
-
-                WebEnum webEnum = WebEnum.Game;
+                WebEntityService webEnumService = new WebEntityService();
+                WebEntity.Web webEntity = webEnumService.getWebEntity("game");
                 System.out.println("Firing: "+Thread.currentThread().getName());
+                String baseUrl = webEntity.getUrl();
                 for (int i = 0; i < 20; i++) {
 
                     if (Thread.currentThread().isInterrupted()) {
@@ -52,10 +52,9 @@ public class ThreadService extends Thread {
                         break;
                     }
 
-                    webEnum.setUrl("https://store.steampowered.com/search/?sort_by=Released_DESC&page=" + i);
-                    System.out.println(webEnum.getUrl());
+                    webEntity.setUrl(baseUrl + i);
                     StreamSource streamResult =
-                            gameService.getGamesData(webEnum);
+                            gameService.getGamesData(webEntity);
 
                     if (Thread.currentThread().isInterrupted()) {
                         System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gameCrawled);
@@ -115,19 +114,21 @@ public class ThreadService extends Thread {
 
         @Override
         public void run() {
-            WebEnum webEnum = WebEnum.Gear;
+            WebEntityService webEntityService = new WebEntityService();
+            WebEntity.Web webEntity = webEntityService.getWebEntity("gear");
             System.out.println("Firing: "+Thread.currentThread().getName());
             List<Categories.GearCategory> categories = this.gearService.gearCategoryRepository.findAll();
             if (categories != null) {
+                String baseUrl = webEntity.getUrl();
                 for (Categories.GearCategory category : categories) {
                     if (Thread.currentThread().isInterrupted()){
                         System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gearCrawled);
                         break;
                     }
                     try {
-                        webEnum.setUrl("https://fptshop.com.vn" + category.getHref());
+                        webEntity.setUrl("https://fptshop.com.vn" + category.getHref());
                         StreamSource streamResult =
-                                gearService.getGearsData(webEnum);
+                                gearService.getGearsData(webEntity);
                         if (Thread.currentThread().isInterrupted()){
                             System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gearCrawled);
                             break;

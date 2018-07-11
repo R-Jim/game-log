@@ -1,7 +1,6 @@
 package io.shocker.gamelog.service;
 
 import io.shocker.gamelog.config.SpecEnum;
-import io.shocker.gamelog.config.WebEnum;
 import io.shocker.gamelog.crawler.BasicCrawler;
 import io.shocker.gamelog.crawler.GameCrawler;
 import io.shocker.gamelog.model.*;
@@ -85,8 +84,9 @@ public class GameService {
 
     private StreamSource getGamesCategoryData() throws TransformerException {
         BasicCrawler crawler = new BasicCrawler();
-
-        return crawler.crawlingFromWeb(WebEnum.GameCategory);
+        WebEntityService webEntityService = new WebEntityService();
+        WebEntity.Web webEntity = webEntityService.getWebEntity("gameCategory");
+        return crawler.crawlingFromWeb(webEntity);
     }
 
 
@@ -121,10 +121,10 @@ public class GameService {
         return -1;
     }
 
-    public StreamSource getGamesData(WebEnum webEnum) throws TransformerException {
+    public StreamSource getGamesData(WebEntity.Web webEntity) throws TransformerException {
         GameCrawler crawler = new GameCrawler();
 
-        return crawler.crawlingFromWeb(webEnum);
+        return crawler.crawlingFromWeb(webEntity);
     }
 
     public void setUpGameData(Game game) {
