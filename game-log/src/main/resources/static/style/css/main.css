@@ -1319,3 +1319,7 @@ img {
     color: white;
     padding-top: 6%;
 }
+.noResult{
+    font-size: smaller;
+    color: #656565;
+}

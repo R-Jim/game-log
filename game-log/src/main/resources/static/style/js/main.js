@@ -256,7 +256,7 @@ function newItem(tabId, itemList, itemId, imgSrc, itemName, itemType, itemPrice,
     item.appendChild(name);
 
     var price = createElementWithClassName("div", "itemPrice");
-    price.textContent = (itemPrice === "" || itemPrice === "đ") ? "Không thông tin" : itemPrice;
+    price.innerHTML = (itemPrice === "" || itemPrice === "đ") ? "<span class='noResult'>Không thông tin</span>" : itemPrice;
     item.appendChild(price);
 
     var tagsUl = createElementWithClassName("ul", "itemTags");
@@ -825,7 +825,7 @@ function comparingGameAndGear(isMinimum) {
 
 function cmpResultSpecDetail(parentId, value) {
     var parent = document.getElementById(parentId);
-    parent.textContent = (value !== "null" && value !== "" && value != null) ? value : "không thông tin";
+    parent.innerHTML = (value !== "null" && value !== "" && value != null) ? value : "<span class='noResult'>không thông tin</span>";
 }
 
 function runScoreBar(typeScoreId, score) {
@@ -856,14 +856,14 @@ function clearCmpData() {
         scores[j].textContent = "";
     }
 
-    document.getElementById("osGameResult").textContent = "";
-    document.getElementById("cpuGameResult").textContent = "";
-    document.getElementById("ramGameResult").textContent = "";
-    document.getElementById("graphicGameResult").textContent = "";
-    document.getElementById("osGearResult").textContent = "";
-    document.getElementById("cpuGearResult").textContent = "";
-    document.getElementById("ramGearResult").textContent = "";
-    document.getElementById("graphicGearResult").textContent = "";
+    document.getElementById("osGameResult").innerHTML = "";
+    document.getElementById("cpuGameResult").innerHTML = "";
+    document.getElementById("ramGameResult").innerHTML = "";
+    document.getElementById("graphicGameResult").innerHTML = "";
+    document.getElementById("osGearResult").innerHTML = "";
+    document.getElementById("cpuGearResult").innerHTML = "";
+    document.getElementById("ramGearResult").innerHTML = "";
+    document.getElementById("graphicGearResult").innerHTML = "";
 }
 
 var gamesInCompareTab = false;
@@ -1508,7 +1508,7 @@ function printGameItemDetail(tabId, gameId) {
         if (x != null) {
             itemPrice = x.nodeValue;
         }
-        document.getElementById("itemDetailPrice").textContent = (itemPrice === "" || itemPrice === "đ") ? "Không thông tin" : itemPrice;
+        document.getElementById("itemDetailPrice").innerHTML = (itemPrice === "" || itemPrice === "đ") ? "<span class='noResult'>Không thông tin</span>" : itemPrice;
         document.getElementById("itemDetailImg").src = game.getAttribute("img");
         var tags = game.getElementsByTagName("tags")[0];
         var tagArray = tags.getElementsByTagName("tag");
@@ -1624,7 +1624,7 @@ function printGearItemDetail(tabId, gearId) {
         if (x != null) {
             itemPrice = x.nodeValue;
         }
-        document.getElementById("itemDetailPrice").textContent = (itemPrice === "" || itemPrice === "đ") ? "Không thông tin" : itemPrice;
+        document.getElementById("itemDetailPrice").innerHTML = (itemPrice === "" || itemPrice === "đ") ? "<span class='noResult'>Không thông tin</span>" : itemPrice;
         document.getElementById("itemDetailImg").src = gear.getAttribute("img");
         var origin = createElementWithClassName("a", "linkToOrigin gearOri");
         origin.textContent = "Tới Fptshop";
@@ -1699,7 +1699,7 @@ function whatDidIJustDo(parent, name, value) {
     aSpan.textContent = name;
     parent.appendChild(aSpan);
     var vSpan = createElementWithClassName("span", "specDetailValue");
-    vSpan.textContent = (value !== "null" && value !== "" && value != null) ? value : "Không thông tin";
+    vSpan.innerHTML = (value !== "null" && value !== "" && value != null) ? value : "<span class='noResult'>Không thông tin</span>";
     parent.appendChild(vSpan);
 }
 
@@ -1727,7 +1727,7 @@ function showItemDetail(position) {
 
 function wipeDataDetail() {
     document.getElementById("itemDetailName").innerHTML = "";
-    document.getElementById("itemDetailPrice").textContent = "";
+    document.getElementById("itemDetailPrice").innerHTML = "";
     document.getElementById("itemDetailImg").src = "";
     document.getElementById("itemDetailTagHolder").innerText = "";
     document.getElementById("itemDetailToOrigin").innerHTML = "";
