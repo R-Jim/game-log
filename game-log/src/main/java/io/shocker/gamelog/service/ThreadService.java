@@ -126,7 +126,7 @@ public class ThreadService extends Thread {
                         break;
                     }
                     try {
-                        webEntity.setUrl("https://fptshop.com.vn" + category.getHref());
+                        webEntity.setUrl(baseUrl + category.getHref());
                         StreamSource streamResult =
                                 gearService.getGearsData(webEntity);
                         if (Thread.currentThread().isInterrupted()){

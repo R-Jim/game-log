@@ -4572,3 +4572,108 @@ Caused by: com.sun.org.apache.xml.internal.utils.WrappedRuntimeException: The el
 2018-07-12 07:53:40.175  WARN 11620 --- [http-nio-8080-exec-5] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
 2018-07-12 07:53:40.176  WARN 11620 --- [http-nio-8080-exec-7] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
 2018-07-12 07:53:40.214  INFO 11620 --- [http-nio-8080-exec-6] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-07-12 07:55:17.880  INFO 12448 --- [main] io.shocker.gamelog.GameLogApplication    : Starting GameLogApplication on DESKTOP-JEK5PAI with PID 12448 (D:\App\game-log\game-log\target\classes started by Swomfire in D:\App\game-log\game-log)
+2018-07-12 07:55:17.884  INFO 12448 --- [main] io.shocker.gamelog.GameLogApplication    : No active profile set, falling back to default profiles: default
+2018-07-12 07:55:17.954  INFO 12448 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@12b0404f: startup date [Thu Jul 12 07:55:17 ICT 2018]; root of context hierarchy
+2018-07-12 07:55:19.096  INFO 12448 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$81d566ae] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-07-12 07:55:19.366  INFO 12448 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2018-07-12 07:55:19.388  INFO 12448 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-07-12 07:55:19.389  INFO 12448 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-07-12 07:55:19.393  INFO 12448 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_151\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_151\bin;D:\apache-maven-3.5.2\bin;C:\Program Files\Git\cmd;D:\curl\bin;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\Swomfire\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;C:\Users\Swomfire\Downloads\zookeeper-3.4.12\zookeeper-3.4.12\bin;;.]
+2018-07-12 07:55:19.478  INFO 12448 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-07-12 07:55:19.478  INFO 12448 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1524 ms
+2018-07-12 07:55:19.584  INFO 12448 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-07-12 07:55:19.587  INFO 12448 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-07-12 07:55:19.588  INFO 12448 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-07-12 07:55:19.588  INFO 12448 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-07-12 07:55:19.588  INFO 12448 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-07-12 07:55:19.703  INFO 12448 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2018-07-12 07:55:19.862  INFO 12448 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2018-07-12 07:55:19.905  INFO 12448 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-07-12 07:55:19.923  INFO 12448 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-07-12 07:55:20.049  INFO 12448 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.2.17.Final}
+2018-07-12 07:55:20.050  INFO 12448 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-07-12 07:55:20.085  INFO 12448 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-07-12 07:55:20.217  INFO 12448 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2018-07-12 07:55:20.388  WARN 12448 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-12 07:55:20.389  WARN 12448 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-12 07:55:20.389  WARN 12448 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GameHasTagId
+2018-07-12 07:55:20.389  WARN 12448 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GameHasTagId
+2018-07-12 07:55:20.658  INFO 12448 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-07-12 07:55:21.129  INFO 12448 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-12 07:55:21.370  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@12b0404f: startup date [Thu Jul 12 07:55:17 ICT 2018]; root of context hierarchy
+2018-07-12 07:55:21.397  WARN 12448 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-07-12 07:55:21.431  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/status],methods=[GET]}" onto public int io.shocker.gamelog.controller.GameController.threadStatus(java.lang.String)
+2018-07-12 07:55:21.433  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/category],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Categories io.shocker.gamelog.controller.GameController.getAll()
+2018-07-12 07:55:21.433  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/stop],methods=[GET]}" onto public int io.shocker.gamelog.controller.GameController.stopThread(java.lang.String)
+2018-07-12 07:55:21.433  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/cpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameCpuType()
+2018-07-12 07:55:21.433  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Games io.shocker.gamelog.controller.GameController.getGameList(java.lang.String,java.lang.Integer,java.lang.String)
+2018-07-12 07:55:21.434  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/os],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameOsType()
+2018-07-12 07:55:21.434  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/load],methods=[GET]}" onto public java.lang.String io.shocker.gamelog.controller.GameController.loadGames()
+2018-07-12 07:55:21.434  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/ram],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameRamType()
+2018-07-12 07:55:21.434  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/gpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameGpuType()
+2018-07-12 07:55:21.435  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/spec],methods=[GET]}" onto public java.util.List<io.shocker.gamelog.model.Spec> io.shocker.gamelog.controller.GameController.getGameSpec(java.lang.Integer)
+2018-07-12 07:55:21.435  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/category/load],methods=[GET]}" onto public int io.shocker.gamelog.controller.GameController.loadGameCategories()
+2018-07-12 07:55:21.440  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/status],methods=[GET]}" onto public int io.shocker.gamelog.controller.GearController.threadStatus(java.lang.String)
+2018-07-12 07:55:21.440  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/category],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Categories io.shocker.gamelog.controller.GearController.getAll()
+2018-07-12 07:55:21.441  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/stop],methods=[GET]}" onto public int io.shocker.gamelog.controller.GearController.stopThread(java.lang.String)
+2018-07-12 07:55:21.441  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Gears io.shocker.gamelog.controller.GearController.getGearList(java.lang.String,java.lang.Integer,java.lang.String)
+2018-07-12 07:55:21.441  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/cpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameCpuType()
+2018-07-12 07:55:21.441  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/spec],methods=[GET]}" onto public io.shocker.gamelog.model.Gears$Gear io.shocker.gamelog.controller.GearController.getGearDetail(java.lang.Integer)
+2018-07-12 07:55:21.442  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/os],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameOsType()
+2018-07-12 07:55:21.442  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/load],methods=[GET]}" onto public java.lang.String io.shocker.gamelog.controller.GearController.loadGames()
+2018-07-12 07:55:21.442  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/ram],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameRamType()
+2018-07-12 07:55:21.442  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/gpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameGpuType()
+2018-07-12 07:55:21.443  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/category/load],methods=[GET]}" onto public int io.shocker.gamelog.controller.GearController.loadGameCategories()
+2018-07-12 07:55:21.444  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main/logout],methods=[POST]}" onto public void io.shocker.gamelog.controller.MainController.login(javax.servlet.http.HttpSession,java.lang.String)
+2018-07-12 07:55:21.445  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main/login],methods=[POST]}" onto public java.lang.String io.shocker.gamelog.controller.MainController.login(java.lang.String,java.lang.String,javax.servlet.http.HttpSession,java.lang.String)
+2018-07-12 07:55:21.445  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView io.shocker.gamelog.controller.MainController.getMainPage(org.springframework.web.servlet.ModelAndView,java.lang.String)
+2018-07-12 07:55:21.447  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-07-12 07:55:21.447  INFO 12448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-07-12 07:55:21.471  INFO 12448 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-12 07:55:21.471  INFO 12448 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-12 07:55:21.687  INFO 12448 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-07-12 07:55:21.688  INFO 12448 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-07-12 07:55:21.694  INFO 12448 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2018-07-12 07:55:21.724  INFO 12448 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2018-07-12 07:55:21.727  INFO 12448 --- [main] io.shocker.gamelog.GameLogApplication    : Started GameLogApplication in 4.207 seconds (JVM running for 5.511)
+2018-07-12 07:55:23.898  INFO 12448 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-07-12 07:55:23.898  INFO 12448 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-07-12 07:55:23.914  INFO 12448 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 16 ms
+2018-07-12 07:55:24.053  WARN 12448 --- [http-nio-8080-exec-5] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:55:24.053  WARN 12448 --- [http-nio-8080-exec-7] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:55:24.096  INFO 12448 --- [http-nio-8080-exec-8] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-07-12 07:55:45.397  WARN 12448 --- [http-nio-8080-exec-5] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:55:50.677  WARN 12448 --- [http-nio-8080-exec-9] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:00.395  WARN 12448 --- [http-nio-8080-exec-10] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:02.199  WARN 12448 --- [http-nio-8080-exec-1] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:04.503  WARN 12448 --- [http-nio-8080-exec-2] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:17.496  WARN 12448 --- [http-nio-8080-exec-4] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:56:18.795  WARN 12448 --- [http-nio-8080-exec-8] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:25.853  WARN 12448 --- [http-nio-8080-exec-10] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:31.692  WARN 12448 --- [http-nio-8080-exec-1] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:35.263  WARN 12448 --- [http-nio-8080-exec-2] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:40.457  WARN 12448 --- [http-nio-8080-exec-4] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:41.596  WARN 12448 --- [http-nio-8080-exec-8] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:45.969  WARN 12448 --- [http-nio-8080-exec-6] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:51.043  WARN 12448 --- [http-nio-8080-exec-7] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:56:51.991  WARN 12448 --- [http-nio-8080-exec-5] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-12 07:57:04.377  WARN 12448 --- [http-nio-8080-exec-1] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:07.187  WARN 12448 --- [http-nio-8080-exec-3] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:10.880  WARN 12448 --- [http-nio-8080-exec-2] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:13.468  WARN 12448 --- [http-nio-8080-exec-4] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:14.642  WARN 12448 --- [http-nio-8080-exec-8] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:15.861  WARN 12448 --- [http-nio-8080-exec-6] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:17.215  WARN 12448 --- [http-nio-8080-exec-9] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:18.276  WARN 12448 --- [http-nio-8080-exec-7] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:19.760  WARN 12448 --- [http-nio-8080-exec-5] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:21.049  WARN 12448 --- [http-nio-8080-exec-10] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:22.235  WARN 12448 --- [http-nio-8080-exec-1] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:25.127  WARN 12448 --- [http-nio-8080-exec-3] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:26.371  WARN 12448 --- [http-nio-8080-exec-2] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:27.353  WARN 12448 --- [http-nio-8080-exec-4] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:28.521  WARN 12448 --- [http-nio-8080-exec-8] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:29.805  WARN 12448 --- [http-nio-8080-exec-6] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-12 07:57:30.968  WARN 12448 --- [http-nio-8080-exec-9] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
