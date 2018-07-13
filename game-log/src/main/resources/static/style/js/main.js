@@ -95,7 +95,7 @@ function filteringGamedata(name, tabId, type) {
                 }
                 var tags = game.getElementsByTagName("tags")[0];
 
-                newItem(tabId, itemList, "A" + itemId, imgSrc, itemName, null, itemPrice, tags);
+                newItem(tabId, itemList, "A" + itemId, imgSrc, itemName, 0, itemPrice, tags);
             }
         }
     }
@@ -133,7 +133,7 @@ function filteringGeardata(name, tabId, type) {
                 if (x != null) {
                     itemPrice = x.nodeValue;
                 }
-                newItem(tabId, itemList, "B" + itemId, imgSrc, itemName, null, itemPrice);
+                newItem(tabId, itemList, "B" + itemId, imgSrc, itemName, 1, itemPrice);
             }
         }
     }
@@ -232,8 +232,7 @@ function newItem(tabId, itemList, itemId, imgSrc, itemName, itemType, itemPrice,
     var btnDetail = createElementWithClassName("div", "btnDetail");
     btnDetail.id = itemId + "BtnDetail";
 
-    var btnDetailIcon = createElementWithClassName("ion-icon", "btnDetailIcon");
-    btnDetailIcon.name = "search";
+    var btnDetailIcon = createElementWithClassName("i", "icon ion-md-search btnDetailIcon");
 
     btnDetail.appendChild(btnDetailIcon);
     btnDetail.onclick = function (ev) {
@@ -396,8 +395,8 @@ function addTab(type, tabIndicatorHolderId, isChangeTab) {
     var tabIndicator = document.createElement("div");
     tabIndicator.className = (type === 0) ? "gameTabIndicator tabIndicator" : "gearTabIndicator tabIndicator";
 
-    var indicator = createElementWithClassName("ion-icon", "indicatorIndicator");
-    indicator.name = (type === 0) ? "logo-game-controller-a" : "tv";
+    var indicator = createElementWithClassName("i", "icon indicatorIndicator");
+    indicator.className += (type === 0) ? " ion-logo-game-controller-a" : " ion-md-tv";
 
     tabIndicator.appendChild(indicator);
 
@@ -406,8 +405,7 @@ function addTab(type, tabIndicatorHolderId, isChangeTab) {
     tabIndicator.appendChild(span);
 
     var a = document.createElement("a");
-    var i = document.createElement("ion-icon");
-    i.name = "close";
+    var i = createElementWithClassName("i", "icon ion-md-close");
     a.appendChild(i);
     a.id = "tab" + tabCount;
     a.onclick = function (ev) {
@@ -450,8 +448,8 @@ function addTabContent(tabId, type) {
 
     var tabUtility = createElementWithClassName("span", "tabUtility");
     var tabName = createElementWithClassName("div", "tabNameContent");
-    var indicator = createElementWithClassName("ion-icon", "tabTxtNameIcon");
-    indicator.name = (type === 0) ? "logo-game-controller-a" : "tv";
+    var indicator = createElementWithClassName("i", "icon tabTxtNameIcon");
+    indicator.className += (type === 0) ? " ion-logo-game-controller-a" : " ion-md-tv";
     tabName.appendChild(indicator);
     var tabTxtName = createElementWithClassName("span", "tabTxtName");
     tabTxtName.textContent = (type === 0) ? "Game" : "Gear";
@@ -1560,6 +1558,7 @@ function printGameItemDetail(tabId, gameId) {
     var game = null;
     for (var i = 0; i < gameArray.length; i++) {
         if (gameArray[i][0] === tabId) {
+            console.log(tabId + "," + gameArray[i][1]);
             for (var j = 0; j < gameArray[i][1].length; j++) {
                 var tmpGame = gameArray[i][1][j];
                 if (tmpGame.getAttribute("id") === gameId.substring(1)) {
@@ -1588,7 +1587,7 @@ function printGameItemDetail(tabId, gameId) {
             document.getElementById("itemDetailTagHolder").appendChild(tag);
         }
         var origin = createElementWithClassName("a", "linkToOrigin gameOri");
-        origin.innerHTML = "Tới <div><ion-icon name=\"logo-steam\"></ion-icon></div>";
+        origin.innerHTML = "Tới <div><i class=\"icon ion-logo-steam\"></i></div>";
         origin.href = game.getAttribute("href");
         origin.target = "_blank";
         document.getElementById("itemDetailToOrigin").appendChild(origin);

@@ -224,6 +224,8 @@ body {
 .tabNameContent .tabTxtNameIcon {
     font-size: xx-large;
     padding-left: 10px;
+    position: relative;
+    top: -2px;
 }
 
 #tabToolbarOverlay {
@@ -1078,6 +1080,10 @@ img {
     visibility: collapse;
 }
 
+#admin i:hover{
+    cursor: pointer;
+}
+
 .setting:hover {
     cursor: pointer;
 }
@@ -1086,7 +1092,7 @@ img {
     position: absolute;
     width: 70%;
     height: 300px;
-    background: rgba(235, 238, 235, 0.92);
+    background: rgba(235, 238, 235, 0.98);
     left: 15%;
     top: 80px;
     transition: visibility 0.3s ease, opacity 0.3s ease;
