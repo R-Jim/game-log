@@ -1428,17 +1428,20 @@ function categoryProgressBarGoing(type) {
     progressBar.style.width = "0";
     progressBar.textContent = "0%";
     if (type === 0) {
-        gameCategoryProcessTime = setInterval(function (args) {
+        gameCategoryProcessTime = setInterval(function () {
             progressBar.style.width = Math.floor(progressBar.offsetWidth + ((progress.offsetWidth - progressBar.offsetWidth) / 5)) + "px";
             progressBar.textContent = Math.floor(progressBar.offsetWidth / progress.offsetWidth * 100) + "%";
         }, 200);
     } else {
-        gearCategoryProcessTime = setInterval(function (args) {
+        gearCategoryProcessTime = setInterval(function () {
             progressBar.style.width = Math.floor(progressBar.offsetWidth + ((progress.offsetWidth - progressBar.offsetWidth) / 5)) + "px";
             progressBar.textContent = Math.floor(progressBar.offsetWidth / progress.offsetWidth * 100) + "%";
         }, 200);
     }
 }
+
+var gameProcessTime;
+var gearProcessTime;
 
 function startCrawlItem(type) {
     var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
@@ -1457,40 +1460,68 @@ function startCrawlItem(type) {
     };
     xhttp.open("GET", url[type] + '/load', true);
     xhttp.send();
+    var progress = (type === 0) ? document.getElementById("txtGameCrawlProcess") : document.getElementById("txtGearCrawlProcess");
+    var progressBar = progress.getElementsByClassName("progressResultBar")[0];
+    progressBar.style.width = "0";
+    progressBar.textContent = "0%";
 }
 
 var gameWorker;
 var gearWorker;
 
 function theWaitingGame(url, threadName, resultBanner, type) {
-    var w = (type === 0) ? gameWorker : gearWorker;
     window.setTimeout(function () {
         if (typeof(Worker) !== "undefined") {
-            if (typeof(w) === "undefined") {
-                w = new Worker("style/js/webworker.js");
-                w.postMessage(url + "/?name=" + threadName);
+            if (type === 0) {
+                gameWorker = new Worker("style/js/webworker.js");
+                gameWorker.postMessage(url + "/?name=" + threadName);
+            } else {
+                gearWorker = new Worker("style/js/webworker.js");
+                gearWorker.postMessage(url + "/?name=" + threadName);
             }
             var count = 0;
+            var w = (type === 0) ? gameWorker : gearWorker;
             w.onmessage = function (event) {
-                if (event.data !== "-1") {
-                    count += (parseInt(event.data) - count);
+                var results = event.data.replace("[", "").replace("]", "");
+                results = results.split(",");
+                if (results[2] !== "-1") {
+                    count += (parseInt(results[2]) - count);
                     resultBanner.textContent = threadName + " đang chạy\r\n Item lấy được: " + count;
+                    gameAndGearProgressBarGoing(type, results);
                 } else {
                     resultBanner.textContent = threadName + " hoàn thành\r\n Item lấy được: " + count;
-                    w.terminate();
-                    w = undefined;
+                    if (type === 0) {
+                        gameWorker.terminate();
+                        gameWorker = undefined;
+                    } else {
+                        gearWorker.terminate();
+                        gearWorker = undefined;
+                    }
                     var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
                     var btnStop = (type === 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
                     btnStart.disabled = false;
                     btnStop.disabled = true;
+                    gameAndGearProgressBarGoing(type, results);
                 }
             };
         }
-    }, 500);
+    }, 1000);
+}
+
+function gameAndGearProgressBarGoing(type, results) {
+    var progress = (type === 0) ? document.getElementById("txtGameCrawlProcess") : document.getElementById("txtGearCrawlProcess");
+    var progressBar = progress.getElementsByClassName("progressResultBar")[0];
+    if (results[2] !== "-1") {
+        progressBar.style.width = Math.floor(parseInt(results[1]) / parseInt(results[0]) * 100) + "%";
+        progressBar.textContent = Math.floor(parseInt(results[1]) / parseInt(results[0]) * 100) + "%";
+    } else {
+        progressBar.style.width = "100%";
+        progressBar.textContent = "100%";
+    }
 }
 
 function stopCrawlItem(type) {
-    var w = (type === 0) ? gameWorker : gearWorker;
+    // var w = (type === 0) ? gameWorker : gearWorker;
     var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
     var btnStop = (type === 0) ? document.getElementById("btnGameCrawlStop") : document.getElementById("btnGearCrawlStop");
     var threadName = (type === 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
@@ -1499,10 +1530,18 @@ function stopCrawlItem(type) {
     btnStop.disabled = true;
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            w.terminate();
-            w = undefined;
-            result.textContent = threadName.value + " dừng\r\n Item lấy được: " + this.responseText;
+            if (type === 0) {
+                gameWorker.terminate();
+                gameWorker = undefined;
+            } else {
+                gearWorker.terminate();
+                gearWorker = undefined;
+            }
+            var results = this.responseText.replace("[", "").replace("]", "");
+            results = results.split(",");
+            result.textContent = threadName.value + " dừng\r\n Item lấy được: " + results[2];
             btnStart.disabled = false;
+            gameAndGearProgressBarGoing(type, results);
         }
     };
     xhttp.open("GET", url[type] + "/stop?name=" + threadName.value, true);

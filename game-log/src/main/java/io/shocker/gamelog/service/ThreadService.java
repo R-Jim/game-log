@@ -32,6 +32,8 @@ public class ThreadService extends Thread {
         private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
 
         private int gameCrawled = 0;
+        private int pageSize = 40;
+        private int pageCurrent = 0;
         private final GameService gameService;
 
         public GameCrawlingThread(GameService gameService) {
@@ -43,12 +45,11 @@ public class ThreadService extends Thread {
             try {
                 WebEntityService webEnumService = new WebEntityService();
                 WebEntity.Web webEntity = webEnumService.getWebEntity("game");
-                System.out.println("Firing: "+Thread.currentThread().getName());
+                System.out.println("Firing: " + Thread.currentThread().getName());
                 String baseUrl = webEntity.getUrl();
-                for (int i = 0; i < 40; i++) {
-
+                for (int i = 0; i < pageSize; i++) {
                     if (Thread.currentThread().isInterrupted()) {
-                        System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gameCrawled);
+                        System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gameCrawled);
                         break;
                     }
 
@@ -57,7 +58,7 @@ public class ThreadService extends Thread {
                             gameService.getGamesData(webEntity);
 
                     if (Thread.currentThread().isInterrupted()) {
-                        System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gameCrawled);
+                        System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gameCrawled);
                         break;
                     }
 
@@ -69,15 +70,15 @@ public class ThreadService extends Thread {
 
                         Games games = (Games) unmarshaller.unmarshal(streamResult.getInputStream());
 
-                        if (Thread.currentThread().isInterrupted()){
-                            System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gameCrawled);
+                        if (Thread.currentThread().isInterrupted()) {
+                            System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gameCrawled);
                             break;
                         }
 
                         List<Game> list = games.getGame();
                         for (Game game : list) {
-                            if (Thread.currentThread().isInterrupted()){
-                                System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gameCrawled);
+                            if (Thread.currentThread().isInterrupted()) {
+                                System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gameCrawled);
                                 break;
                             }
 
@@ -86,11 +87,11 @@ public class ThreadService extends Thread {
                         }
                     }
                     System.out.println("");
+                    pageCurrent++;
                 }
                 System.out.println("Added Source");
-
-            } catch (TransformerException |JAXBException e) {
-                logger.log(Level.WARN,e);
+            } catch (TransformerException | JAXBException e) {
+                logger.log(Level.WARN, e);
             }
             System.out.println("Finish Crawling Game");
         }
@@ -99,9 +100,16 @@ public class ThreadService extends Thread {
             return gameCrawled;
         }
 
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public int getPageCurrent() {
+            return pageCurrent;
+        }
     }
 
-    public static class GearCrawlingThread extends Thread{
+    public static class GearCrawlingThread extends Thread {
         private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
 
         private final GearService gearService;
@@ -110,27 +118,30 @@ public class ThreadService extends Thread {
             this.gearService = gearService;
         }
 
+        private int pageSize = 0;
+        private int pageCurrent = 0;
         private int gearCrawled = 0;
 
         @Override
         public void run() {
             WebEntityService webEntityService = new WebEntityService();
             WebEntity.Web webEntity = webEntityService.getWebEntity("gear");
-            System.out.println("Firing: "+Thread.currentThread().getName());
+            System.out.println("Firing: " + Thread.currentThread().getName());
             List<Categories.GearCategory> categories = this.gearService.gearCategoryRepository.findAll();
             if (categories != null) {
                 String baseUrl = webEntity.getUrl();
+                pageSize = categories.size();
                 for (Categories.GearCategory category : categories) {
-                    if (Thread.currentThread().isInterrupted()){
-                        System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gearCrawled);
+                    if (Thread.currentThread().isInterrupted()) {
+                        System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
                         break;
                     }
                     try {
                         webEntity.setUrl(baseUrl + category.getHref());
                         StreamSource streamResult =
                                 gearService.getGearsData(webEntity);
-                        if (Thread.currentThread().isInterrupted()){
-                            System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gearCrawled);
+                        if (Thread.currentThread().isInterrupted()) {
+                            System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
                             break;
                         }
                         System.out.println("Found Source");
@@ -140,22 +151,22 @@ public class ThreadService extends Thread {
                             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
                             Gears gears = (Gears) unmarshaller.unmarshal(streamResult.getInputStream());
-                            if (Thread.currentThread().isInterrupted()){
-                                System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gearCrawled);
+                            if (Thread.currentThread().isInterrupted()) {
+                                System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
                                 break;
                             }
                             List<Gears.Gear> list = gears.getGear();
                             for (Gears.Gear gear : list) {
-                                if (Thread.currentThread().isInterrupted()){
-                                    System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gearCrawled);
+                                if (Thread.currentThread().isInterrupted()) {
+                                    System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
                                     break;
                                 }
                                 Gears.Gear existed = this.gearService.gearRepository.findByName(gear.getName());
                                 if (existed != null) {
                                     gear.setId(existed.getId());
                                 }
-                                if (Thread.currentThread().isInterrupted()){
-                                    System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gearCrawled);
+                                if (Thread.currentThread().isInterrupted()) {
+                                    System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
                                     break;
                                 }
                                 gear.setUpSpec();
@@ -168,10 +179,11 @@ public class ThreadService extends Thread {
                             }
                             System.out.println("Added Source");
                         }
+                        pageCurrent++;
                     } catch (TransformerException e) {
-                        logger.log(Level.WARN,e);
+                        logger.log(Level.WARN, e);
                     } catch (JAXBException e) {
-                        logger.log(Level.WARN,e);
+                        logger.log(Level.WARN, e);
                     }
                 }
             }
@@ -180,6 +192,14 @@ public class ThreadService extends Thread {
 
         public int getGearCrawled() {
             return gearCrawled;
+        }
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public int getPageCurrent() {
+            return pageCurrent;
         }
     }
 }

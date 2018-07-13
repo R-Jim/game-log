@@ -99,17 +99,19 @@ public class GearService {
         return name;
     }
 
-    public int crawlingStatus(String name, boolean neededToStop) {
+    public Integer[] crawlingStatus(String name, boolean neededToStop) {
+        Integer[] defaultReturn = {null, null, -1};
         for (Thread t : Thread.getAllStackTraces().keySet()) {
             if (t.getName().equals(name)) {
                 if (neededToStop) {
                     t.interrupt();
                 }
                 ThreadService.GearCrawlingThread gearCrawlingThread = (ThreadService.GearCrawlingThread) t;
-                return gearCrawlingThread.getGearCrawled();
+                Integer[] results = {gearCrawlingThread.getPageSize(), gearCrawlingThread.getPageCurrent(), gearCrawlingThread.getGearCrawled()};
+                return results;
             }
         }
-        return -1;
+        return defaultReturn;
     }
 
     public StreamSource getGearsData(WebEntity.Web webEntity) throws TransformerException {

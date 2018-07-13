@@ -9,12 +9,12 @@ function checkStatus() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                postMessage(this.responseText);
+                postMessage(this.response);
             }
         };
         xhttp.open("GET", url, true);
         xhttp.send();
-        setTimeout("checkStatus()", 500);
+        setTimeout("checkStatus()", 1500);
     }
 }
 

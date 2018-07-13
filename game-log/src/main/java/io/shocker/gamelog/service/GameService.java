@@ -108,17 +108,19 @@ public class GameService {
         return name;
     }
 
-    public int crawlingStatus(String name, boolean neededToStop) {
+    public Integer[] crawlingStatus(String name, boolean neededToStop) {
+        Integer[] defaultReturn = {null, null, -1};
         for (Thread t : Thread.getAllStackTraces().keySet()) {
             if (t.getName().equals(name)) {
                 if (neededToStop) {
                     t.interrupt();
                 }
                 ThreadService.GameCrawlingThread gameCrawlingThread = (ThreadService.GameCrawlingThread) t;
-                return gameCrawlingThread.getGameCrawled();
+                Integer[] results = {gameCrawlingThread.getPageSize(), gameCrawlingThread.getPageCurrent(), gameCrawlingThread.getGameCrawled()};
+                return results;
             }
         }
-        return -1;
+        return defaultReturn;
     }
 
     public StreamSource getGamesData(WebEntity.Web webEntity) throws TransformerException {
