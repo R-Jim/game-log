@@ -1395,6 +1395,9 @@ function admistrationTabHide() {
     }
 }
 
+var gameCategoryProcessTime;
+var gearCategoryProcessTime;
+
 function crawlCategory(thisButton, type) {
     var result = (type === 0) ? document.getElementById("txtGameCategoryCrawlResult") : document.getElementById("txtGearCategoryCrawlResult");
     var xhttp = new XMLHttpRequest();
@@ -1403,10 +1406,38 @@ function crawlCategory(thisButton, type) {
         if (this.readyState === 4 && this.status === 200) {
             thisButton.disabled = false;
             result.textContent = "Item lấy được: " + this.responseText;
+            var progress = (type === 0) ? document.getElementById("txtGameCategoryCrawlProcess") : document.getElementById("txtGearCategoryCrawlProcess");
+            var progressBar = progress.getElementsByClassName("progressResultBar")[0];
+            progressBar.style.width = "100%";
+            progressBar.textContent = "100%";
+            if (type === 0) {
+                clearInterval(gameCategoryProcessTime);
+            } else {
+                clearInterval(gearCategoryProcessTime);
+            }
         }
     };
     xhttp.open("GET", url[type] + "/category/load", true);
     xhttp.send();
+    categoryProgressBarGoing(type);
+}
+
+function categoryProgressBarGoing(type) {
+    var progress = (type === 0) ? document.getElementById("txtGameCategoryCrawlProcess") : document.getElementById("txtGearCategoryCrawlProcess");
+    var progressBar = progress.getElementsByClassName("progressResultBar")[0];
+    progressBar.style.width = "0";
+    progressBar.textContent = "0%";
+    if (type === 0) {
+        gameCategoryProcessTime = setInterval(function (args) {
+            progressBar.style.width = Math.floor(progressBar.offsetWidth + ((progress.offsetWidth - progressBar.offsetWidth) / 5)) + "px";
+            progressBar.textContent = Math.floor(progressBar.offsetWidth / progress.offsetWidth * 100) + "%";
+        }, 200);
+    } else {
+        gearCategoryProcessTime = setInterval(function (args) {
+            progressBar.style.width = Math.floor(progressBar.offsetWidth + ((progress.offsetWidth - progressBar.offsetWidth) / 5)) + "px";
+            progressBar.textContent = Math.floor(progressBar.offsetWidth / progress.offsetWidth * 100) + "%";
+        }, 200);
+    }
 }
 
 function startCrawlItem(type) {

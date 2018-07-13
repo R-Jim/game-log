@@ -45,7 +45,7 @@ public class ThreadService extends Thread {
                 WebEntity.Web webEntity = webEnumService.getWebEntity("game");
                 System.out.println("Firing: "+Thread.currentThread().getName());
                 String baseUrl = webEntity.getUrl();
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 40; i++) {
 
                     if (Thread.currentThread().isInterrupted()) {
                         System.out.println("Stopped thread: "+Thread.currentThread().getName()+", item added: "+gameCrawled);

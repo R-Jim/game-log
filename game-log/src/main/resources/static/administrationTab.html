@@ -1,70 +1,62 @@
-<table style="width: 100%;height: 100%">
-    <tr>
-        <td style="width: 50%;">
-            <table style="color: var(--main-game-color);width: 100%;">
-                <tr>
-                    <th>Game</th>
-                </tr>
-                <tr style="height: 100px;">
-                    <td style="width: 30%;">Crawl Categories</td>
-                    <td style="width: 30%;">
-                        <button onclick="crawlCategory(this,0)">Bắt đầu
-                        </button>
-                        <button disabled>Dừng</button>
-                    </td>
-                    <td style="width: 40%;font-size: smaller;white-space: pre-line;">
-                        <span id="txtGameCategoryCrawlResult"></span>
-                    </td>
-                </tr>
-                <tr style="height: 100px;">
-                    <td style="width: 30%;">Crawl Games</td>
-                    <td style="width: 30%;">
-                        <button id="btnGameCrawlStart" onclick="startCrawlItem(0)">
-                            Bắt đầu
-                        </button>
-                        <input type="hidden" id="txtGameCrawlThreadName">
-                        <button id="btnGameCrawlStop" onclick="stopCrawlItem(0)"
-                                disabled>Dừng
-                        </button>
-                    </td>
-                    <td style="width: 40%;font-size: smaller; white-space: pre-line;">
-                        <span id="txtGameCrawlResult"></span>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td style="width: 50%;">
-            <table style="color: var(--main-gear-color);width: 100%;">
-                <tr>
-                    <th>Gear</th>
-                </tr>
-                <tr style="height: 100px;">
-                    <td style="width: 30%;">Crawl Categories</td>
-                    <td style="width: 30%;">
-                        <button onclick="crawlCategory(this,1)">Bắt đầu
-                        </button>
-                        <button disabled>Dừng</button>
-                    </td>
-                    <td style="width: 40%;font-size: smaller; white-space: pre-line;">
-                        <span id="txtGearCategoryCrawlResult"></span>
-                    </td>
-                </tr>
-                <tr style="height: 100px;">
-                    <td style="width: 30%;">Crawl Gears</td>
-                    <td style="width: 30%;">
-                        <button id="btnGearCrawlStart" onclick="startCrawlItem(1)">
-                            Bắt đầu
-                        </button>
-                        <input type="hidden" id="txtGearCrawlThreadName">
-                        <button id="btnGearCrawlStop" onclick="stopCrawlItem(1)"
-                                disabled>Dừng
-                        </button>
-                    </td>
-                    <td style="width: 40%;font-size: smaller; white-space: pre-line;">
-                        <span id="txtGearCrawlResult"></span>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+<div class="float-left" style="color: var(--main-game-color);width: 50%; height: 100%;">
+    <h2>Game</h2>
+    <div class="float-left" style="width: 100%;">Crawl Categories</div>
+    <div id="txtGameCategoryCrawlProcess" class="float-left progressResultBar-holder" style="width: 69%;">
+        <div class="progressResultBar float-left bGame">20%</div>
+    </div>
+    <div class="float-left" style="width: 30%;">
+        <button onclick="crawlCategory(this,0)">Bắt đầu
+        </button>
+        <button disabled>Dừng</button>
+    </div>
+    <div class="float-left" style="width: 100%;height:50px;font-size: smaller;">
+        <span id="txtGameCategoryCrawlResult"></span>
+    </div>
+    <div class="float-left" style="width: 100%;">Crawl Games</div>
+    <div id="txtGameCrawlProcess" class="float-left progressResultBar-holder" style="width: 69%;">
+        <div class="progressResultBar float-left bGame">20%</div>
+    </div>
+    <div class="float-left" style="width: 30%;">
+        <button id="btnGameCrawlStart" onclick="startCrawlItem(0)">
+            Bắt đầu
+        </button>
+        <input type="hidden" id="txtGameCrawlThreadName">
+        <button id="btnGameCrawlStop" onclick="stopCrawlItem(0)"
+                disabled>Dừng
+        </button>
+    </div>
+    <div class="float-left" style="width: 100%;height: 50px;font-size: smaller;">
+        <span id="txtGameCrawlResult"></span>
+    </div>
+</div>
+<div class="float-left" style="color: var(--main-gear-color);width: 50%; height: 100%;">
+    <h2>Gear</h2>
+    <div class="float-left" style="width: 100%;">Crawl Categories</div>
+    <div id="txtGearCategoryCrawlProcess" class="float-left progressResultBar-holder" style="width: 69%;">
+        <div class="progressResultBar float-left bGear">20%</div>
+    </div>
+    <div class="float-left" style="width: 30%;">
+        <button onclick="crawlCategory(this,1)">Bắt đầu
+        </button>
+        <button disabled>Dừng</button>
+    </div>
+    <div class="float-left" style="width: 100%;height: 50px;font-size: smaller;">
+        <span id="txtGearCategoryCrawlResult"></span>
+    </div>
+    <div class="float-left" style="width: 100%;">Crawl Gears</div>
+    <div id="txtGearCrawlProcess" class="float-left progressResultBar-holder" style="width: 69%;">
+        <div class="progressResultBar float-left bGear">20%</div>
+    </div>
+    <div class="float-left" style="width: 30%;">
+        <button id="btnGearCrawlStart" onclick="startCrawlItem(1)">
+            Bắt đầu
+        </button>
+        <input type="hidden" id="txtGearCrawlThreadName">
+        <button id="btnGearCrawlStop" onclick="stopCrawlItem(1)"
+                disabled>Dừng
+        </button>
+    </div>
+    <div class="float-left" style="width: 40%;height:50px;font-size: smaller;">
+        <span id="txtGearCrawlResult"></span>
+    </div>
+</div>
