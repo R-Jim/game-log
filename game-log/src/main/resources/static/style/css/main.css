@@ -1179,12 +1179,15 @@ img {
 
 #itemDetailName {
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .itemDetailBasic {
     float: right;
     width: 60%;
-    height: 35px;
+    min-height: 35px;
     padding: 5px;
     box-sizing: border-box;
 }
