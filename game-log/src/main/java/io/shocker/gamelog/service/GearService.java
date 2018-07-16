@@ -1,5 +1,6 @@
 package io.shocker.gamelog.service;
 
+import io.shocker.gamelog.config.GamaProperties;
 import io.shocker.gamelog.config.SpecEnum;
 import io.shocker.gamelog.crawler.BasicCrawler;
 import io.shocker.gamelog.crawler.GearCrawler;
@@ -24,11 +25,13 @@ public class GearService {
     public final GearCategoryRepository gearCategoryRepository;
     public final GearRepository gearRepository;
     public final GearHasCategoryRepository gearHasCategoryRepository;
+    private final GamaProperties gamaProperties;
 
-    public GearService(GearCategoryRepository gearCategoryRepository, GearRepository gearRepository, GearHasCategoryRepository gearHasCategoryRepository) {
+    public GearService(GearCategoryRepository gearCategoryRepository, GearRepository gearRepository, GearHasCategoryRepository gearHasCategoryRepository, GamaProperties gamaProperties) {
         this.gearCategoryRepository = gearCategoryRepository;
         this.gearRepository = gearRepository;
         this.gearHasCategoryRepository = gearHasCategoryRepository;
+        this.gamaProperties = gamaProperties;
     }
 
     public Categories getAllCategories() {
@@ -125,7 +128,7 @@ public class GearService {
         if (currentPage == null) {
             currentPage = 1;
         }
-        int offset = 10 * (currentPage - 1);
+        int offset = gamaProperties.getItemPageSize() * (currentPage - 1);
 
         String name = "%";
         if (nameLike != null) {
@@ -137,7 +140,7 @@ public class GearService {
             cateId = String.valueOf(categoryId);
         }
         System.out.println(offset + "," + cateId);
-        gears.setGear(this.gearRepository.getAllGears(name, 10, offset, cateId));
+        gears.setGear(this.gearRepository.getAllGears(name, gamaProperties.getItemPageSize(), offset, cateId));
         return gears;
     }
 

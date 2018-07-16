@@ -1,5 +1,6 @@
 package io.shocker.gamelog.service;
 
+import io.shocker.gamelog.config.GamaProperties;
 import io.shocker.gamelog.config.SpecEnum;
 import io.shocker.gamelog.crawler.BasicCrawler;
 import io.shocker.gamelog.crawler.GameCrawler;
@@ -30,14 +31,15 @@ public class GameService {
     private final TagRepository tagRepository;
     private final SpecRepository specRepository;
     private final GameHasTagRepository gameHasTagRepository;
+    private final GamaProperties gamaProperties;
 
-    public GameService(GameCategoryRepository gameCategoryRepository, GameRepository gameRepository,
-                       TagRepository tagRepository, SpecRepository specRepository, GameHasTagRepository gameHasTagRepository) {
+    public GameService(GameCategoryRepository gameCategoryRepository, GameRepository gameRepository, TagRepository tagRepository, SpecRepository specRepository, GameHasTagRepository gameHasTagRepository, GamaProperties gamaProperties) {
         this.gameCategoryRepository = gameCategoryRepository;
         this.gameRepository = gameRepository;
         this.tagRepository = tagRepository;
         this.specRepository = specRepository;
         this.gameHasTagRepository = gameHasTagRepository;
+        this.gamaProperties = gamaProperties;
     }
 
     public Categories getAllCategories() {
@@ -209,7 +211,7 @@ public class GameService {
         if (currentPage == null) {
             currentPage = 1;
         }
-        int offset = 10 * (currentPage - 1);
+        int offset = gamaProperties.getItemPageSize() * (currentPage - 1);
         String cateId = "%";
         if (categoryId != null) {
             cateId = String.valueOf(categoryId);
@@ -218,7 +220,7 @@ public class GameService {
         if (nameLike != null) {
             name = "%" + nameLike + "%";
         }
-        List<Game> gameList = this.gameRepository.getAllGames(name, 10, offset, cateId);
+        List<Game> gameList = this.gameRepository.getAllGames(name, gamaProperties.getItemPageSize(), offset, cateId);
         for (Game game : gameList) {
             //Get all tags
             List<GameHasTag> tagList = this.gameHasTagRepository.findAllByGameId(game.getId());
