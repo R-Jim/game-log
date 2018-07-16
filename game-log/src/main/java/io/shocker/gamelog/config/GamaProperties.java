@@ -18,6 +18,9 @@ public class GamaProperties {
     @Value("${gama.jaxbModelPath}")
     private String jaxbModelPath;
 
+    @Value("${gama.timedScheduleCrawler}")
+    private Integer timedScheduleCrawler;
+
     public Integer getItemPageSize() {
         return itemPageSize;
     }
@@ -28,5 +31,9 @@ public class GamaProperties {
 
     public String getJaxbModelPath() {
         return jaxbModelPath;
+    }
+
+    public Integer getTimedScheduleCrawler() {
+        return timedScheduleCrawler;
     }
 }
