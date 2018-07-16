@@ -363,17 +363,21 @@ function sortByCategory(element, urlParam, type) {
     for (var i = 0; i < element.childNodes.length; i++) {
         if (categoryId === element.childNodes[i].value) {
             document.getElementById(id + "TabDescription").textContent = " - " + element.childNodes[i].label;
+            document.getElementById(id + "Detail").textContent = " - " + element.childNodes[i].label;
+            break;
         }
     }
 
     for (var j = 0; j < gameArray.length; j++) {
         if (gameArray[j][0] === id) {
             gameArray.splice(j, 1);
+            break;
         }
     }
     for (var j1 = 0; j1 < gearArray.length; j1++) {
         if (gearArray[j1][0] === id) {
             gearArray.splice(j1, 1);
+            break;
         }
     }
 
@@ -404,6 +408,10 @@ function addTab(type, tabIndicatorHolderId, isChangeTab) {
     span.textContent = (type === 0) ? "Game" : "Gear";
     tabIndicator.appendChild(span);
 
+    var spanDetail = createElementWithClassName("span", "indicatorDetail");
+    spanDetail.id = "tab" +tabCount +"Detail";
+    tabIndicator.appendChild(spanDetail);
+
     var a = document.createElement("a");
     var i = createElementWithClassName("i", "icon ion-md-close");
     a.appendChild(i);
@@ -417,11 +425,13 @@ function addTab(type, tabIndicatorHolderId, isChangeTab) {
     tabIndicator.onclick = function () {
         var id = this.id.substring(0, this.id.length - 9);
         changeTab(id);
+        switchBackground(type);
     };
 
     tabIndicatorHolder.insertBefore(tabIndicator, tabIndicatorHolder.childNodes[tabIndicatorHolder.childNodes.length - 2]);
     if (lastTab == null && isChangeTab) {
         changeTab(id);
+        switchBackground(type);
     }
     addTabContent(id, type);
 
@@ -1826,4 +1836,62 @@ function loginInByPressingEnter(e) {
     if (e.keyCode === 13) {
         document.getElementById("btnLogin").click();
     }
+}
+
+var gameIndex = 0;
+gameCarousel();
+
+function gameCarousel() {
+    var i;
+    var background = document.getElementById("gameBackground");
+    var x = background.getElementsByTagName("img");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.visibility = "hidden";
+        x[i].style.opacity = "0";
+    }
+    gameIndex++;
+    if (gameIndex > x.length) {
+        gameIndex = 1
+    }
+    x[gameIndex - 1].style.visibility = "visible";
+    x[gameIndex - 1].style.opacity = "1";
+    setTimeout(gameCarousel, 2000);
+}
+
+var gearIndex = 0;
+gearCarousel();
+
+function gearCarousel() {
+    var i;
+    var background = document.getElementById("gearBackground");
+    var x = background.getElementsByTagName("img");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.visibility = "hidden";
+        x[i].style.opacity = "0";
+    }
+    gearIndex++;
+    if (gearIndex > x.length) {
+        gearIndex = 1
+    }
+    x[gearIndex - 1].style.visibility = "visible";
+    x[gearIndex - 1].style.opacity = "1";
+    setTimeout(gearCarousel, 2000);
+}
+
+function switchBackground(type) {
+    var gearBackground = document.getElementById("gearBackground");
+    var gameBackground = document.getElementById("gameBackground");
+    if (type === 1) {
+        gameBackground.style.visibility = "hidden";
+        gameBackground.style.opacity = "0";
+        gearBackground.style.visibility = "visible";
+        gearBackground.style.opacity = "1";
+    }
+    else {
+        gearBackground.style.visibility = "hidden";
+        gearBackground.style.opacity = "0";
+        gameBackground.style.visibility = "visible";
+        gameBackground.style.opacity = "1";
+    }
+
 }

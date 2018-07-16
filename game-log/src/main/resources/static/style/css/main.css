@@ -15,8 +15,8 @@
 
     --main-background-color: rgba(147, 150, 149, 0.81);
     --main-banner-color: rgba(38, 37, 37, 0.82);
-    --main-tab-color: rgba(255, 255, 255, 0.21);
-    --main-left-tab-color: rgba(255, 255, 255, 0.21);
+    --main-tab-color: rgba(255, 255, 255, 0.30);
+    --main-left-tab-color: rgba(255, 255, 255, 0.20);
     --main-indicator-color: #292929;
     --main-cmp-tab-color: rgba(25, 25, 25, 0.82);
 
@@ -76,12 +76,24 @@ body {
     background-color: var(--main-background-color);
 }
 
-#background {
+#gearBackground{
+    visibility: hidden;
+    opacity: 0;
+}
+
+.background {
     position: absolute;
     width: 100%;
     filter: opacity(50%);
     overflow: hidden;
     height: 730px;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.background img{
+    width: 100%;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    position: absolute;
 }
 
 .description {
@@ -1364,4 +1376,13 @@ img {
 
 .bGear {
     background: var(--main-gear-color);
+}
+
+.indicatorDetail{
+    font-size: smaller;
+    margin-left: 5px;
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
