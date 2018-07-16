@@ -12,7 +12,21 @@ public class GamaProperties {
     @Value("${gama.pageSize}")
     private Integer itemPageSize;
 
+    @Value("${gama.source}")
+    private String sourcePath;
+
+    @Value("${gama.jaxbModelPath}")
+    private String jaxbModelPath;
+
     public Integer getItemPageSize() {
         return itemPageSize;
+    }
+
+    public String getSourcePath() {
+        return sourcePath;
+    }
+
+    public String getJaxbModelPath() {
+        return jaxbModelPath;
     }
 }

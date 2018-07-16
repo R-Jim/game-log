@@ -1,5 +1,6 @@
 package io.shocker.gamelog.service;
 
+import io.shocker.gamelog.config.GamaProperties;
 import io.shocker.gamelog.model.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -12,38 +13,27 @@ import javax.xml.transform.stream.StreamSource;
 import java.util.List;
 
 public class ThreadService extends Thread {
-    private final GameService gameService;
 
-    public ThreadService(GameService gameService) {
-        this.gameService = gameService;
-    }
-
-    public void run() {
-        System.out.println("Running: " + Thread.currentThread().getName());
-        try {
-//            gameService.crawlGame();
-        } catch (Exception e) {
-            System.out.println("Thread stopped: " + Thread.currentThread().getName());
-            return;
-        }
-    }
 
     public static class GameCrawlingThread extends Thread {
         private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
+        private final GamaProperties gamaProperties;
+
+        public GameCrawlingThread(GamaProperties gamaProperties, GameService gameService) {
+            this.gamaProperties = gamaProperties;
+            this.gameService = gameService;
+        }
 
         private int gameCrawled = 0;
         private int pageSize = 40;
         private int pageCurrent = 0;
         private final GameService gameService;
 
-        public GameCrawlingThread(GameService gameService) {
-            this.gameService = gameService;
-        }
 
         @Override
         public void run() {
             try {
-                WebEntityService webEnumService = new WebEntityService();
+                WebEntityService webEnumService = new WebEntityService(gamaProperties);
                 WebEntity.Web webEntity = webEnumService.getWebEntity("game");
                 System.out.println("Firing: " + Thread.currentThread().getName());
                 String baseUrl = webEntity.getUrl();
@@ -113,9 +103,11 @@ public class ThreadService extends Thread {
         private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
 
         private final GearService gearService;
+        private final GamaProperties gamaProperties;
 
-        public GearCrawlingThread(GearService gearService) {
+        public GearCrawlingThread(GearService gearService, GamaProperties gamaProperties) {
             this.gearService = gearService;
+            this.gamaProperties = gamaProperties;
         }
 
         private int pageSize = 0;
@@ -124,7 +116,7 @@ public class ThreadService extends Thread {
 
         @Override
         public void run() {
-            WebEntityService webEntityService = new WebEntityService();
+            WebEntityService webEntityService = new WebEntityService(gamaProperties);
             WebEntity.Web webEntity = webEntityService.getWebEntity("gear");
             System.out.println("Firing: " + Thread.currentThread().getName());
             List<Categories.GearCategory> categories = this.gearService.gearCategoryRepository.findAll();

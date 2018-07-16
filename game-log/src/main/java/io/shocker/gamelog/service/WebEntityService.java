@@ -1,5 +1,6 @@
 package io.shocker.gamelog.service;
 
+import io.shocker.gamelog.config.GamaProperties;
 import io.shocker.gamelog.model.WebEntity;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -13,13 +14,18 @@ import java.util.List;
 
 public class WebEntityService {
     private final Logger logger = LogManager.getLogger(WebEntityService.class);
+    private final GamaProperties gamaProperties;
+
+    public WebEntityService(GamaProperties gamaProperties) {
+        this.gamaProperties = gamaProperties;
+    }
 
     public WebEntity.Web getWebEntity(String entityId) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
+            JAXBContext jaxbContext = JAXBContext.newInstance(gamaProperties.getJaxbModelPath());
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-            File f = new File("webEntityConfig.xml");
+            File f = new File(gamaProperties.getSourcePath());
 
             WebEntity webEntity = (WebEntity) unmarshaller.unmarshal(f);
             List<WebEntity.Web> list = webEntity.getWeb();

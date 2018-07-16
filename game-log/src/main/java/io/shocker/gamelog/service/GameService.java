@@ -61,7 +61,7 @@ public class GameService {
             System.out.println("Found Source");
             if (streamResult != null) {
 
-                JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
+                JAXBContext jaxbContext = JAXBContext.newInstance(gamaProperties.getJaxbModelPath());
                 Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
                 Categories gameCategory = (Categories) unmarshaller.unmarshal(streamResult.getInputStream());
@@ -86,14 +86,14 @@ public class GameService {
 
     private StreamSource getGamesCategoryData() throws TransformerException {
         BasicCrawler crawler = new BasicCrawler();
-        WebEntityService webEntityService = new WebEntityService();
+        WebEntityService webEntityService = new WebEntityService(gamaProperties);
         WebEntity.Web webEntity = webEntityService.getWebEntity("gameCategory");
         return crawler.crawlingFromWeb(webEntity);
     }
 
 
     public String crawlGame(String name) {
-        ThreadService.GameCrawlingThread gameCrawlingThread = new ThreadService.GameCrawlingThread(this);
+        ThreadService.GameCrawlingThread gameCrawlingThread = new ThreadService.GameCrawlingThread(gamaProperties,this);
         boolean existed;
         do {
             existed = false;
