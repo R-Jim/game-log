@@ -219,7 +219,7 @@ public class BasicCrawler {
                 if (!stName.equals("")) {
                     sb.append("</" + stName + ">");
                 }
-                logger.log(Level.WARN, exception);
+                logger.log(Level.WARN, "element well formed error");
                 endTagMarker--;
             } catch (NullPointerException exception1) {
                 logger.log(Level.WARN, exception1);

@@ -18,8 +18,8 @@ public class GamaProperties {
     @Value("${gama.jaxbModelPath}")
     private String jaxbModelPath;
 
-    @Value("${gama.timedScheduleCrawler}")
-    private Integer timedScheduleCrawler;
+    @Value("${crawler.game.pageSize}")
+    private Integer gameCrawlerPageSize;
 
     public Integer getItemPageSize() {
         return itemPageSize;
@@ -33,7 +33,7 @@ public class GamaProperties {
         return jaxbModelPath;
     }
 
-    public Integer getTimedScheduleCrawler() {
-        return timedScheduleCrawler;
+    public Integer getGameCrawlerPageSize() {
+        return gameCrawlerPageSize;
     }
 }

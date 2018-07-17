@@ -409,7 +409,7 @@ function addTab(type, tabIndicatorHolderId, isChangeTab) {
     tabIndicator.appendChild(span);
 
     var spanDetail = createElementWithClassName("span", "indicatorDetail");
-    spanDetail.id = "tab" +tabCount +"Detail";
+    spanDetail.id = "tab" + tabCount + "Detail";
     tabIndicator.appendChild(spanDetail);
 
     var a = document.createElement("a");
@@ -1450,8 +1450,7 @@ function categoryProgressBarGoing(type) {
     }
 }
 
-var gameProcessTime;
-var gearProcessTime;
+var itemCrawlerStartCount = 0;
 
 function startCrawlItem(type) {
     var btnStart = (type === 0) ? document.getElementById("btnGameCrawlStart") : document.getElementById("btnGearCrawlStart");
@@ -1462,6 +1461,7 @@ function startCrawlItem(type) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             btnStop.disabled = false;
+            itemCrawlerStartCount++;
             result.textContent = this.responseText + " bắt đầu";
             var threadName = (type === 0) ? document.getElementById("txtGameCrawlThreadName") : document.getElementById("txtGearCrawlThreadName");
             threadName.value = this.responseText;
@@ -1500,6 +1500,11 @@ function theWaitingGame(url, threadName, resultBanner, type) {
                     gameAndGearProgressBarGoing(type, results);
                 } else {
                     resultBanner.textContent = threadName + " hoàn thành. Item lấy được: " + count;
+                    itemCrawlerStartCount--;
+                    if (itemCrawlerStartCount === 0) {
+                        document.getElementById("btnItemCrawlStop").disabled = true;
+                    }
+                    document.getElementById("btnItemCrawlStart").disabled = false;
                     if (type === 0) {
                         gameWorker.terminate();
                         gameWorker = undefined;
@@ -1551,6 +1556,11 @@ function stopCrawlItem(type) {
             results = results.split(",");
             result.textContent = threadName.value + " đã hủy. Item lấy được: " + results[2];
             btnStart.disabled = false;
+            itemCrawlerStartCount--;
+            if (itemCrawlerStartCount === 0) {
+                document.getElementById("btnItemCrawlStop").disabled = true;
+            }
+            document.getElementById("btnItemCrawlStart").disabled = false;
             gameAndGearProgressBarGoing(type, results);
         }
     };
@@ -1857,7 +1867,7 @@ function gameCarousel() {
     }
     x[gameIndex - 1].style.visibility = "visible";
     x[gameIndex - 1].style.opacity = "1";
-    setTimeout(gameCarousel, 2000);
+    setTimeout(gameCarousel, 5000);
 }
 
 var gearIndex = 0;
@@ -1877,7 +1887,7 @@ function gearCarousel() {
     }
     x[gearIndex - 1].style.visibility = "visible";
     x[gearIndex - 1].style.opacity = "1";
-    setTimeout(gearCarousel, 2000);
+    setTimeout(gearCarousel, 5000);
 }
 
 function switchBackground(type) {
@@ -1897,8 +1907,21 @@ function switchBackground(type) {
     }
 }
 
-function categoryStartAll(element){
+function categoryStartAll(element) {
     element.disabled = true;
     document.getElementById("gameCategoryCrawler").click();
     document.getElementById("gearCategoryCrawler").click();
+}
+
+function startAllCrawlItem(element) {
+    element.disabled = true;
+    document.getElementById("btnItemCrawlStop").disabled = false;
+    document.getElementById("btnGameCrawlStart").click();
+    document.getElementById("btnGearCrawlStart").click();
+}
+
+function stopAllCrawlItem(element) {
+    element.disabled = true;
+    document.getElementById("btnGameCrawlStop").click();
+    document.getElementById("btnGearCrawlStop").click();
 }

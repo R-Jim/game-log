@@ -1841,3 +1841,283 @@ Caused by: com.sun.org.apache.xml.internal.utils.WrappedRuntimeException: The el
 2018-07-17 09:30:15.456  WARN 4924 --- [http-nio-8080-exec-5] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
 2018-07-17 09:30:15.457  WARN 4924 --- [http-nio-8080-exec-2] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
 2018-07-17 09:30:15.489  INFO 4924 --- [http-nio-8080-exec-3] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-07-17 11:41:09.395  INFO 7684 --- [main] io.shocker.gamelog.GameLogApplication    : Starting GameLogApplication on DESKTOP-JEK5PAI with PID 7684 (D:\App\game-log\game-log\target\classes started by Swomfire in D:\App\game-log\game-log)
+2018-07-17 11:41:09.408  INFO 7684 --- [main] io.shocker.gamelog.GameLogApplication    : No active profile set, falling back to default profiles: default
+2018-07-17 11:41:09.455  INFO 7684 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@45b9a632: startup date [Tue Jul 17 11:41:09 ICT 2018]; root of context hierarchy
+2018-07-17 11:41:15.045  INFO 7684 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$87c9dfe] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-07-17 11:41:16.275  INFO 7684 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2018-07-17 11:41:16.360  INFO 7684 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-07-17 11:41:16.360  INFO 7684 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-07-17 11:41:16.373  INFO 7684 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_151\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_151\bin;D:\apache-maven-3.5.2\bin;C:\Program Files\Git\cmd;D:\curl\bin;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\Swomfire\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;C:\Users\Swomfire\Downloads\zookeeper-3.4.12\zookeeper-3.4.12\bin;;.]
+2018-07-17 11:41:17.207  INFO 7684 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-07-17 11:41:17.207  INFO 7684 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 7752 ms
+2018-07-17 11:41:17.348  INFO 7684 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-07-17 11:41:17.348  INFO 7684 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-07-17 11:41:17.348  INFO 7684 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-07-17 11:41:17.348  INFO 7684 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-07-17 11:41:17.348  INFO 7684 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-07-17 11:41:17.810  INFO 7684 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2018-07-17 11:41:18.223  INFO 7684 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2018-07-17 11:41:18.395  INFO 7684 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-07-17 11:41:18.426  INFO 7684 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-07-17 11:41:18.660  INFO 7684 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.2.17.Final}
+2018-07-17 11:41:18.676  INFO 7684 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-07-17 11:41:18.812  INFO 7684 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-07-17 11:41:19.601  INFO 7684 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2018-07-17 11:41:20.023  WARN 7684 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-17 11:41:20.023  WARN 7684 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-17 11:41:20.023  WARN 7684 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GameHasTagId
+2018-07-17 11:41:20.023  WARN 7684 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GameHasTagId
+2018-07-17 11:41:21.160  INFO 7684 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-07-17 11:41:22.326  INFO 7684 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 11:41:22.842  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@45b9a632: startup date [Tue Jul 17 11:41:09 ICT 2018]; root of context hierarchy
+2018-07-17 11:41:22.878  WARN 7684 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-07-17 11:41:22.931  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/status],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GameController.threadStatus(java.lang.String)
+2018-07-17 11:41:22.932  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/stop],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GameController.stopThread(java.lang.String)
+2018-07-17 11:41:22.932  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/category],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Categories io.shocker.gamelog.controller.GameController.getAll()
+2018-07-17 11:41:22.933  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/category/load],methods=[GET]}" onto public int io.shocker.gamelog.controller.GameController.loadGameCategories()
+2018-07-17 11:41:22.933  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/cpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameCpuType()
+2018-07-17 11:41:22.933  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/ram],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameRamType()
+2018-07-17 11:41:22.933  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/os],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameOsType()
+2018-07-17 11:41:22.934  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/gpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameGpuType()
+2018-07-17 11:41:22.934  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Games io.shocker.gamelog.controller.GameController.getGameList(java.lang.String,java.lang.Integer,java.lang.String)
+2018-07-17 11:41:22.934  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/load],methods=[GET]}" onto public java.lang.String io.shocker.gamelog.controller.GameController.loadGames()
+2018-07-17 11:41:22.934  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/spec],methods=[GET]}" onto public java.util.List<io.shocker.gamelog.model.Spec> io.shocker.gamelog.controller.GameController.getGameSpec(java.lang.Integer)
+2018-07-17 11:41:22.939  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/status],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GearController.threadStatus(java.lang.String)
+2018-07-17 11:41:22.939  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/stop],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GearController.stopThread(java.lang.String)
+2018-07-17 11:41:22.940  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/category],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Categories io.shocker.gamelog.controller.GearController.getAll()
+2018-07-17 11:41:22.940  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/category/load],methods=[GET]}" onto public int io.shocker.gamelog.controller.GearController.loadGameCategories()
+2018-07-17 11:41:22.940  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/cpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameCpuType()
+2018-07-17 11:41:22.940  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/ram],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameRamType()
+2018-07-17 11:41:22.941  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/spec],methods=[GET]}" onto public io.shocker.gamelog.model.Gears$Gear io.shocker.gamelog.controller.GearController.getGearDetail(java.lang.Integer)
+2018-07-17 11:41:22.941  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Gears io.shocker.gamelog.controller.GearController.getGearList(java.lang.String,java.lang.Integer,java.lang.String)
+2018-07-17 11:41:22.941  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/os],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameOsType()
+2018-07-17 11:41:22.941  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/gpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameGpuType()
+2018-07-17 11:41:22.942  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/load],methods=[GET]}" onto public java.lang.String io.shocker.gamelog.controller.GearController.loadGames()
+2018-07-17 11:41:22.943  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView io.shocker.gamelog.controller.MainController.getMainPage(org.springframework.web.servlet.ModelAndView,java.lang.String)
+2018-07-17 11:41:22.944  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main/logout],methods=[POST]}" onto public void io.shocker.gamelog.controller.MainController.login(javax.servlet.http.HttpSession,java.lang.String)
+2018-07-17 11:41:22.944  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main/login],methods=[POST]}" onto public java.lang.String io.shocker.gamelog.controller.MainController.login(java.lang.String,java.lang.String,javax.servlet.http.HttpSession,java.lang.String)
+2018-07-17 11:41:22.946  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-07-17 11:41:22.946  INFO 7684 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-07-17 11:41:22.975  INFO 7684 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 11:41:22.975  INFO 7684 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 11:41:23.348  INFO 7684 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-07-17 11:41:23.350  INFO 7684 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-07-17 11:41:23.356  INFO 7684 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2018-07-17 11:41:23.367  INFO 7684 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2018-07-17 11:41:23.446  INFO 7684 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2018-07-17 11:41:23.449  INFO 7684 --- [main] io.shocker.gamelog.GameLogApplication    : Started GameLogApplication in 15.735 seconds (JVM running for 24.752)
+2018-07-17 11:43:11.289  INFO 7684 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-07-17 11:43:11.290  INFO 7684 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-07-17 11:43:11.306  INFO 7684 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 16 ms
+2018-07-17 11:43:12.668  WARN 7684 --- [http-nio-8080-exec-1] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-17 11:43:12.669  WARN 7684 --- [http-nio-8080-exec-5] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-17 11:43:12.981  INFO 7684 --- [http-nio-8080-exec-3] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-07-17 11:55:31.905  INFO 4596 --- [main] io.shocker.gamelog.GameLogApplication    : Starting GameLogApplication on DESKTOP-JEK5PAI with PID 4596 (D:\App\game-log\game-log\target\classes started by Swomfire in D:\App\game-log\game-log)
+2018-07-17 11:55:31.907  INFO 4596 --- [main] io.shocker.gamelog.GameLogApplication    : No active profile set, falling back to default profiles: default
+2018-07-17 11:55:31.945  INFO 4596 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7ee955a8: startup date [Tue Jul 17 11:55:31 ICT 2018]; root of context hierarchy
+2018-07-17 11:55:33.215  INFO 4596 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c965fe29] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-07-17 11:55:33.494  INFO 4596 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2018-07-17 11:55:33.516  INFO 4596 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-07-17 11:55:33.516  INFO 4596 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-07-17 11:55:33.521  INFO 4596 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_151\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_151\bin;D:\apache-maven-3.5.2\bin;C:\Program Files\Git\cmd;D:\curl\bin;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\Swomfire\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;C:\Users\Swomfire\Downloads\zookeeper-3.4.12\zookeeper-3.4.12\bin;;.]
+2018-07-17 11:55:34.093  INFO 4596 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-07-17 11:55:34.093  INFO 4596 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2148 ms
+2018-07-17 11:55:34.202  INFO 4596 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-07-17 11:55:34.206  INFO 4596 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-07-17 11:55:34.206  INFO 4596 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-07-17 11:55:34.206  INFO 4596 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-07-17 11:55:34.206  INFO 4596 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-07-17 11:55:34.322  INFO 4596 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2018-07-17 11:55:34.482  INFO 4596 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2018-07-17 11:55:34.525  INFO 4596 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-07-17 11:55:34.538  INFO 4596 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-07-17 11:55:34.670  INFO 4596 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.2.17.Final}
+2018-07-17 11:55:34.672  INFO 4596 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-07-17 11:55:34.705  INFO 4596 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-07-17 11:55:34.837  INFO 4596 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2018-07-17 11:55:35.007  WARN 4596 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-17 11:55:35.007  WARN 4596 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-17 11:55:35.008  WARN 4596 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GameHasTagId
+2018-07-17 11:55:35.008  WARN 4596 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GameHasTagId
+2018-07-17 11:55:35.273  INFO 4596 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-07-17 11:55:35.741  INFO 4596 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 11:55:36.029  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7ee955a8: startup date [Tue Jul 17 11:55:31 ICT 2018]; root of context hierarchy
+2018-07-17 11:55:36.060  WARN 4596 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-07-17 11:55:36.091  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/status],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GameController.threadStatus(java.lang.String)
+2018-07-17 11:55:36.092  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/stop],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GameController.stopThread(java.lang.String)
+2018-07-17 11:55:36.093  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/category],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Categories io.shocker.gamelog.controller.GameController.getAll()
+2018-07-17 11:55:36.093  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Games io.shocker.gamelog.controller.GameController.getGameList(java.lang.String,java.lang.Integer,java.lang.String)
+2018-07-17 11:55:36.093  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/spec],methods=[GET]}" onto public java.util.List<io.shocker.gamelog.model.Spec> io.shocker.gamelog.controller.GameController.getGameSpec(java.lang.Integer)
+2018-07-17 11:55:36.094  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/cpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameCpuType()
+2018-07-17 11:55:36.094  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/gpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameGpuType()
+2018-07-17 11:55:36.094  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/ram],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameRamType()
+2018-07-17 11:55:36.094  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/os],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameOsType()
+2018-07-17 11:55:36.095  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/load],methods=[GET]}" onto public java.lang.String io.shocker.gamelog.controller.GameController.loadGames()
+2018-07-17 11:55:36.095  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/category/load],methods=[GET]}" onto public int io.shocker.gamelog.controller.GameController.loadGameCategories()
+2018-07-17 11:55:36.099  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/status],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GearController.threadStatus(java.lang.String)
+2018-07-17 11:55:36.100  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/stop],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GearController.stopThread(java.lang.String)
+2018-07-17 11:55:36.100  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/category],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Categories io.shocker.gamelog.controller.GearController.getAll()
+2018-07-17 11:55:36.100  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/cpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameCpuType()
+2018-07-17 11:55:36.100  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/gpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameGpuType()
+2018-07-17 11:55:36.100  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/spec],methods=[GET]}" onto public io.shocker.gamelog.model.Gears$Gear io.shocker.gamelog.controller.GearController.getGearDetail(java.lang.Integer)
+2018-07-17 11:55:36.101  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Gears io.shocker.gamelog.controller.GearController.getGearList(java.lang.String,java.lang.Integer,java.lang.String)
+2018-07-17 11:55:36.101  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/ram],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameRamType()
+2018-07-17 11:55:36.101  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/os],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameOsType()
+2018-07-17 11:55:36.101  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/load],methods=[GET]}" onto public java.lang.String io.shocker.gamelog.controller.GearController.loadGames()
+2018-07-17 11:55:36.102  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/category/load],methods=[GET]}" onto public int io.shocker.gamelog.controller.GearController.loadGameCategories()
+2018-07-17 11:55:36.103  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main/logout],methods=[POST]}" onto public void io.shocker.gamelog.controller.MainController.login(javax.servlet.http.HttpSession,java.lang.String)
+2018-07-17 11:55:36.104  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main/login],methods=[POST]}" onto public java.lang.String io.shocker.gamelog.controller.MainController.login(java.lang.String,java.lang.String,javax.servlet.http.HttpSession,java.lang.String)
+2018-07-17 11:55:36.104  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView io.shocker.gamelog.controller.MainController.getMainPage(org.springframework.web.servlet.ModelAndView,java.lang.String)
+2018-07-17 11:55:36.106  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-07-17 11:55:36.106  INFO 4596 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-07-17 11:55:36.131  INFO 4596 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 11:55:36.131  INFO 4596 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 11:55:36.343  INFO 4596 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-07-17 11:55:36.345  INFO 4596 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-07-17 11:55:36.350  INFO 4596 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2018-07-17 11:55:36.361  INFO 4596 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2018-07-17 11:55:36.387  INFO 4596 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2018-07-17 11:55:36.390  INFO 4596 --- [main] io.shocker.gamelog.GameLogApplication    : Started GameLogApplication in 4.853 seconds (JVM running for 6.877)
+2018-07-17 11:58:42.132  INFO 4596 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-07-17 11:58:42.132  INFO 4596 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-07-17 11:58:42.147  INFO 4596 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 15 ms
+2018-07-17 11:58:42.533  WARN 4596 --- [http-nio-8080-exec-3] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-17 11:58:42.535  WARN 4596 --- [http-nio-8080-exec-6] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-17 11:58:42.588  INFO 4596 --- [http-nio-8080-exec-8] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-07-17 12:05:12.285  INFO 13520 --- [main] io.shocker.gamelog.GameLogApplication    : Starting GameLogApplication on DESKTOP-JEK5PAI with PID 13520 (D:\App\game-log\game-log\target\classes started by Swomfire in D:\App\game-log\game-log)
+2018-07-17 12:05:12.291  INFO 13520 --- [main] io.shocker.gamelog.GameLogApplication    : No active profile set, falling back to default profiles: default
+2018-07-17 12:05:12.360  INFO 13520 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@161479c6: startup date [Tue Jul 17 12:05:12 ICT 2018]; root of context hierarchy
+2018-07-17 12:05:13.726  INFO 13520 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3e90b041] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-07-17 12:05:13.986  INFO 13520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2018-07-17 12:05:14.008  INFO 13520 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-07-17 12:05:14.008  INFO 13520 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-07-17 12:05:14.011  INFO 13520 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_151\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_151\bin;D:\apache-maven-3.5.2\bin;C:\Program Files\Git\cmd;D:\curl\bin;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\Swomfire\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;C:\Users\Swomfire\Downloads\zookeeper-3.4.12\zookeeper-3.4.12\bin;;.]
+2018-07-17 12:05:14.096  INFO 13520 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-07-17 12:05:14.096  INFO 13520 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1736 ms
+2018-07-17 12:05:14.203  INFO 13520 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-07-17 12:05:14.207  INFO 13520 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-07-17 12:05:14.207  INFO 13520 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-07-17 12:05:14.208  INFO 13520 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-07-17 12:05:14.208  INFO 13520 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-07-17 12:05:14.323  INFO 13520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2018-07-17 12:05:14.482  INFO 13520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2018-07-17 12:05:14.522  INFO 13520 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-07-17 12:05:14.534  INFO 13520 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-07-17 12:05:14.663  INFO 13520 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.2.17.Final}
+2018-07-17 12:05:14.664  INFO 13520 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-07-17 12:05:14.698  INFO 13520 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-07-17 12:05:14.829  INFO 13520 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2018-07-17 12:05:15.001  WARN 13520 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-17 12:05:15.001  WARN 13520 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GearHasCategoryId
+2018-07-17 12:05:15.002  WARN 13520 --- [main] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): io.shocker.gamelog.model.GameHasTagId
+2018-07-17 12:05:15.002  WARN 13520 --- [main] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): io.shocker.gamelog.model.GameHasTagId
+2018-07-17 12:05:15.313  INFO 13520 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-07-17 12:05:15.787  INFO 13520 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 12:05:16.037  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@161479c6: startup date [Tue Jul 17 12:05:12 ICT 2018]; root of context hierarchy
+2018-07-17 12:05:16.070  WARN 13520 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-07-17 12:05:16.105  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/status],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GameController.threadStatus(java.lang.String)
+2018-07-17 12:05:16.106  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/stop],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GameController.stopThread(java.lang.String)
+2018-07-17 12:05:16.106  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/category],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Categories io.shocker.gamelog.controller.GameController.getAll()
+2018-07-17 12:05:16.107  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/cpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameCpuType()
+2018-07-17 12:05:16.107  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/gpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameGpuType()
+2018-07-17 12:05:16.107  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Games io.shocker.gamelog.controller.GameController.getGameList(java.lang.String,java.lang.Integer,java.lang.String)
+2018-07-17 12:05:16.108  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/spec],methods=[GET]}" onto public java.util.List<io.shocker.gamelog.model.Spec> io.shocker.gamelog.controller.GameController.getGameSpec(java.lang.Integer)
+2018-07-17 12:05:16.108  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/load],methods=[GET]}" onto public java.lang.String io.shocker.gamelog.controller.GameController.loadGames()
+2018-07-17 12:05:16.108  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/os],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameOsType()
+2018-07-17 12:05:16.109  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/type/ram],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GameController.loadGameRamType()
+2018-07-17 12:05:16.109  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/game/category/load],methods=[GET]}" onto public int io.shocker.gamelog.controller.GameController.loadGameCategories()
+2018-07-17 12:05:16.114  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/status],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GearController.threadStatus(java.lang.String)
+2018-07-17 12:05:16.114  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/stop],methods=[GET]}" onto public java.lang.Integer[] io.shocker.gamelog.controller.GearController.stopThread(java.lang.String)
+2018-07-17 12:05:16.115  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/category],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Categories io.shocker.gamelog.controller.GearController.getAll()
+2018-07-17 12:05:16.115  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear],methods=[GET],produces=[application/xml]}" onto public io.shocker.gamelog.model.Gears io.shocker.gamelog.controller.GearController.getGearList(java.lang.String,java.lang.Integer,java.lang.String)
+2018-07-17 12:05:16.116  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/cpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameCpuType()
+2018-07-17 12:05:16.116  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/spec],methods=[GET]}" onto public io.shocker.gamelog.model.Gears$Gear io.shocker.gamelog.controller.GearController.getGearDetail(java.lang.Integer)
+2018-07-17 12:05:16.116  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/gpu],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameGpuType()
+2018-07-17 12:05:16.116  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/load],methods=[GET]}" onto public java.lang.String io.shocker.gamelog.controller.GearController.loadGames()
+2018-07-17 12:05:16.117  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/os],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameOsType()
+2018-07-17 12:05:16.117  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/type/ram],methods=[GET]}" onto public java.util.List<java.lang.String> io.shocker.gamelog.controller.GearController.loadGameRamType()
+2018-07-17 12:05:16.117  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/gear/category/load],methods=[GET]}" onto public int io.shocker.gamelog.controller.GearController.loadGameCategories()
+2018-07-17 12:05:16.119  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main/logout],methods=[POST]}" onto public void io.shocker.gamelog.controller.MainController.login(javax.servlet.http.HttpSession,java.lang.String)
+2018-07-17 12:05:16.119  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main/login],methods=[POST]}" onto public java.lang.String io.shocker.gamelog.controller.MainController.login(java.lang.String,java.lang.String,javax.servlet.http.HttpSession,java.lang.String)
+2018-07-17 12:05:16.120  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/main],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView io.shocker.gamelog.controller.MainController.getMainPage(org.springframework.web.servlet.ModelAndView,java.lang.String)
+2018-07-17 12:05:16.123  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-07-17 12:05:16.123  INFO 13520 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-07-17 12:05:16.154  INFO 13520 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 12:05:16.154  INFO 13520 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-17 12:05:16.399  INFO 13520 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-07-17 12:05:16.400  INFO 13520 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-07-17 12:05:16.405  INFO 13520 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2018-07-17 12:05:16.416  INFO 13520 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2018-07-17 12:05:16.441  INFO 13520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2018-07-17 12:05:16.443  INFO 13520 --- [main] io.shocker.gamelog.GameLogApplication    : Started GameLogApplication in 4.79 seconds (JVM running for 6.109)
+2018-07-17 12:06:24.955  INFO 13520 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-07-17 12:06:24.955  INFO 13520 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-07-17 12:06:24.973  INFO 13520 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 18 ms
+2018-07-17 12:06:25.449  WARN 13520 --- [http-nio-8080-exec-5] i.s.gamelog.controller.GearController    : getGearList no value for categoryId
+2018-07-17 12:06:25.450  WARN 13520 --- [http-nio-8080-exec-3] i.s.gamelog.controller.GameController    : getGameList No value for categoryId
+2018-07-17 12:06:25.514  INFO 13520 --- [http-nio-8080-exec-6] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-07-17 12:06:56.426  WARN 13520 --- [gearCrawler] io.shocker.gamelog.crawler.BasicCrawler  : javax.xml.stream.XMLStreamException: ParseError at [row,col]:[752,358]
+Message: The element type "li" must be terminated by the matching end-tag "</li>".
+
+javax.xml.stream.XMLStreamException: ParseError at [row,col]:[752,358]
+Message: The element type "li" must be terminated by the matching end-tag "</li>".
+	at com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:604) ~[na:1.8.0_151]
+	at com.sun.xml.internal.stream.XMLEventReaderImpl.nextEvent(XMLEventReaderImpl.java:83) ~[na:1.8.0_151]
+	at io.shocker.gamelog.crawler.BasicCrawler.appendTagContentToBuffer(BasicCrawler.java:192) [classes/:na]
+	at io.shocker.gamelog.crawler.BasicCrawler.cleanXML(BasicCrawler.java:146) [classes/:na]
+	at io.shocker.gamelog.crawler.BasicCrawler.crawlingFromWeb(BasicCrawler.java:47) [classes/:na]
+	at io.shocker.gamelog.service.GearService.getGearsData(GearService.java:122) [classes/:na]
+	at io.shocker.gamelog.service.ThreadService$GearCrawlingThread.run(ThreadService.java:134) [classes/:na]
+
+2018-07-17 12:06:56.427  WARN 13520 --- [gearCrawler] io.shocker.gamelog.crawler.BasicCrawler  : javax.xml.stream.XMLStreamException: ParseError at [row,col]:[752,358]
+Message: The element type "li" must be terminated by the matching end-tag "</li>".
+
+javax.xml.stream.XMLStreamException: ParseError at [row,col]:[752,358]
+Message: The element type "li" must be terminated by the matching end-tag "</li>".
+	at com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:604) ~[na:1.8.0_151]
+	at com.sun.xml.internal.stream.XMLEventReaderImpl.nextEvent(XMLEventReaderImpl.java:83) ~[na:1.8.0_151]
+	at io.shocker.gamelog.crawler.BasicCrawler.appendTagContentToBuffer(BasicCrawler.java:192) [classes/:na]
+	at io.shocker.gamelog.crawler.BasicCrawler.cleanXML(BasicCrawler.java:146) [classes/:na]
+	at io.shocker.gamelog.crawler.BasicCrawler.crawlingFromWeb(BasicCrawler.java:47) [classes/:na]
+	at io.shocker.gamelog.service.GearService.getGearsData(GearService.java:122) [classes/:na]
+	at io.shocker.gamelog.service.ThreadService$GearCrawlingThread.run(ThreadService.java:134) [classes/:na]
+
+2018-07-17 12:06:56.428  WARN 13520 --- [gearCrawler] io.shocker.gamelog.crawler.BasicCrawler  : javax.xml.stream.XMLStreamException: ParseError at [row,col]:[752,358]
+Message: The element type "li" must be terminated by the matching end-tag "</li>".
+
+javax.xml.stream.XMLStreamException: ParseError at [row,col]:[752,358]
+Message: The element type "li" must be terminated by the matching end-tag "</li>".
+	at com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:604) ~[na:1.8.0_151]
+	at com.sun.xml.internal.stream.XMLEventReaderImpl.nextEvent(XMLEventReaderImpl.java:83) ~[na:1.8.0_151]
+	at io.shocker.gamelog.crawler.BasicCrawler.appendTagContentToBuffer(BasicCrawler.java:192) [classes/:na]
+	at io.shocker.gamelog.crawler.BasicCrawler.cleanXML(BasicCrawler.java:146) [classes/:na]
+	at io.shocker.gamelog.crawler.BasicCrawler.crawlingFromWeb(BasicCrawler.java:47) [classes/:na]
+	at io.shocker.gamelog.service.GearService.getGearsData(GearService.java:122) [classes/:na]
+	at io.shocker.gamelog.service.ThreadService$GearCrawlingThread.run(ThreadService.java:134) [classes/:na]
+
+2018-07-17 12:06:56.468  WARN 13520 --- [gearCrawler] io.shocker.gamelog.service.GameService   : javax.xml.transform.TransformerException: javax.xml.transform.TransformerException: com.sun.org.apache.xml.internal.utils.WrappedRuntimeException: The element type "li" must be terminated by the matching end-tag "</li>".
+
+javax.xml.transform.TransformerException: javax.xml.transform.TransformerException: com.sun.org.apache.xml.internal.utils.WrappedRuntimeException: The element type "li" must be terminated by the matching end-tag "</li>".
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:749) ~[na:1.8.0_151]
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:351) ~[na:1.8.0_151]
+	at io.shocker.gamelog.crawler.BasicCrawler.validatingXML(BasicCrawler.java:246) ~[classes/:na]
+	at io.shocker.gamelog.crawler.BasicCrawler.crawlingFromWeb(BasicCrawler.java:48) ~[classes/:na]
+	at io.shocker.gamelog.service.GearService.getGearsData(GearService.java:122) ~[classes/:na]
+	at io.shocker.gamelog.service.ThreadService$GearCrawlingThread.run(ThreadService.java:134) ~[classes/:na]
+Caused by: javax.xml.transform.TransformerException: com.sun.org.apache.xml.internal.utils.WrappedRuntimeException: The element type "li" must be terminated by the matching end-tag "</li>".
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.getDOM(TransformerImpl.java:578) ~[na:1.8.0_151]
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:739) ~[na:1.8.0_151]
+	... 5 common frames omitted
+Caused by: com.sun.org.apache.xml.internal.utils.WrappedRuntimeException: The element type "li" must be terminated by the matching end-tag "</li>".
+	at com.sun.org.apache.xalan.internal.xsltc.dom.XSLTCDTMManager.getDTM(XSLTCDTMManager.java:427) ~[na:1.8.0_151]
+	at com.sun.org.apache.xalan.internal.xsltc.dom.XSLTCDTMManager.getDTM(XSLTCDTMManager.java:215) ~[na:1.8.0_151]
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.getDOM(TransformerImpl.java:556) ~[na:1.8.0_151]
+	... 6 common frames omitted
+

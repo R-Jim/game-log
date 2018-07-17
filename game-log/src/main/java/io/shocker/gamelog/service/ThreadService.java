@@ -19,16 +19,16 @@ public class ThreadService extends Thread {
         private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(GameService.class);
         private final GamaProperties gamaProperties;
 
-        public GameCrawlingThread(GamaProperties gamaProperties, GameService gameService) {
-            this.gamaProperties = gamaProperties;
-            this.gameService = gameService;
-        }
-
         private int gameCrawled = 0;
-        private int pageSize = 40;
+        private int pageSize;
         private int pageCurrent = 0;
         private final GameService gameService;
 
+        public GameCrawlingThread(GamaProperties gamaProperties, GameService gameService) {
+            this.gamaProperties = gamaProperties;
+            this.gameService = gameService;
+            this.pageSize = gamaProperties.getGameCrawlerPageSize();
+        }
 
         @Override
         public void run() {
