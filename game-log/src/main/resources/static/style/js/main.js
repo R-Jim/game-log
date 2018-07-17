@@ -1408,11 +1408,13 @@ var gearCategoryProcessTime;
 
 function crawlCategory(thisButton, type) {
     var result = (type === 0) ? document.getElementById("txtGameCategoryCrawlResult") : document.getElementById("txtGearCategoryCrawlResult");
+    result.textContent = "";
     var xhttp = new XMLHttpRequest();
     thisButton.disabled = true;
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             thisButton.disabled = false;
+            document.getElementById("categoryCrawler").disabled = false;
             result.textContent = "Item lấy được: " + this.responseText;
             var progress = (type === 0) ? document.getElementById("txtGameCategoryCrawlProcess") : document.getElementById("txtGearCategoryCrawlProcess");
             var progressBar = progress.getElementsByClassName("progressResultBar")[0];
@@ -1547,7 +1549,7 @@ function stopCrawlItem(type) {
             }
             var results = this.responseText.replace("[", "").replace("]", "");
             results = results.split(",");
-            result.textContent = threadName.value + " dừng. Item lấy được: " + results[2];
+            result.textContent = threadName.value + " đã hủy. Item lấy được: " + results[2];
             btnStart.disabled = false;
             gameAndGearProgressBarGoing(type, results);
         }
@@ -1893,5 +1895,10 @@ function switchBackground(type) {
         gameBackground.style.visibility = "visible";
         gameBackground.style.opacity = "1";
     }
+}
 
+function categoryStartAll(element){
+    element.disabled = true;
+    document.getElementById("gameCategoryCrawler").click();
+    document.getElementById("gearCategoryCrawler").click();
 }
