@@ -1494,10 +1494,10 @@ function theWaitingGame(url, threadName, resultBanner, type) {
                 results = results.split(",");
                 if (results[2] !== "-1") {
                     count += (parseInt(results[2]) - count);
-                    resultBanner.textContent = threadName + " đang chạy\r\n Item lấy được: " + count;
+                    resultBanner.textContent = threadName + " đang chạy. Item lấy được: " + count;
                     gameAndGearProgressBarGoing(type, results);
                 } else {
-                    resultBanner.textContent = threadName + " hoàn thành\r\n Item lấy được: " + count;
+                    resultBanner.textContent = threadName + " hoàn thành. Item lấy được: " + count;
                     if (type === 0) {
                         gameWorker.terminate();
                         gameWorker = undefined;
@@ -1547,7 +1547,7 @@ function stopCrawlItem(type) {
             }
             var results = this.responseText.replace("[", "").replace("]", "");
             results = results.split(",");
-            result.textContent = threadName.value + " dừng\r\n Item lấy được: " + results[2];
+            result.textContent = threadName.value + " dừng. Item lấy được: " + results[2];
             btnStart.disabled = false;
             gameAndGearProgressBarGoing(type, results);
         }
