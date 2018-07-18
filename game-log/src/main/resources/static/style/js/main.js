@@ -1265,15 +1265,15 @@ function compareGpuStat(gpu1, gpu2) {
     for (var i = 0; i < gpu.length; i++) {
         for (var j = 0; j < gpu[i].length; j++) {
             if (gpu1 === gpu[i][j]) {
-                score1 = i ^ 1.5 + j / gpu[i].length * 4;
+                score1 = Math.pow(i, 1.5) + j / gpu[i].length * 4;
             }
             if (gpu2 === gpu[i][j]) {
-                score2 = i ^ 1.5 + j / gpu[i].length * 4;
+                score2 = Math.pow(i, 1.5) + j / gpu[i].length * 4;
             }
         }
     }
     console.log("Result: " + score1 + "," + score2);
-    return score1 - score2;
+    return Math.floor(score1 - score2);
 }
 
 function hideLoginPanel() {
