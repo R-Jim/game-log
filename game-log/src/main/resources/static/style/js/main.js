@@ -1867,7 +1867,7 @@ function gameCarousel() {
     }
     x[gameIndex - 1].style.visibility = "visible";
     x[gameIndex - 1].style.opacity = "1";
-    setTimeout(gameCarousel, 5000);
+    setTimeout(gameCarousel, 10000);
 }
 
 var gearIndex = 0;
@@ -1887,7 +1887,7 @@ function gearCarousel() {
     }
     x[gearIndex - 1].style.visibility = "visible";
     x[gearIndex - 1].style.opacity = "1";
-    setTimeout(gearCarousel, 5000);
+    setTimeout(gearCarousel, 10000);
 }
 
 function switchBackground(type) {

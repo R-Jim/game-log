@@ -109,7 +109,7 @@ public class BasicCrawler {
             sb.add("</" + root + ">" + "\n");
             result = sb.toString().replace(",", "").replace("[", "").replace("]", "");
         } catch (IOException ex) {
-            logger.log(Level.WARN,"Malformed");
+            logger.log(Level.WARN, "UnknownHostException");
         }
         InputStream inputStream = new ByteArrayInputStream(result.getBytes());
         return new StreamSource(inputStream);

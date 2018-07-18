@@ -276,10 +276,6 @@ body {
     top: 14px;
 }
 
-.tabIndicator > a:hover {
-    color: white;
-}
-
 .tabIndicator:first-child a, .tabIndicator:nth-child(2) a {
     visibility: hidden;
 }
