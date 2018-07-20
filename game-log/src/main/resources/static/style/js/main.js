@@ -348,6 +348,11 @@ function sortByCategory(element, urlParam, type) {
 
     var id = element.id.substring(0, element.id.length - 8);
     var categoryId = element.value;
+    var currentPage = document.getElementById(id + "CurrentPage");
+    currentPage.value = 0;
+
+    var nameLike = document.getElementById(id + "SearchLikeName");
+    nameLike.value = "";
 
     var tabContent = document.getElementById(id + "Content");
     var itemList = tabContent.getElementsByClassName("itemList")[0];

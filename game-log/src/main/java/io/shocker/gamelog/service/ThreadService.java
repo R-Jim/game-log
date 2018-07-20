@@ -148,6 +148,7 @@ public class ThreadService extends Thread {
                                 break;
                             }
                             List<Gears.Gear> list = gears.getGear();
+                            System.out.println("Category ID:" + category.getId() + ", list size:" + list.size());
                             for (Gears.Gear gear : list) {
                                 if (Thread.currentThread().isInterrupted()) {
                                     System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);

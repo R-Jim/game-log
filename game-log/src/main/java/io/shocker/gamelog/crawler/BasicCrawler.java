@@ -217,7 +217,7 @@ public class BasicCrawler {
                 }
             } catch (XMLStreamException exception) {
                 if (!stName.equals("")) {
-                    sb.append("</" + stName + ">");
+                    sb.append("</" + exception.getMessage().substring(exception.getMessage().indexOf("type \"")+6, exception.getMessage().indexOf("\" must be terminated")) + ">");
                 }
                 logger.log(Level.WARN, "element well formed error");
                 endTagMarker--;
