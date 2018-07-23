@@ -21,6 +21,12 @@ public class GamaProperties {
     @Value("${crawler.game.pageSize}")
     private Integer gameCrawlerPageSize;
 
+    @Value("${crawler.gear.pageSize}")
+    private Integer gearCrawlerPageSize;
+
+    @Value("${crawler.gear.extension}")
+    private String gearCrawlerExtension;
+
     public Integer getItemPageSize() {
         return itemPageSize;
     }
@@ -35,5 +41,13 @@ public class GamaProperties {
 
     public Integer getGameCrawlerPageSize() {
         return gameCrawlerPageSize;
+    }
+
+    public Integer getGearCrawlerPageSize() {
+        return gearCrawlerPageSize;
+    }
+
+    public String getGearCrawlerExtension() {
+        return gearCrawlerExtension;
     }
 }

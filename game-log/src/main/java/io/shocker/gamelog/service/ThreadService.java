@@ -122,61 +122,63 @@ public class ThreadService extends Thread {
             List<Categories.GearCategory> categories = this.gearService.gearCategoryRepository.findAll();
             if (categories != null) {
                 String baseUrl = webEntity.getUrl();
-                pageSize = categories.size();
+                pageSize = categories.size() * gamaProperties.getGearCrawlerPageSize();
                 for (Categories.GearCategory category : categories) {
-                    if (Thread.currentThread().isInterrupted()) {
-                        System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
-                        break;
-                    }
-                    try {
-                        webEntity.setUrl(baseUrl + category.getHref());
-                        StreamSource streamResult =
-                                gearService.getGearsData(webEntity);
+                    for (int i = 0; i < gamaProperties.getGearCrawlerPageSize(); i++) {
                         if (Thread.currentThread().isInterrupted()) {
                             System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
                             break;
                         }
-                        System.out.println("Found Source");
-                        if (streamResult != null) {
-
-                            JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
-                            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-                            Gears gears = (Gears) unmarshaller.unmarshal(streamResult.getInputStream());
+                        try {
+                            webEntity.setUrl(baseUrl + category.getHref()+gamaProperties.getGearCrawlerExtension()+i);
+                            StreamSource streamResult =
+                                    gearService.getGearsData(webEntity);
                             if (Thread.currentThread().isInterrupted()) {
                                 System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
                                 break;
                             }
-                            List<Gears.Gear> list = gears.getGear();
-                            System.out.println("Category ID:" + category.getId() + ", list size:" + list.size());
-                            for (Gears.Gear gear : list) {
+                            System.out.println("Found Source");
+                            if (streamResult != null) {
+
+                                JAXBContext jaxbContext = JAXBContext.newInstance("io.shocker.gamelog.model");
+                                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+                                Gears gears = (Gears) unmarshaller.unmarshal(streamResult.getInputStream());
                                 if (Thread.currentThread().isInterrupted()) {
                                     System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
                                     break;
                                 }
-                                Gears.Gear existed = this.gearService.gearRepository.findByName(gear.getName());
-                                if (existed != null) {
-                                    gear.setId(existed.getId());
+                                List<Gears.Gear> list = gears.getGear();
+                                System.out.println("Category ID:" + category.getId() + ", list size:" + list.size());
+                                for (Gears.Gear gear : list) {
+                                    if (Thread.currentThread().isInterrupted()) {
+                                        System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
+                                        break;
+                                    }
+                                    Gears.Gear existed = this.gearService.gearRepository.findByName(gear.getName());
+                                    if (existed != null) {
+                                        gear.setId(existed.getId());
+                                    }
+                                    if (Thread.currentThread().isInterrupted()) {
+                                        System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
+                                        break;
+                                    }
+                                    gear.setUpSpec();
+                                    this.gearService.gearRepository.save(gear);
+                                    GearHasCategory gearHasCategory = new GearHasCategory();
+                                    gearHasCategory.setGearId(gear.getId());
+                                    gearHasCategory.setCategoryId(category.getId());
+                                    this.gearService.gearHasCategoryRepository.save(gearHasCategory);
+                                    gearCrawled++;
                                 }
-                                if (Thread.currentThread().isInterrupted()) {
-                                    System.out.println("Stopped thread: " + Thread.currentThread().getName() + ", item added: " + gearCrawled);
-                                    break;
-                                }
-                                gear.setUpSpec();
-                                this.gearService.gearRepository.save(gear);
-                                GearHasCategory gearHasCategory = new GearHasCategory();
-                                gearHasCategory.setGearId(gear.getId());
-                                gearHasCategory.setCategoryId(category.getId());
-                                this.gearService.gearHasCategoryRepository.save(gearHasCategory);
-                                gearCrawled++;
+                                System.out.println("Added Source");
                             }
-                            System.out.println("Added Source");
+                            pageCurrent++;
+                        } catch (TransformerException e) {
+                            logger.log(Level.WARN, e);
+                        } catch (JAXBException e) {
+                            logger.log(Level.WARN, e);
                         }
-                        pageCurrent++;
-                    } catch (TransformerException e) {
-                        logger.log(Level.WARN, e);
-                    } catch (JAXBException e) {
-                        logger.log(Level.WARN, e);
                     }
                 }
             }
